@@ -1,6 +1,10 @@
 const $ = (s, root = document) => root.querySelector(s);
 const $$ = (s, root = document) => [...root.querySelectorAll(s)];
 
+/**
+ * 產生背景漂浮粒子（全頁共用）
+ * @param {number} count 粒子數量
+ */
 function createParticles(count = 32) {
   const layer = document.createElement('div');
   layer.className = 'particles';
@@ -19,16 +23,43 @@ function createParticles(count = 32) {
   document.body.appendChild(layer);
 }
 
+/** 安全讀 JSON 檔 */
 async function loadJson(path) {
   const res = await fetch(path);
   if (!res.ok) throw new Error(`資料讀取失敗: ${path}`);
   return res.json();
 }
 
+/** 取得網址 query 參數 */
 function getQuery(name) {
   return new URLSearchParams(window.location.search).get(name);
 }
 
+/**
+ * 從 min~max 取隨機整數（含上下限）
+ */
+function randInt(min, max) {
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+/**
+ * 加上 UI 進場動畫 class
+ * 用在動態插入的區塊，讓它由下往上淡入
+ */
+function activateFadeIn(element) {
+  if (!element) return;
+  // 重新觸發一次動畫（移除再加入 class）
+  element.classList.remove('ui-fade-panel');
+  void element.offsetWidth;
+  element.classList.add('ui-fade-panel');
+}
+
+/**
+ * works.html：渲染作品星圖
+ * - 作品 icon 隨機大小（有上下限）
+ * - icon 文字置中
+ * - 配色與首頁 icon 統一（由 CSS 共用樣式控制）
+ */
 async function renderWorks() {
   const { works } = await loadJson('./data/works.json');
   const map = $('#workMap');
@@ -40,6 +71,11 @@ async function renderWorks() {
     node.className = 'work-node';
     node.style.left = `${w.starPos.x}%`;
     node.style.top = `${w.starPos.y}%`;
+
+    // 作品 icon 隨機大小：避免過大或過小
+    const size = randInt(122, 176);
+    node.style.setProperty('--work-size', `${size}px`);
+
     node.innerHTML = `<strong>${w.title}</strong><small>${w.subtitle}</small>`;
     node.addEventListener('click', () => {
       selected = w;
@@ -57,9 +93,42 @@ async function renderWorks() {
       </div>
       <a class="btn" href="work.html?id=${selected.id}">進入世界觀</a>
     `;
+    activateFadeIn(detail);
   }
 
   renderDetail();
+}
+
+/**
+ * 地圖除錯模式：
+ * URL 加上 ?debugPins=1 後，滑鼠移動可看到地圖座標百分比。
+ * 幫助你新增地圖星點到正確位置。
+ */
+function enableMapDebug(mapWrap) {
+  if (getQuery('debugPins') !== '1' || !mapWrap) return;
+
+  const tag = document.createElement('div');
+  tag.style.cssText = `
+    position:absolute; right:8px; top:8px; z-index:4;
+    padding:6px 10px; border-radius:8px; font-size:12px;
+    color:#ffe9b0; background:rgba(8,20,36,.72); border:1px solid rgba(224,197,140,.35);
+  `;
+  tag.textContent = 'x: --, y: --';
+  mapWrap.appendChild(tag);
+
+  mapWrap.addEventListener('mousemove', (e) => {
+    const rect = mapWrap.getBoundingClientRect();
+    const x = ((e.clientX - rect.left) / rect.width) * 100;
+    const y = ((e.clientY - rect.top) / rect.height) * 100;
+    tag.textContent = `x: ${x.toFixed(2)}, y: ${y.toFixed(2)}`;
+  });
+
+  mapWrap.addEventListener('click', (e) => {
+    const rect = mapWrap.getBoundingClientRect();
+    const x = ((e.clientX - rect.left) / rect.width) * 100;
+    const y = ((e.clientY - rect.top) / rect.height) * 100;
+    console.log(`可複製到 works.json 的座標 => {"x": ${x.toFixed(2)}, "y": ${y.toFixed(2)}}`);
+  });
 }
 
 async function renderWorkPage() {
@@ -70,15 +139,30 @@ async function renderWorkPage() {
   $('#workSubtitle').textContent = work.subtitle;
 
   const tabs = $$('.tab[data-target]');
+  const switchTab = (targetId) => {
+    const target = $(`#${targetId}`);
+
+    $$('.tab-section').forEach((sec) => {
+      if (sec === target) return;
+      sec.classList.add('is-leaving');
+      setTimeout(() => {
+        sec.classList.add('hidden');
+        sec.classList.remove('is-leaving');
+      }, 220);
+    });
+
+    target.classList.remove('hidden');
+    activateFadeIn(target);
+  };
+
   tabs.forEach((t) => t.addEventListener('click', () => {
     tabs.forEach((x) => x.classList.remove('active'));
     t.classList.add('active');
-    $$('.tab-section').forEach((sec) => sec.classList.add('hidden'));
-    $(`#${t.dataset.target}`).classList.remove('hidden');
+    switchTab(t.dataset.target);
   }));
 
   $('#worldSection').innerHTML = `
-    <div class="panel" style="padding:14px; display:grid; grid-template-columns:220px 1fr; gap:14px;">
+    <div class="panel ui-fade-panel" style="padding:14px; display:grid; grid-template-columns:220px 1fr; gap:14px;">
       <img src="${work.cover}" alt="cover" style="width:100%; border-radius:10px;">
       <div>
         <p><strong>基本介紹：</strong>${work.world.basic}</p>
@@ -89,7 +173,13 @@ async function renderWorkPage() {
     </div>`;
 
   const mapSection = $('#mapSection');
-  mapSection.innerHTML = `<div class="map-wrap"><img src="${work.map.image}" alt="map" id="worldMap"></div><div class="location-detail" id="locationDetail">請點擊地圖星點查看地點介紹。</div>`;
+  mapSection.innerHTML = `
+    <div class="map-wrap ui-fade-panel">
+      <img src="${work.map.image}" alt="map" id="worldMap">
+    </div>
+    <div class="location-detail" id="locationDetail">請點擊地圖星點查看地點介紹。<br><small>新增星點：在網址加上 <code>?debugPins=1</code> 觀看座標，點擊地圖可在 console 取得 x/y。</small></div>
+  `;
+
   const mapWrap = $('.map-wrap', mapSection);
   const locationDetail = $('#locationDetail');
   work.map.locations.forEach((loc) => {
@@ -103,27 +193,35 @@ async function renderWorkPage() {
     });
     mapWrap.appendChild(pin);
   });
+  enableMapDebug(mapWrap);
 
+  // 已依需求移除「單人 / 多人」切換，改為直接顯示所有角色
   const charSection = $('#charactersSection');
-  const singleBtn = $('#singleMode');
-  const multiBtn = $('#multiMode');
-  const renderMode = (mode) => {
-    charSection.innerHTML = '<div class="char-cloud" id="charCloud"></div>';
-    const cloud = $('#charCloud', charSection);
-    const chars = work.characters.filter((c) => (mode === 'all' ? true : c.mode === mode));
-    chars.forEach((c) => {
-      const d = document.createElement('a');
-      d.className = 'char-dot';
-      d.style.left = `${c.layout.x}%`;
-      d.style.top = `${c.layout.y}%`;
-      d.href = `character.html?id=${c.id}&work=${work.id}`;
-      d.innerHTML = `<img src="${c.avatar}" alt="${c.name}"><div>${c.name}</div>`;
-      cloud.appendChild(d);
-    });
-  };
-  singleBtn.addEventListener('click', () => renderMode('single'));
-  multiBtn.addEventListener('click', () => renderMode('multi'));
-  renderMode('all');
+  charSection.innerHTML = '<div class="char-cloud ui-fade-panel" id="charCloud"></div>';
+  const cloud = $('#charCloud', charSection);
+
+  if (!work.characters.length) {
+    cloud.innerHTML = '<p style="position:relative; z-index:1; padding:14px;">此作品暫無角色資料，之後在 <code>data/works.json</code> 的 <code>characters</code> 陣列新增即可。</p>';
+    return;
+  }
+
+  work.characters.forEach((c, index) => {
+    const d = document.createElement('a');
+    d.className = 'char-dot';
+    d.style.left = `${c.layout.x}%`;
+    d.style.top = `${c.layout.y}%`;
+
+    // 角色 icon 隨機大小：有上下限，避免過大或過小
+    const size = randInt(92, 140);
+    d.style.setProperty('--char-size', `${size}px`);
+
+    // 依照索引做逐一淡入
+    d.style.setProperty('--stagger', index);
+
+    d.href = `character.html?id=${c.id}&work=${work.id}`;
+    d.innerHTML = `<img src="${c.avatar}" alt="${c.name}"><div>${c.name}</div>`;
+    cloud.appendChild(d);
+  });
 }
 
 async function renderCharacterPage() {
@@ -177,6 +275,10 @@ async function renderFaq() {
 
 async function init() {
   createParticles();
+
+  // 頁面初次進場時，所有標示 ui-fade-panel 的區塊會淡入
+  $$('.ui-fade-panel').forEach((el) => activateFadeIn(el));
+
   const page = document.body.dataset.page;
   if (page === 'works') await renderWorks();
   if (page === 'work') await renderWorkPage();

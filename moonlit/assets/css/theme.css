@@ -6,6 +6,9 @@
   --text-sub: #c7c2b2;
   --accent: #8fb8b8;
   --shadow: 0 8px 30px rgba(0, 0, 0, 0.45);
+  --icon-bg: rgba(27, 44, 67, 0.55);
+  --icon-border: rgba(224, 197, 140, 0.6);
+  --icon-glow: rgba(233, 212, 158, 0.42);
 }
 
 * { box-sizing: border-box; }
@@ -81,12 +84,29 @@ body {
   background: rgba(143, 184, 184, 0.2);
 }
 
+/* 共用：面板淡入 + 滑鼠離開淡回 */
 .panel {
   background: var(--bg-panel);
   border: 1px solid rgba(224, 197, 140, 0.32);
   border-radius: 16px;
   box-shadow: var(--shadow);
   backdrop-filter: blur(6px);
+}
+
+.ui-fade-panel {
+  animation: fadeUpIn .55s ease both;
+  transition: opacity .35s ease, transform .35s ease;
+  opacity: .94;
+}
+
+.ui-fade-panel:hover {
+  opacity: 1;
+  transform: translateY(-2px);
+}
+
+@keyframes fadeUpIn {
+  from { opacity: 0; transform: translateY(26px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 .hero-title {
@@ -127,6 +147,7 @@ body {
 }
 
 @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+@keyframes spinReverse { from { transform: rotate(0deg); } to { transform: rotate(-360deg); } }
 
 .center-character {
   position: absolute;
@@ -142,9 +163,25 @@ body {
 
 .center-character img { width: 100%; display: block; }
 
+/* 讓三個按鈕和星盤一起旋轉 */
 .orbit-menu {
   position: absolute;
   inset: 0;
+  animation: spin 28s linear infinite;
+}
+
+/* 共用 icon 樣式：首頁、作品、角色都統一這組色系與交互 */
+.orbit-node,
+.work-node {
+  border: 2px solid var(--icon-border);
+  background: var(--icon-bg);
+  color: var(--text-main);
+  text-decoration: none;
+  text-align: center;
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  cursor: pointer;
 }
 
 .orbit-node {
@@ -152,20 +189,36 @@ body {
   width: 130px;
   height: 130px;
   border-radius: 50%;
-  border: 2px solid rgba(224, 197, 140, 0.6);
-  background: rgba(27, 44, 67, 0.55);
-  color: var(--text-main);
-  display: grid;
-  place-content: center;
-  text-decoration: none;
-  transition: transform .3s ease, box-shadow .3s ease;
+  transform: var(--node-transform, translate(-50%, -50%));
+}
+
+/* 旋轉容器內，文字反向旋轉以保持直立可讀 */
+.orbit-node > strong,
+.orbit-node > small {
+  animation: spinReverse 28s linear infinite;
 }
 
 .orbit-node small { color: var(--text-sub); }
-.orbit-node:hover { transform: scale(1.06); box-shadow: 0 0 18px rgba(233, 212, 158, 0.4); }
-.orbit-node.profile { left: 12%; top: 30%; }
-.orbit-node.works { right: 12%; top: 30%; }
-.orbit-node.faq { left: 50%; bottom: 13%; transform: translateX(-50%); }
+.orbit-node.profile { left: 22%; top: 33%; --node-transform: translate(-50%, -50%); }
+.orbit-node.works { left: 78%; top: 33%; --node-transform: translate(-50%, -50%); }
+.orbit-node.faq { left: 50%; top: 80%; --node-transform: translate(-50%, -50%); }
+
+/* 共用 hover：發光 + 放大 */
+.orbit-node,
+.work-node,
+.char-dot img,
+.map-pin {
+  transition: transform .28s ease, box-shadow .28s ease, border-color .28s ease;
+}
+
+.orbit-node:hover,
+.work-node:hover,
+.char-dot:hover img,
+.map-pin:hover {
+  transform: var(--node-transform, translate(-50%, -50%)) scale(1.12);
+  box-shadow: 0 0 22px var(--icon-glow);
+  border-color: rgba(250, 229, 176, 0.95);
+}
 
 .section-grid { display: grid; gap: 18px; }
 .profile-layout { grid-template-columns: minmax(240px, 320px) 1fr; align-items: start; }
@@ -179,22 +232,53 @@ body {
   min-height: 64vh;
   padding: 24px;
 }
+
+/* 作品星圖獨立滾動區，避免下方資訊遮到上方星圖 */
+.star-map-scroll {
+  max-height: min(62vh, 560px);
+  overflow-y: auto;
+  border-radius: 14px;
+  border: 1px solid rgba(224,197,140,.26);
+  background: rgba(6, 14, 26, .54);
+  padding: 14px;
+}
+
 .star-map {
   position: relative;
-  min-height: 420px;
+  min-height: 640px;
+  border-radius: 12px;
+  overflow: hidden;
 }
+
+/* 作品頁星海背景 */
+.star-map::before,
+.char-cloud::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at 20% 25%, rgba(255,255,255,.16), transparent 28%),
+    radial-gradient(circle at 72% 62%, rgba(196, 211, 255, .16), transparent 33%),
+    radial-gradient(circle at 50% 45%, rgba(132, 171, 255, .1), transparent 42%),
+    linear-gradient(180deg, rgba(10, 24, 40, .8), rgba(5, 12, 20, .88));
+  z-index: 0;
+}
+
 .work-node {
   position: absolute;
-  width: 150px;
-  aspect-ratio: 1;
-  border: 2px solid rgba(224,197,140,.65);
+  width: var(--work-size, 150px);
+  height: var(--work-size, 150px);
   border-radius: 50%;
-  background: rgba(14, 31, 49, .52);
-  display:grid;
-  place-content:center;
-  text-align:center;
-  cursor:pointer;
+  z-index: 1;
+  --node-transform: translate(-50%, -50%);
+  transform: var(--node-transform);
 }
+
+.work-node small {
+  color: var(--text-sub);
+  font-size: .8rem;
+}
+
 .work-detail {
   margin-top: 16px;
   display:grid;
@@ -202,6 +286,7 @@ body {
   gap:16px;
   padding: 16px;
 }
+
 .work-detail img { width: 100%; border-radius: 8px; }
 
 .btn {
@@ -232,19 +317,52 @@ body {
 }
 .location-detail { margin-top: 10px; padding: 12px; border-radius: 10px; border:1px solid rgba(224,197,140,.35); background: rgba(8, 24, 40, .68); }
 
-.char-cloud { position: relative; min-height: 460px; }
+.char-cloud {
+  position: relative;
+  min-height: 460px;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
 .char-dot {
   position: absolute;
-  width: 118px;
+  width: var(--char-size, 118px);
   text-align:center;
   cursor:pointer;
+  text-decoration: none;
+  color: #d8b35f; /* 角色名字固定金色 */
+  z-index: 1;
+  opacity: 0;
+  animation: charFadeIn .55s ease forwards;
+  animation-delay: calc(var(--stagger, 0) * 90ms);
+  transform: translate(-50%, -50%);
 }
-.char-dot img { width: 100%; aspect-ratio: 1; border-radius: 50%; border: 2px solid rgba(224,197,140,.6); }
+
+@keyframes charFadeIn {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.char-dot img {
+  width: 100%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  border: 2px solid var(--icon-border);
+}
 
 .character-hero {
   position: relative;
   min-height: 420px;
   overflow: hidden;
+}
+.character-hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at 22% 24%, rgba(255,255,255,.13), transparent 30%),
+    radial-gradient(circle at 70% 62%, rgba(176, 198, 255,.16), transparent 35%),
+    linear-gradient(180deg, rgba(10, 24, 40, .82), rgba(5, 12, 20, .92));
 }
 .character-hero img { position:absolute; right: 3%; bottom: 0; height: 96%; }
 .character-hero::after {
@@ -252,6 +370,13 @@ body {
   background: linear-gradient(to top, rgba(5,10,18,.95), rgba(5,10,18,0));
 }
 .character-summary { position: relative; z-index: 1; width:min(52ch, 65%); padding: 22px; }
+.tab-section {
+  transition: opacity .24s ease, transform .24s ease;
+}
+.tab-section.is-leaving {
+  opacity: 0;
+  transform: translateY(12px);
+}
 .info-tabs { margin-top: 12px; }
 .info-box { padding: 14px; border:1px solid rgba(224,197,140,.3); border-radius: 12px; margin-top: 8px; }
 .locked {
@@ -267,9 +392,20 @@ body {
   padding: 10px 12px;
 }
 
+/* 無障礙：使用者偏好減少動作時，關閉大部分動畫 */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
 @media (max-width: 860px) {
   .profile-layout { grid-template-columns: 1fr; }
   .work-detail { grid-template-columns: 1fr; }
   .character-summary { width: 100%; }
   .character-hero img { position: relative; width: 100%; height: auto; right: auto; }
+  .star-map-scroll { max-height: 48vh; }
 }
