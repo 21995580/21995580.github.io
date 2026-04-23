@@ -1,19 +1,39 @@
-<body>
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>月相地圖 | 角色</title>
+  <link rel="stylesheet" href="assets/css/theme.css">
+</head>
+<body data-page="character">
+  <div class="page-bg"></div>
+  <main class="site-shell">
+    <nav class="top-nav">
+      <a href="index.html">首頁</a>
+      <a href="profile.html">個人檔案</a>
+      <a class="active" href="works.html">作品</a>
+      <a href="faq.html">FAQ</a>
+    </nav>
 
-<h1>無名</h1>
+    <section class="panel character-hero">
+      <img id="charArt" src="images/characters/main.png" alt="角色立繪">
+      <div class="character-summary">
+        <h1 id="charName"></h1>
+        <p id="charQuote"></p>
+        <ul id="charBasic"></ul>
+      </div>
+    </section>
 
-<img src="char.png" width="300">
-
-<h2>基本資料</h2>
-<p>身高178 / 年齡未知</p>
-
-<h2>故事背景</h2>
-<p>他忘記了自己</p>
-
-<h2>攻略指南</h2>
-<p>保持距離</p>
-
-<h2>隱藏資訊</h2>
-<p>其實他記得一切</p>
-
+    <section class="panel info-tabs" style="padding:16px; margin-top:14px;">
+      <div class="tab-row">
+        <button class="tab active" data-info="background">背景設定</button>
+        <button class="tab" data-info="guide">攻略指南</button>
+        <button class="tab" data-info="hidden">隱藏設定</button>
+      </div>
+      <article id="infoBox" class="info-box"></article>
+    </section>
+  </main>
+  <script src="assets/js/main.js"></script>
 </body>
+</html>

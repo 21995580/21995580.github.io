@@ -1,0 +1,11 @@
+{
+  "profile": {
+    "avatar": "images/characters/main.png",
+    "quote": "月光落在地圖上，每一道傷痕都會成為座標。",
+    "bio": "這裡是你的創作總站，可展示世界觀、角色與更新紀錄。你之後只要改 data 檔即可擴充內容，不用重寫版面。",
+    "links": [
+      {"name": "X / Twitter", "url": "https://x.com/"},
+      {"name": "Pixiv", "url": "https://www.pixiv.net/"}
+    ]
+  }
+}
