@@ -1,6 +1,28 @@
-<body>
-<h1>作品</h1>
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>月相地圖 | 作品</title>
+  <link rel="stylesheet" href="assets/css/theme.css">
+</head>
+<body data-page="works">
+  <div class="page-bg"></div>
+  <main class="site-shell">
+    <nav class="top-nav">
+      <a href="index.html">首頁</a>
+      <a href="profile.html">個人檔案</a>
+      <a class="active" href="works.html">作品</a>
+      <a href="faq.html">FAQ</a>
+    </nav>
 
-<a href="work.html">彼岸之詩</a>
-
+    <section class="panel works-canvas">
+      <h1 class="hero-title">作品星圖</h1>
+      <div id="workMap" class="star-map"></div>
+      <article id="workDetail" class="panel work-detail"></article>
+      <p style="opacity:.8;">往下滑可放更多作品；只要在 <code>data/works.json</code> 新增節點資料，就會自動出現在星圖中。</p>
+    </section>
+  </main>
+  <script src="assets/js/main.js"></script>
 </body>
+</html>

@@ -1,1 +1,80 @@
-[{"id":"w1","title":"彼岸之詩","cover":"images/works/work1.jpg","description":"測試"}]
+{
+  "works": [
+    {
+      "id": "requiem",
+      "title": "彼岸之詩",
+      "subtitle": "Requiem",
+      "cover": "images/works/work1.jpg",
+      "shortDescription": "在生與死交界的潮汐裡，主角們為了記住彼此，踏上尋找遺失名字的旅程。",
+      "starPos": {"x": 42, "y": 52},
+      "world": {
+        "basic": "被稱為『霧潮界』的世界由四座主島構成，月蝕期間海霧會吞沒航道。",
+        "races": "人類、燈裔、潮民三大族群共同生存，各自持有不同月紋能力。",
+        "factions": "記錄者公會、霧海艦團、白塔修院相互制衡。",
+        "timeline": "第一紀元：落星；第二紀元：立塔；第三紀元：遺名戰爭。"
+      },
+      "map": {
+        "image": "images/bg/main.jpg",
+        "locations": [
+          {"name": "芯川", "pos": {"x": 28, "y": 34}, "description": "河道交錯的舊都，遍布會發光的石橋。", "backdrop": "水都夜色、燈海倒影"},
+          {"name": "艦岬之港", "pos": {"x": 48, "y": 58}, "description": "所有遠航者出發前都會在這裡立誓。", "backdrop": "港口旗幟、長梯碼頭"},
+          {"name": "無名之地", "pos": {"x": 77, "y": 70}, "description": "名字被海霧帶走的人最終會抵達的地方。", "backdrop": "黑色沙灘、碎塔遺跡"}
+        ]
+      },
+      "characters": [
+        {
+          "id": "nameless",
+          "name": "無名",
+          "mode": "single",
+          "avatar": "images/characters/char1.png",
+          "full": "images/characters/main.png",
+          "layout": {"x": 45, "y": 35},
+          "quote": "我把名字留在昨天，才有辦法走到你面前。",
+          "basic": ["身份：記錄者", "年齡：???", "身高：178cm", "陣營：中立"],
+          "info": {
+            "background": {"title": "背景設定", "content": "曾在遺名戰爭中擔任翻譯官，戰後失去過去記憶。", "locked": false},
+            "guide": {"title": "攻略指南", "content": "對話時多選擇『追問過去』可觸發個人支線。", "locked": false},
+            "hidden": {"title": "隱藏設定", "content": "他其實保留了關鍵記憶，只是選擇沉默。", "locked": true}
+          }
+        },
+        {
+          "id": "ye",
+          "name": "夜",
+          "mode": "multi",
+          "avatar": "images/characters/char1.png",
+          "full": "images/characters/main.png",
+          "layout": {"x": 20, "y": 18},
+          "quote": "如果你願意聽，我就把星圖唱給你。",
+          "basic": ["身份：艦團領航", "年齡：24", "身高：181cm", "陣營：霧海艦團"],
+          "info": {
+            "background": {"title": "背景設定", "content": "艦岬之港的年輕領航員。", "locked": false},
+            "guide": {"title": "攻略指南", "content": "在第二章選擇信任他可提升好感。", "locked": false},
+            "hidden": {"title": "隱藏設定", "content": "他曾是白塔修院學徒。", "locked": true}
+          }
+        }
+      ]
+    },
+    {
+      "id": "mistland",
+      "title": "霧之國度",
+      "subtitle": "Land of Mist",
+      "cover": "images/works/work1.jpg",
+      "shortDescription": "迷霧森林中的王城傳說，關於祈願與代價的史詩。",
+      "starPos": {"x": 66, "y": 22},
+      "world": {"basic": "待新增", "races": "待新增", "factions": "待新增", "timeline": "待新增"},
+      "map": {"image": "images/bg/main.jpg", "locations": []},
+      "characters": []
+    },
+    {
+      "id": "seaoflight",
+      "title": "無光之海",
+      "subtitle": "Sea of No Light",
+      "cover": "images/works/work1.jpg",
+      "shortDescription": "失去恆星之後，人們向深海尋找新的天光。",
+      "starPos": {"x": 18, "y": 76},
+      "world": {"basic": "待新增", "races": "待新增", "factions": "待新增", "timeline": "待新增"},
+      "map": {"image": "images/bg/main.jpg", "locations": []},
+      "characters": []
+    }
+  ]
+}

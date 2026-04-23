@@ -1,4 +1,33 @@
-<body>
-<h1>個人檔案</h1>
-<p>你的介紹</p>
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>月相地圖 | 個人檔案</title>
+  <link rel="stylesheet" href="assets/css/theme.css">
+</head>
+<body data-page="profile">
+  <div class="page-bg"></div>
+  <main class="site-shell">
+    <nav class="top-nav">
+      <a href="index.html">首頁</a>
+      <a class="active" href="profile.html">個人檔案</a>
+      <a href="works.html">作品</a>
+      <a href="faq.html">FAQ</a>
+    </nav>
+
+    <section class="panel" style="padding:20px;">
+      <h1 class="hero-title">作者檔案</h1>
+      <div class="section-grid profile-layout">
+        <img class="avatar" id="profileAvatar" src="images/characters/main.png" alt="作者頭像">
+        <div>
+          <blockquote id="authorQuote">「」</blockquote>
+          <p id="authorBio"></p>
+          <ul class="link-list" id="profileLinks"></ul>
+        </div>
+      </div>
+    </section>
+  </main>
+  <script src="assets/js/main.js"></script>
 </body>
+</html>

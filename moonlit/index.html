@@ -1,23 +1,35 @@
-<!DOCTYPE html>
-<html>
+<!doctype html>
+<html lang="zh-Hant">
 <head>
-<meta charset="UTF-8">
-<link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>月相地圖 | 首頁</title>
+  <link rel="stylesheet" href="assets/css/theme.css">
 </head>
+<body data-page="home">
+  <div class="page-bg"></div>
+  <main class="site-shell">
+    <nav class="top-nav">
+      <a class="active" href="index.html">首頁</a>
+      <a href="profile.html">個人檔案</a>
+      <a href="works.html">作品</a>
+      <a href="faq.html">FAQ</a>
+    </nav>
 
-<body>
+    <h1 class="hero-title">月相地圖 Moonlit Atlas</h1>
 
-<div class="bg"></div>
-
-<div class="orbit">
-
-<img src="center.png" class="center">
-
-<a class="node" style="--i:0" href="works.html">作品</a>
-<a class="node" style="--i:1" href="profile.html">個人</a>
-<a class="node" style="--i:2" href="faq.html">FAQ</a>
-
-</div>
-
+    <section class="home-constellation panel">
+      <div class="rotating-ring"></div>
+      <div class="center-character">
+        <img src="images/characters/main.png" alt="中央角色">
+      </div>
+      <div class="orbit-menu">
+        <a class="orbit-node profile" href="profile.html"><strong>個人檔案</strong><small>PROFILE</small></a>
+        <a class="orbit-node works" href="works.html"><strong>作品</strong><small>WORKS</small></a>
+        <a class="orbit-node faq" href="faq.html"><strong>FAQ</strong><small>記錄補遺</small></a>
+      </div>
+    </section>
+  </main>
+  <script src="assets/js/main.js"></script>
 </body>
 </html>
