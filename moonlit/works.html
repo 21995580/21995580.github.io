@@ -16,11 +16,20 @@
       <a href="faq.html">FAQ</a>
     </nav>
 
-    <section class="panel works-canvas">
+    <section class="panel works-canvas ui-fade-panel">
       <h1 class="hero-title">作品星圖</h1>
-      <div id="workMap" class="star-map"></div>
-      <article id="workDetail" class="panel work-detail"></article>
-      <p style="opacity:.8;">往下滑可放更多作品；只要在 <code>data/works.json</code> 新增節點資料，就會自動出現在星圖中。</p>
+
+      <!-- 星圖獨立捲動，避免下方作品資訊卡擋住星圖 -->
+      <div class="star-map-scroll">
+        <div id="workMap" class="star-map"></div>
+      </div>
+
+      <article id="workDetail" class="panel work-detail ui-fade-panel"></article>
+
+      <p style="opacity:.86;">
+        新增作品只要在 <code>data/works.json</code> 補一筆 <code>works[]</code>。
+        地圖星點座標使用百分比：左上是 (0,0)，右下是 (100,100)。
+      </p>
     </section>
   </main>
   <script src="assets/js/main.js"></script>
