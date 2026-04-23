@@ -219,27 +219,40 @@ body {
   width: 144px;
   height: 144px;
   border-radius: 50%;
-  padding-top: 14px;
-  gap: 2px;
+  padding: 12px 10px 10px;
+  --node-transform: none;
+  transform: var(--node-transform);
 }
 
-/* 旋轉容器內，文字反向旋轉以保持直立可讀 */
-.orbit-node > strong,
-.orbit-node > small,
-.orbit-node > img {
+.orbit-node-content {
+  display: grid;
+  justify-items: center;
+  align-content: start;
+  gap: 3px;
+  width: 100%;
+  height: 100%;
+}
+
+/* 旋轉容器內，內容反向旋轉以保持直立可讀 */
+.orbit-node-content {
   animation: spinReverse 62s linear infinite;
 }
 
-.orbit-node > img {
+.orbit-node-content > img {
   width: 42px;
   height: 42px;
   object-fit: contain;
+  margin-top: 2px;
 }
 
-.orbit-node small { color: var(--text-sub); }
+.orbit-node-content > strong {
+  line-height: 1.1;
+}
+
+.orbit-node small { color: var(--text-sub); line-height: 1.1; }
 .orbit-node.profile { left: 12%; top: 30%; }
 .orbit-node.works { right: 12%; top: 30%; }
-.orbit-node.faq { left: 50%; bottom: 13%; transform: translateX(-50%); }
+.orbit-node.faq { left: 50%; bottom: 13%; --node-transform: translateX(-50%); }
 
 /* 共用 hover：發光 + 放大 */
 .orbit-node,
@@ -253,9 +266,18 @@ body {
 .work-node:hover,
 .char-dot:hover img,
 .map-pin:hover {
-  transform: scale(1.12);
   box-shadow: 0 0 22px var(--icon-glow);
   border-color: rgba(250, 229, 176, 0.95);
+}
+
+.orbit-node:hover {
+  transform: var(--node-transform) scale(1.12);
+}
+
+.work-node:hover,
+.char-dot:hover img,
+.map-pin:hover {
+  transform: scale(1.12);
 }
 
 .section-grid { display: grid; gap: 18px; }
@@ -379,7 +401,8 @@ body {
   text-align:center;
   cursor:pointer;
   text-decoration: none;
-  color: #d8b35f; /* 角色名字固定金色 */
+  color: #f2ddaa;
+  text-shadow: 0 0 10px rgba(235, 213, 157, 0.45);
   z-index: 1;
   opacity: 0;
   animation: charFadeIn .55s ease forwards;
@@ -413,6 +436,30 @@ body {
 .character-summary { position: relative; z-index: 1; width:min(52ch, 65%); padding: 22px; }
 .info-tabs { margin-top: 12px; }
 .info-box { padding: 14px; border:1px solid rgba(224,197,140,.3); border-radius: 12px; margin-top: 8px; }
+.world-intro-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 12px;
+}
+
+.world-intro-card {
+  border: 1px solid rgba(224,197,140,.35);
+  border-radius: 12px;
+  background: rgba(8, 24, 40, .58);
+  padding: 12px;
+}
+
+.world-intro-card h3 {
+  margin: 0 0 8px;
+  color: #f6eac7;
+  font-size: 1rem;
+}
+
+.world-intro-card p {
+  margin: 0;
+  color: var(--text-main);
+  line-height: 1.6;
+}
 .locked {
   filter: blur(5px);
   user-select: none;
