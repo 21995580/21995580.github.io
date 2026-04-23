@@ -226,7 +226,7 @@ async function renderCharacterPage() {
   const tabButtons = $$('.tab[data-info]');
   const infoBox = $('#infoBox');
   const renderInfo = (key) => {
-    const conf = character.info[key];
+    const conf = character.info[key] || { title: 'FAQ', content: '目前尚未補上此分頁內容。', locked: false };
     if (conf.locked) {
       infoBox.innerHTML = `<h4>${conf.title}</h4><p class="locked">${conf.content}</p><button class="btn" id="unlockBtn">點擊解鎖顯示</button><p><small>※你之後要隱藏內容時，只要在 data/works.json 內把 locked 設為 true。</small></p>`;
       $('#unlockBtn').addEventListener('click', () => {

@@ -34,7 +34,8 @@
           "info": {
             "background": {"title": "背景設定", "content": "曾在遺名戰爭中擔任翻譯官，戰後失去過去記憶。", "locked": false},
             "guide": {"title": "攻略指南", "content": "對話時多選擇『追問過去』可觸發個人支線。", "locked": false},
-            "hidden": {"title": "隱藏設定", "content": "他其實保留了關鍵記憶，只是選擇沉默。", "locked": true}
+            "hidden": {"title": "隱藏設定", "content": "他其實保留了關鍵記憶，只是選擇沉默。", "locked": true},
+            "faq": {"title": "FAQ", "content": "Q：這位角色可以被攻略嗎？A：可以，先完成『追問過去』支線並在港口章節選擇信任。", "locked": false}
           }
         },
         {
@@ -49,7 +50,8 @@
           "info": {
             "background": {"title": "背景設定", "content": "艦岬之港的年輕領航員。", "locked": false},
             "guide": {"title": "攻略指南", "content": "在第二章選擇信任他可提升好感。", "locked": false},
-            "hidden": {"title": "隱藏設定", "content": "他曾是白塔修院學徒。", "locked": true}
+            "hidden": {"title": "隱藏設定", "content": "他曾是白塔修院學徒。", "locked": true},
+            "faq": {"title": "FAQ", "content": "Q：夜的支線什麼時候開？A：完成艦岬之港主線後，夜晚在碼頭對話即可觸發。", "locked": false}
           }
         }
       ]
