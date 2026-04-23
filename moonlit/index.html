@@ -17,20 +17,37 @@
     </nav>
 
     <h1 class="hero-title">月相地圖 Moonlit Atlas</h1>
+    <div class="section-divider" aria-hidden="true"></div>
 
-    <!-- 首頁星盤：按鈕會跟著軌道一起旋轉 -->
-    <section class="home-constellation panel ui-fade-panel">
-      <div class="rotating-ring"></div>
+    <section class="home-constellation ui-fade-panel">
+      <div class="rotating-ring ring-back"></div>
+      <div class="rotating-ring ring-front"></div>
       <div class="center-character">
-        <img src="images/characters/main.png" alt="中央角色">
+        <img class="center-frame" src="center.png" alt="中央星環">
+        <img class="center-main" src="images/characters/main.png" alt="中央角色">
       </div>
       <div class="orbit-menu" aria-label="主選單星盤">
-        <a class="orbit-node profile" href="profile.html"><strong>個人檔案</strong><small>PROFILE</small></a>
-        <a class="orbit-node works" href="works.html"><strong>作品</strong><small>WORKS</small></a>
-        <a class="orbit-node faq" href="faq.html"><strong>FAQ</strong><small>記錄補遺</small></a>
+        <a class="orbit-node profile" href="profile.html">
+          <img src="images/icons/profile.png" alt="個人檔案圖示">
+          <strong>個人檔案</strong>
+          <small>PROFILE</small>
+        </a>
+        <a class="orbit-node works" href="works.html">
+          <img src="images/icons/works.png" alt="作品圖示">
+          <strong>作品</strong>
+          <small>WORKS</small>
+        </a>
+        <a class="orbit-node faq" href="faq.html">
+          <img src="images/icons/faq.png" alt="FAQ圖示">
+          <strong>FAQ</strong>
+          <small>記錄補遺</small>
+        </a>
       </div>
     </section>
   </main>
+  <footer class="site-footer panel">
+    Copyright © 2026 Dragon月．版權所有
+  </footer>
   <script src="assets/js/main.js"></script>
 </body>
 </html>
