@@ -51,6 +51,19 @@ function activateFadeIn(element) {
   element.classList.add('ui-fade-panel');
 }
 
+function getWorldSections(world = {}) {
+  if (Array.isArray(world.sections) && world.sections.length) return world.sections;
+  const fallbackOrder = [
+    { key: 'basic', title: '基本介紹' },
+    { key: 'races', title: '種族設定' },
+    { key: 'factions', title: '勢力劃分' },
+    { key: 'timeline', title: '時間線' },
+  ];
+  return fallbackOrder
+    .map(({ key, title }) => ({ title, content: world[key] }))
+    .filter((section) => section.content);
+}
+
 /**
  * works.html：渲染作品星圖
  * - 作品 icon 隨機大小（有上下限）
@@ -154,14 +167,17 @@ async function renderWorkPage() {
     }, 190);
   }));
 
+  const worldSections = getWorldSections(work.world);
   $('#worldSection').innerHTML = `
     <div class="panel ui-fade-panel" style="padding:14px; display:grid; grid-template-columns:220px 1fr; gap:14px;">
       <img src="${work.cover}" alt="cover" style="width:100%; border-radius:10px;">
-      <div>
-        <p><strong>基本介紹：</strong>${work.world.basic}</p>
-        <p><strong>種族設定：</strong>${work.world.races}</p>
-        <p><strong>勢力劃分：</strong>${work.world.factions}</p>
-        <p><strong>時間線：</strong>${work.world.timeline}</p>
+      <div class="world-intro-grid">
+        ${worldSections.map((section) => `
+          <article class="world-intro-card">
+            <h3>${section.title}</h3>
+            <p>${section.content}</p>
+          </article>
+        `).join('')}
       </div>
     </div>`;
 
