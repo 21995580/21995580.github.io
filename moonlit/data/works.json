@@ -1,17 +1,17 @@
 {
   "works": [
     {
-      "id": "requiem",
-      "title": "彼岸之詩",
-      "subtitle": "Requiem",
+      "id": "LoveOverImmortality",
+      "title": "只羨鴛鴦不羨仙",
+      "subtitle": "Love Over Immortality",
       "cover": "images/works/work1.jpg",
-      "shortDescription": "在生與死交界的潮汐裡，主角們為了記住彼此，踏上尋找遺失名字的旅程。",
+      "shortDescription": "若你想修仙、斬妖除魔或是當個極惡之人大殺四方，發揮你無限的可能性，便踏進此地吧。",
       "starPos": {"x": 42, "y": 52},
       "world": {
         "basic": "被稱為『霧潮界』的世界由四座主島構成，月蝕期間海霧會吞沒航道。",
         "races": "人類、燈裔、潮民三大族群共同生存，各自持有不同月紋能力。",
         "factions": "記錄者公會、霧海艦團、白塔修院相互制衡。",
-        "timeline": "第一紀元：落星；第二紀元：立塔；第三紀元：遺名戰爭。"
+        "timeline": "蒼瀾皇朝的架空古代背景。"
       },
       "map": {
         "image": "images/bg/main.jpg",
