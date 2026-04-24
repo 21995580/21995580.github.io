@@ -1,0 +1,28 @@
+{
+  "categories": [
+    {
+      "key": "love-over-immortality",
+      "label": "只羨鴛鴦不羨仙",
+      "items": [
+        {
+          "title": "封面圖 01",
+          "image": "images/works/work1.jpg"
+        },
+        {
+          "title": "角色立繪 01",
+          "image": "images/characters/main.png"
+        }
+      ]
+    },
+    {
+      "key": "mistland",
+      "label": "霧之國度",
+      "items": []
+    },
+    {
+      "key": "sea-of-no-light",
+      "label": "無光之海",
+      "items": []
+    }
+  ]
+}

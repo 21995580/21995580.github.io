@@ -51,6 +51,10 @@ function activateFadeIn(element) {
   element.classList.add('ui-fade-panel');
 }
 
+function formatMultilineText(text = '') {
+  return String(text).split('\n').join('<br>');
+}
+
 function getWorldSections(world = {}) {
   if (Array.isArray(world.sections) && world.sections.length) return world.sections;
   const fallbackOrder = [
@@ -230,14 +234,52 @@ async function renderWorkPage() {
 
 async function renderCharacterPage() {
   const charId = getQuery('id') || 'nameless';
+  const workIdFromQuery = getQuery('work');
   const { works } = await loadJson('./data/works.json');
-  const allChars = works.flatMap((w) => w.characters);
+  const allChars = works.flatMap((w) => w.characters.map((c) => ({ ...c, workId: w.id })));
   const character = allChars.find((c) => c.id === charId) || allChars[0];
+  if (!character) return;
+  const resolvedWorkId = workIdFromQuery || character.workId;
 
   $('#charName').textContent = character.name;
   $('#charQuote').textContent = `「${character.quote}」`;
   $('#charBasic').innerHTML = character.basic.map((x) => `<li>${x}</li>`).join('');
+  const oldTagList = $('.char-tag-list');
+  if (oldTagList) oldTagList.remove();
+  const tags = Array.isArray(character.tags) ? character.tags : [];
+  if (tags.length) {
+    $('#charBasic').insertAdjacentHTML('afterend', `
+      <div class="char-tag-list">
+        ${tags.map((tag) => `<span class="char-tag">${tag}</span>`).join('')}
+      </div>
+    `);
+  }
   $('#charArt').src = character.full;
+  const summary = $('.character-summary');
+  const existing = $('#playLinkBtn', summary);
+  if (existing) existing.remove();
+  const existingWorld = $('#worldLinkBtn', summary);
+  if (existingWorld) existingWorld.remove();
+
+  if (resolvedWorkId) {
+    const worldLink = document.createElement('a');
+    worldLink.id = 'worldLinkBtn';
+    worldLink.className = 'btn';
+    worldLink.href = `work.html?id=${resolvedWorkId}`;
+    worldLink.textContent = '世界觀連結';
+    summary.appendChild(worldLink);
+  }
+
+  if (character.playUrl) {
+    const playLink = document.createElement('a');
+    playLink.id = 'playLinkBtn';
+    playLink.className = 'btn';
+    playLink.href = character.playUrl;
+    playLink.target = '_blank';
+    playLink.rel = 'noreferrer';
+    playLink.textContent = '遊玩連結';
+    summary.appendChild(playLink);
+  }
 
   const tabButtons = $$('.tab[data-info]');
   const infoBox = $('#infoBox');
@@ -262,10 +304,105 @@ async function renderCharacterPage() {
   renderInfo('background');
 }
 
+async function renderCharactersPage() {
+  const { works } = await loadJson('./data/works.json');
+  const board = $('#charactersBoard');
+  board.innerHTML = works.map((work) => {
+    const cards = work.characters.length
+      ? work.characters.map((character) => {
+        const tags = Array.isArray(character.tags) ? character.tags : [];
+        return `
+          <a class="character-card" href="character.html?id=${character.id}&work=${work.id}">
+            <img src="${character.avatar}" alt="${character.name}">
+            <div class="character-tags">
+              ${tags.map((t) => `<span>${t}</span>`).join('')}
+            </div>
+            <div class="character-name">${character.name}</div>
+          </a>
+        `;
+      }).join('')
+      : '<p>此分類暫無角色，之後新增在 <code>data/works.json</code> 會自動顯示。</p>';
+    return `
+      <section class="characters-group panel ui-fade-panel" style="padding:14px;">
+        <h3>${work.title} / ${work.subtitle}</h3>
+        <div class="characters-grid">${cards}</div>
+      </section>
+    `;
+  }).join('');
+}
+
+async function renderGallery() {
+  const { categories } = await loadJson('./data/gallery.json');
+  const grid = $('#galleryGrid');
+  if (!Array.isArray(categories) || !categories.length) {
+    grid.innerHTML = '<p class="panel" style="padding:12px;">目前尚無畫廊分類。</p>';
+    return;
+  }
+
+  const filterRow = document.createElement('div');
+  filterRow.className = 'gallery-filter-row';
+  const listWrap = document.createElement('div');
+  listWrap.className = 'gallery-grid';
+  const viewer = document.createElement('div');
+  viewer.className = 'gallery-lightbox hidden';
+  viewer.innerHTML = `
+    <div class="gallery-lightbox-backdrop" data-close="1"></div>
+    <figure class="gallery-lightbox-card panel">
+      <button class="gallery-close-btn" type="button" aria-label="關閉">✕</button>
+      <img src="" alt="" id="galleryLightboxImg">
+      <figcaption id="galleryLightboxCap"></figcaption>
+    </figure>
+  `;
+  grid.append(filterRow, listWrap, viewer);
+
+  const viewerImg = $('#galleryLightboxImg', viewer);
+  const viewerCap = $('#galleryLightboxCap', viewer);
+  const closeViewer = () => viewer.classList.add('hidden');
+  $('.gallery-close-btn', viewer).addEventListener('click', closeViewer);
+  $('.gallery-lightbox-backdrop', viewer).addEventListener('click', closeViewer);
+
+  const renderItems = (catKey) => {
+    const selected = categories.find((c) => c.key === catKey) || categories[0];
+    const items = Array.isArray(selected.items) ? selected.items : [];
+    listWrap.innerHTML = items.map((item) => `
+      <figure class="gallery-item ui-fade-panel">
+        <img src="${item.image}" alt="${item.title}" data-image="${item.image}" data-title="${item.title}">
+        <figcaption>${item.title}</figcaption>
+      </figure>
+    `).join('');
+    if (!items.length) {
+      listWrap.innerHTML = '<p class="panel" style="padding:12px;">此分類尚未新增圖片。</p>';
+      return;
+    }
+    $$('img[data-image]', listWrap).forEach((img) => {
+      img.addEventListener('click', () => {
+        viewerImg.src = img.dataset.image;
+        viewerImg.alt = img.dataset.title;
+        viewerCap.textContent = img.dataset.title;
+        viewer.classList.remove('hidden');
+      });
+    });
+  };
+
+  categories.forEach((cat, index) => {
+    const btn = document.createElement('button');
+    btn.className = `gallery-filter-btn${index === 0 ? ' active' : ''}`;
+    btn.textContent = cat.label;
+    btn.addEventListener('click', () => {
+      $$('.gallery-filter-btn', filterRow).forEach((x) => x.classList.remove('active'));
+      btn.classList.add('active');
+      renderItems(cat.key);
+    });
+    filterRow.appendChild(btn);
+  });
+
+  renderItems(categories[0]?.key);
+}
+
 async function renderProfile() {
   const { profile } = await loadJson('./data/site.json');
-  $('#authorQuote').textContent = profile.quote;
-  $('#authorBio').textContent = profile.bio;
+  $('#authorQuote').innerHTML = formatMultilineText(profile.quote);
+  $('#authorBio').innerHTML = formatMultilineText(profile.bio);
   $('#profileAvatar').src = profile.avatar;
   const links = $('#profileLinks');
   links.innerHTML = profile.links.map((l) => `<li><a href="${l.url}" target="_blank" rel="noreferrer">${l.name}</a></li>`).join('');
@@ -287,6 +424,8 @@ async function init() {
   if (page === 'works') await renderWorks();
   if (page === 'work') await renderWorkPage();
   if (page === 'character') await renderCharacterPage();
+  if (page === 'characters') await renderCharactersPage();
+  if (page === 'gallery') await renderGallery();
   if (page === 'profile') await renderProfile();
   if (page === 'faq') await renderFaq();
 }
