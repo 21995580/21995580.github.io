@@ -152,6 +152,33 @@ body[data-page="home"] .page-bg {
   border: 1px dashed rgba(224, 197, 140, 0.25);
   border-radius: 50%;
 }
+.rotating-ring .ring-stars {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.rotating-ring .ring-stars::before,
+.rotating-ring .ring-stars::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 50% 2%, rgba(250, 231, 181, .95) 0 3px, transparent 3.2px),
+    radial-gradient(circle at 4% 50%, rgba(250, 231, 181, .9) 0 2px, transparent 2.2px),
+    radial-gradient(circle at 96% 50%, rgba(250, 231, 181, .9) 0 2px, transparent 2.2px),
+    radial-gradient(circle at 50% 98%, rgba(250, 231, 181, .95) 0 3px, transparent 3.2px),
+    radial-gradient(circle at 20% 15%, rgba(250, 231, 181, .85) 0 1.8px, transparent 2px),
+    radial-gradient(circle at 80% 15%, rgba(250, 231, 181, .85) 0 1.8px, transparent 2px),
+    radial-gradient(circle at 22% 84%, rgba(250, 231, 181, .85) 0 1.8px, transparent 2px),
+    radial-gradient(circle at 78% 84%, rgba(250, 231, 181, .85) 0 1.8px, transparent 2px);
+}
+
+.rotating-ring .ring-stars::after {
+  transform: rotate(25deg);
+  opacity: .7;
+}
 
 @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
 @keyframes spinReverse { from { transform: rotate(0deg); } to { transform: rotate(-360deg); } }
@@ -310,16 +337,13 @@ body[data-page="home"] .page-bg {
   background: radial-gradient(circle at 50% 46%, rgba(225, 201, 153, 0.22), rgba(20, 36, 56, 0) 58%);
 }
 
+.orbit-node-content {
+  background: radial-gradient(circle at 50% 46%, rgba(225, 201, 153, 0.22), rgba(20, 36, 56, 0) 58%);
+}
+
 /* 旋轉容器內，內容反向旋轉以保持直立可讀 */
 .orbit-node-content {
   animation: spinReverse 62s linear infinite;
-}
-
-.orbit-node-content > img {
-  width: 42px;
-  height: 42px;
-  object-fit: contain;
-  margin-top: 2px;
 }
 
 .orbit-node-content > strong {
@@ -350,13 +374,13 @@ body[data-page="home"] .page-bg {
 }
 
 .orbit-node:hover {
-  transform: var(--node-transform) scale(1.12);
+  transform: var(--node-transform) translateZ(0) scale(1.12) !important;
 }
 
 .work-node:hover,
 .char-dot:hover img,
 .map-pin:hover {
-  transform: scale(1.12);
+  transform: translateZ(0) scale(1.12);
 }
 
 .section-grid { display: grid; gap: 18px; }

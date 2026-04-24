@@ -230,13 +230,24 @@ async function renderWorkPage() {
 
 async function renderCharacterPage() {
   const charId = getQuery('id') || 'nameless';
+  const workIdFromQuery = getQuery('work');
   const { works } = await loadJson('./data/works.json');
-  const allChars = works.flatMap((w) => w.characters);
+  const allChars = works.flatMap((w) => w.characters.map((c) => ({ ...c, workId: w.id })));
   const character = allChars.find((c) => c.id === charId) || allChars[0];
+  const resolvedWorkId = workIdFromQuery || character.workId;
 
   $('#charName').textContent = character.name;
   $('#charQuote').textContent = `「${character.quote}」`;
   $('#charBasic').innerHTML = character.basic.map((x) => `<li>${x}</li>`).join('');
+  summaryCleanup();
+  const tags = Array.isArray(character.tags) ? character.tags : [];
+  if (tags.length) {
+    $('#charBasic').insertAdjacentHTML('afterend', `
+      <div class="char-tag-list">
+        ${tags.map((tag) => `<span class="tab">${tag}</span>`).join('')}
+      </div>
+    `);
+  }
   $('#charArt').src = character.full;
   const summary = $('.character-summary');
   const existing = $('#playLinkBtn', summary);
