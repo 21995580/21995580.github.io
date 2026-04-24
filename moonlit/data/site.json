@@ -1,11 +1,11 @@
 {
   "profile": {
     "avatar": "images/characters/main.png",
-    "quote": "月光落在地圖上，每一道傷痕都會成為座標。",
-    "bio": "這裡是你的創作總站，可展示世界觀、角色與更新紀錄。你之後只要改 data 檔即可擴充內容，不用重寫版面。",
+    "quote": "「歲月風塵，幸有眾星相隨，照我前行不輟。」",
+    "bio": "努力做出更好的作品，並優化之前的角色，會不定期更新，感謝各位的支持。本網站內容非WHIF官方，若有關WHIF相關政策與AI邏輯設定等問題依照官方公告為主，此處僅供建議參考。",
     "links": [
       {"name": "X / Twitter", "url": "https://x.com/"},
-      {"name": "Pixiv", "url": "https://www.pixiv.net/"}
+      {"name": "WHIF", "url": "https://www.whif.io/profile/Dragon"}
     ]
   }
 }

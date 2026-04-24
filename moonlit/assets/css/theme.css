@@ -428,11 +428,7 @@ body[data-page="home"] .page-bg {
   content: '';
   position: absolute;
   inset: 0;
-  background:
-    radial-gradient(circle at 20% 25%, rgba(255,255,255,.16), transparent 28%),
-    radial-gradient(circle at 72% 62%, rgba(196, 211, 255, .16), transparent 33%),
-    radial-gradient(circle at 50% 45%, rgba(132, 171, 255, .1), transparent 42%),
-    linear-gradient(180deg, rgba(10, 24, 40, .8), rgba(5, 12, 20, .88));
+  background: url('../images/bg/dragon-star-map.jpg') center/cover no-repeat;
   z-index: 0;
 }
 
