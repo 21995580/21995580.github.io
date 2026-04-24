@@ -252,18 +252,6 @@ async function renderCharacterPage() {
   const summary = $('.character-summary');
   const existing = $('#playLinkBtn', summary);
   if (existing) existing.remove();
-  const existingWorld = $('#worldLinkBtn', summary);
-  if (existingWorld) existingWorld.remove();
-
-  if (resolvedWorkId) {
-    const worldLink = document.createElement('a');
-    worldLink.id = 'worldLinkBtn';
-    worldLink.className = 'btn';
-    worldLink.href = `work.html?id=${resolvedWorkId}`;
-    worldLink.textContent = '世界觀連結';
-    summary.appendChild(worldLink);
-  }
-
   if (character.playUrl) {
     const playLink = document.createElement('a');
     playLink.id = 'playLinkBtn';
@@ -273,10 +261,6 @@ async function renderCharacterPage() {
     playLink.rel = 'noreferrer';
     playLink.textContent = '遊玩連結';
     summary.appendChild(playLink);
-  }
-
-  function summaryCleanup() {
-    $('.char-tag-list')?.remove();
   }
 
   const tabButtons = $$('.tab[data-info]');
@@ -332,62 +316,25 @@ async function renderCharactersPage() {
 async function renderGallery() {
   const { works } = await loadJson('./data/works.json');
   const grid = $('#galleryGrid');
-  if (!works.length) {
-    grid.innerHTML = '<p class="panel" style="padding:12px;">目前尚無作品分類可顯示。</p>';
-    return;
-  }
-  const filterRow = document.createElement('div');
-  filterRow.className = 'gallery-filter-row';
-  const listWrap = document.createElement('div');
-  listWrap.className = 'gallery-grid';
-  const viewer = document.createElement('div');
-  viewer.className = 'gallery-viewer';
-  viewer.innerHTML = '<p>請先點選作品分類與圖片。</p>';
-  grid.append(filterRow, listWrap, viewer);
-
-  const categories = works.map((work) => ({
-    key: work.id,
-    label: work.title,
-    items: [
-      { title: `${work.title}｜封面`, image: work.cover },
-      ...work.characters.map((c) => ({ title: `${work.title}｜${c.name}`, image: c.full || c.avatar })),
-    ],
-  }));
-
-  const renderItems = (catKey) => {
-    const selected = categories.find((c) => c.key === catKey) || categories[0];
-    listWrap.innerHTML = selected.items.map((item) => `
-      <figure class="gallery-item ui-fade-panel">
-        <img src="${item.image}" alt="${item.title}" data-preview="${item.image}" data-caption="${item.title}">
-        <figcaption>${item.title}</figcaption>
-      </figure>
-    `).join('');
-
-    $$('img[data-preview]', listWrap).forEach((img) => {
-      img.addEventListener('click', () => {
-        viewer.innerHTML = `
-          <figure class="gallery-item" style="max-width:min(900px, 92vw);">
-            <img src="${img.dataset.preview}" alt="${img.dataset.caption}">
-            <figcaption>${img.dataset.caption}</figcaption>
-          </figure>
-        `;
+  const items = [];
+  works.forEach((work) => {
+    items.push({
+      title: `${work.title}｜世界封面`,
+      image: work.cover,
+    });
+    work.characters.forEach((c) => {
+      items.push({
+        title: `${work.title}｜${c.name}`,
+        image: c.full || c.avatar,
       });
     });
-  };
-
-  categories.forEach((cat, index) => {
-    const btn = document.createElement('button');
-    btn.className = `gallery-filter-btn${index === 0 ? ' active' : ''}`;
-    btn.textContent = cat.label;
-    btn.addEventListener('click', () => {
-      $$('.gallery-filter-btn', filterRow).forEach((x) => x.classList.remove('active'));
-      btn.classList.add('active');
-      renderItems(cat.key);
-    });
-    filterRow.appendChild(btn);
   });
-
-  renderItems(categories[0]?.key);
+  grid.innerHTML = items.map((item) => `
+    <figure class="gallery-item ui-fade-panel">
+      <img src="${item.image}" alt="${item.title}">
+      <figcaption>${item.title}</figcaption>
+    </figure>
+  `).join('');
 }
 
 async function renderProfile() {
