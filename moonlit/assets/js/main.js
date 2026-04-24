@@ -234,12 +234,14 @@ async function renderCharacterPage() {
   const { works } = await loadJson('./data/works.json');
   const allChars = works.flatMap((w) => w.characters.map((c) => ({ ...c, workId: w.id })));
   const character = allChars.find((c) => c.id === charId) || allChars[0];
+  if (!character) return;
   const resolvedWorkId = workIdFromQuery || character.workId;
 
   $('#charName').textContent = character.name;
   $('#charQuote').textContent = `「${character.quote}」`;
   $('#charBasic').innerHTML = character.basic.map((x) => `<li>${x}</li>`).join('');
-  summaryCleanup();
+  const oldTagList = $('.char-tag-list');
+  if (oldTagList) oldTagList.remove();
   const tags = Array.isArray(character.tags) ? character.tags : [];
   if (tags.length) {
     $('#charBasic').insertAdjacentHTML('afterend', `
@@ -252,6 +254,18 @@ async function renderCharacterPage() {
   const summary = $('.character-summary');
   const existing = $('#playLinkBtn', summary);
   if (existing) existing.remove();
+  const existingWorld = $('#worldLinkBtn', summary);
+  if (existingWorld) existingWorld.remove();
+
+  if (resolvedWorkId) {
+    const worldLink = document.createElement('a');
+    worldLink.id = 'worldLinkBtn';
+    worldLink.className = 'btn';
+    worldLink.href = `work.html?id=${resolvedWorkId}`;
+    worldLink.textContent = '世界觀連結';
+    summary.appendChild(worldLink);
+  }
+
   if (character.playUrl) {
     const playLink = document.createElement('a');
     playLink.id = 'playLinkBtn';
@@ -314,27 +328,46 @@ async function renderCharactersPage() {
 }
 
 async function renderGallery() {
-  const { works } = await loadJson('./data/works.json');
+  const { categories } = await loadJson('./data/gallery.json');
   const grid = $('#galleryGrid');
-  const items = [];
-  works.forEach((work) => {
-    items.push({
-      title: `${work.title}｜世界封面`,
-      image: work.cover,
+  if (!Array.isArray(categories) || !categories.length) {
+    grid.innerHTML = '<p class="panel" style="padding:12px;">目前尚無畫廊分類。</p>';
+    return;
+  }
+
+  const filterRow = document.createElement('div');
+  filterRow.className = 'gallery-filter-row';
+  const listWrap = document.createElement('div');
+  listWrap.className = 'gallery-grid';
+  grid.append(filterRow, listWrap);
+
+  const renderItems = (catKey) => {
+    const selected = categories.find((c) => c.key === catKey) || categories[0];
+    const items = Array.isArray(selected.items) ? selected.items : [];
+    listWrap.innerHTML = items.map((item) => `
+      <figure class="gallery-item ui-fade-panel">
+        <img src="${item.image}" alt="${item.title}">
+        <figcaption>${item.title}</figcaption>
+      </figure>
+    `).join('');
+    if (!items.length) {
+      listWrap.innerHTML = '<p class="panel" style="padding:12px;">此分類尚未新增圖片。</p>';
+    }
+  };
+
+  categories.forEach((cat, index) => {
+    const btn = document.createElement('button');
+    btn.className = `gallery-filter-btn${index === 0 ? ' active' : ''}`;
+    btn.textContent = cat.label;
+    btn.addEventListener('click', () => {
+      $$('.gallery-filter-btn', filterRow).forEach((x) => x.classList.remove('active'));
+      btn.classList.add('active');
+      renderItems(cat.key);
     });
-    work.characters.forEach((c) => {
-      items.push({
-        title: `${work.title}｜${c.name}`,
-        image: c.full || c.avatar,
-      });
-    });
+    filterRow.appendChild(btn);
   });
-  grid.innerHTML = items.map((item) => `
-    <figure class="gallery-item ui-fade-panel">
-      <img src="${item.image}" alt="${item.title}">
-      <figcaption>${item.title}</figcaption>
-    </figure>
-  `).join('');
+
+  renderItems(categories[0]?.key);
 }
 
 async function renderProfile() {
