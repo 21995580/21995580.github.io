@@ -51,6 +51,10 @@ function activateFadeIn(element) {
   element.classList.add('ui-fade-panel');
 }
 
+function formatMultilineText(text = '') {
+  return String(text).split('\n').join('<br>');
+}
+
 function getWorldSections(world = {}) {
   if (Array.isArray(world.sections) && world.sections.length) return world.sections;
   const fallbackOrder = [
@@ -246,7 +250,7 @@ async function renderCharacterPage() {
   if (tags.length) {
     $('#charBasic').insertAdjacentHTML('afterend', `
       <div class="char-tag-list">
-        ${tags.map((tag) => `<span class="tab">${tag}</span>`).join('')}
+        ${tags.map((tag) => `<span class="char-tag">${tag}</span>`).join('')}
       </div>
     `);
   }
@@ -339,20 +343,45 @@ async function renderGallery() {
   filterRow.className = 'gallery-filter-row';
   const listWrap = document.createElement('div');
   listWrap.className = 'gallery-grid';
-  grid.append(filterRow, listWrap);
+  const viewer = document.createElement('div');
+  viewer.className = 'gallery-lightbox hidden';
+  viewer.innerHTML = `
+    <div class="gallery-lightbox-backdrop" data-close="1"></div>
+    <figure class="gallery-lightbox-card panel">
+      <button class="gallery-close-btn" type="button" aria-label="關閉">✕</button>
+      <img src="" alt="" id="galleryLightboxImg">
+      <figcaption id="galleryLightboxCap"></figcaption>
+    </figure>
+  `;
+  grid.append(filterRow, listWrap, viewer);
+
+  const viewerImg = $('#galleryLightboxImg', viewer);
+  const viewerCap = $('#galleryLightboxCap', viewer);
+  const closeViewer = () => viewer.classList.add('hidden');
+  $('.gallery-close-btn', viewer).addEventListener('click', closeViewer);
+  $('.gallery-lightbox-backdrop', viewer).addEventListener('click', closeViewer);
 
   const renderItems = (catKey) => {
     const selected = categories.find((c) => c.key === catKey) || categories[0];
     const items = Array.isArray(selected.items) ? selected.items : [];
     listWrap.innerHTML = items.map((item) => `
       <figure class="gallery-item ui-fade-panel">
-        <img src="${item.image}" alt="${item.title}">
+        <img src="${item.image}" alt="${item.title}" data-image="${item.image}" data-title="${item.title}">
         <figcaption>${item.title}</figcaption>
       </figure>
     `).join('');
     if (!items.length) {
       listWrap.innerHTML = '<p class="panel" style="padding:12px;">此分類尚未新增圖片。</p>';
+      return;
     }
+    $$('img[data-image]', listWrap).forEach((img) => {
+      img.addEventListener('click', () => {
+        viewerImg.src = img.dataset.image;
+        viewerImg.alt = img.dataset.title;
+        viewerCap.textContent = img.dataset.title;
+        viewer.classList.remove('hidden');
+      });
+    });
   };
 
   categories.forEach((cat, index) => {
@@ -372,8 +401,8 @@ async function renderGallery() {
 
 async function renderProfile() {
   const { profile } = await loadJson('./data/site.json');
-  $('#authorQuote').textContent = profile.quote;
-  $('#authorBio').textContent = profile.bio;
+  $('#authorQuote').innerHTML = formatMultilineText(profile.quote);
+  $('#authorBio').innerHTML = formatMultilineText(profile.bio);
   $('#profileAvatar').src = profile.avatar;
   const links = $('#profileLinks');
   links.innerHTML = profile.links.map((l) => `<li><a href="${l.url}" target="_blank" rel="noreferrer">${l.name}</a></li>`).join('');

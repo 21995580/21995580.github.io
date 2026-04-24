@@ -588,11 +588,12 @@ body[data-page="home"] .page-bg {
 }
 
 .character-tags span {
-  font-size: 12px;
-  padding: 2px 8px;
+  font-size: 10px;
+  padding: 2px 6px;
   border-radius: 999px;
-  background: rgba(143, 184, 184, 0.18);
-  border: 1px solid rgba(224, 197, 140, 0.35);
+  background: rgba(197, 169, 112, 0.9);
+  color: #091729;
+  border: 1px solid rgba(239, 218, 171, 0.45);
 }
 
 .character-name {
@@ -605,6 +606,10 @@ body[data-page="home"] .page-bg {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
   gap: 14px;
+}
+
+.gallery-root {
+  display: block;
 }
 
 .gallery-filter-row {
@@ -651,8 +656,66 @@ body[data-page="home"] .page-bg {
 .char-tag-list {
   margin-top: 10px;
   display: flex;
-  gap: 8px;
+  gap: 6px;
   flex-wrap: wrap;
+}
+
+.char-tag {
+  font-size: 10px;
+  padding: 2px 6px;
+  border-radius: 999px;
+  background: rgba(197, 169, 112, 0.9);
+  color: #091729;
+  border: 1px solid rgba(239, 218, 171, 0.45);
+}
+
+.gallery-lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 40;
+}
+
+.gallery-lightbox-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(3, 9, 18, 0.72);
+  backdrop-filter: blur(4px);
+}
+
+.gallery-lightbox-card {
+  position: relative;
+  z-index: 1;
+  width: min(980px, 92vw);
+  margin: 4vh auto;
+  padding: 12px;
+  background: rgba(8, 24, 40, 0.9);
+}
+
+.gallery-lightbox-card img {
+  width: 100%;
+  max-height: 76vh;
+  object-fit: contain;
+  border-radius: 10px;
+  border: 1px solid rgba(224,197,140,.4);
+}
+
+.gallery-lightbox-card figcaption {
+  margin-top: 8px;
+  text-align: center;
+}
+
+.gallery-close-btn {
+  position: absolute;
+  right: 12px;
+  top: 12px;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 1px solid rgba(224,197,140,.75);
+  background: rgba(14, 30, 48, .85);
+  color: #f8eac6;
+  cursor: pointer;
+  box-shadow: 0 0 12px rgba(224,197,140,.35);
 }
 
 .character-hero {
