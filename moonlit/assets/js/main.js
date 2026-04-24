@@ -238,6 +238,19 @@ async function renderCharacterPage() {
   $('#charQuote').textContent = `「${character.quote}」`;
   $('#charBasic').innerHTML = character.basic.map((x) => `<li>${x}</li>`).join('');
   $('#charArt').src = character.full;
+  const summary = $('.character-summary');
+  const existing = $('#playLinkBtn', summary);
+  if (existing) existing.remove();
+  if (character.playUrl) {
+    const playLink = document.createElement('a');
+    playLink.id = 'playLinkBtn';
+    playLink.className = 'btn';
+    playLink.href = character.playUrl;
+    playLink.target = '_blank';
+    playLink.rel = 'noreferrer';
+    playLink.textContent = '遊玩連結';
+    summary.appendChild(playLink);
+  }
 
   const tabButtons = $$('.tab[data-info]');
   const infoBox = $('#infoBox');
@@ -260,6 +273,57 @@ async function renderCharacterPage() {
     renderInfo(btn.dataset.info);
   }));
   renderInfo('background');
+}
+
+async function renderCharactersPage() {
+  const { works } = await loadJson('./data/works.json');
+  const board = $('#charactersBoard');
+  board.innerHTML = works.map((work) => {
+    const cards = work.characters.length
+      ? work.characters.map((character) => {
+        const tags = Array.isArray(character.tags) ? character.tags : [];
+        return `
+          <a class="character-card" href="character.html?id=${character.id}&work=${work.id}">
+            <img src="${character.avatar}" alt="${character.name}">
+            <div class="character-tags">
+              ${tags.map((t) => `<span>${t}</span>`).join('')}
+            </div>
+            <div class="character-name">${character.name}</div>
+          </a>
+        `;
+      }).join('')
+      : '<p>此分類暫無角色，之後新增在 <code>data/works.json</code> 會自動顯示。</p>';
+    return `
+      <section class="characters-group panel ui-fade-panel" style="padding:14px;">
+        <h3>${work.title} / ${work.subtitle}</h3>
+        <div class="characters-grid">${cards}</div>
+      </section>
+    `;
+  }).join('');
+}
+
+async function renderGallery() {
+  const { works } = await loadJson('./data/works.json');
+  const grid = $('#galleryGrid');
+  const items = [];
+  works.forEach((work) => {
+    items.push({
+      title: `${work.title}｜世界封面`,
+      image: work.cover,
+    });
+    work.characters.forEach((c) => {
+      items.push({
+        title: `${work.title}｜${c.name}`,
+        image: c.full || c.avatar,
+      });
+    });
+  });
+  grid.innerHTML = items.map((item) => `
+    <figure class="gallery-item ui-fade-panel">
+      <img src="${item.image}" alt="${item.title}">
+      <figcaption>${item.title}</figcaption>
+    </figure>
+  `).join('');
 }
 
 async function renderProfile() {
@@ -287,6 +351,8 @@ async function init() {
   if (page === 'works') await renderWorks();
   if (page === 'work') await renderWorkPage();
   if (page === 'character') await renderCharacterPage();
+  if (page === 'characters') await renderCharactersPage();
+  if (page === 'gallery') await renderGallery();
   if (page === 'profile') await renderProfile();
   if (page === 'faq') await renderFaq();
 }
