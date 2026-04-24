@@ -239,6 +239,7 @@ async function renderCharacterPage() {
   $('#charName').textContent = character.name;
   $('#charQuote').textContent = `「${character.quote}」`;
   $('#charBasic').innerHTML = character.basic.map((x) => `<li>${x}</li>`).join('');
+  summaryCleanup();
   const tags = Array.isArray(character.tags) ? character.tags : [];
   if (tags.length) {
     $('#charBasic').insertAdjacentHTML('afterend', `
@@ -272,6 +273,10 @@ async function renderCharacterPage() {
     playLink.rel = 'noreferrer';
     playLink.textContent = '遊玩連結';
     summary.appendChild(playLink);
+  }
+
+  function summaryCleanup() {
+    $('.char-tag-list')?.remove();
   }
 
   const tabButtons = $$('.tab[data-info]');
@@ -327,6 +332,10 @@ async function renderCharactersPage() {
 async function renderGallery() {
   const { works } = await loadJson('./data/works.json');
   const grid = $('#galleryGrid');
+  if (!works.length) {
+    grid.innerHTML = '<p class="panel" style="padding:12px;">目前尚無作品分類可顯示。</p>';
+    return;
+  }
   const filterRow = document.createElement('div');
   filterRow.className = 'gallery-filter-row';
   const listWrap = document.createElement('div');

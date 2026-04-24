@@ -342,13 +342,6 @@ body[data-page="home"] .page-bg {
   animation: spinReverse 62s linear infinite;
 }
 
-.orbit-node-content > img {
-  width: 42px;
-  height: 42px;
-  object-fit: contain;
-  margin-top: 2px;
-}
-
 .orbit-node-content > strong {
   line-height: 1.1;
 }
