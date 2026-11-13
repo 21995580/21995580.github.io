@@ -428,7 +428,7 @@ body[data-page="home"] .page-bg {
   content: '';
   position: absolute;
   inset: 0;
-  background: url('../images/bg/dragon-star-map.jpg') center/cover no-repeat;
+  background: url('../../images/bg/dragon-star-map.jpg') center/cover no-repeat;
   z-index: 0;
 }
 
