@@ -421,6 +421,18 @@ function initHomeIntro() {
   const portalEnter = $('#portalEnter');
   const portalSkip = $('#portalSkip');
   const stage = $('#introStage');
+  if (portal && !portal.dataset.pointerBound) {
+    portal.dataset.pointerBound = 'true';
+    portal.addEventListener('pointermove', (event) => {
+      const rect = portal.getBoundingClientRect();
+      portal.style.setProperty('--pointer-x', ((event.clientX - rect.left) / rect.width * 100) + '%');
+      portal.style.setProperty('--pointer-y', ((event.clientY - rect.top) / rect.height * 100) + '%');
+    }, { passive: true });
+    portal.addEventListener('pointerleave', () => {
+      portal.style.setProperty('--pointer-x', '50%');
+      portal.style.setProperty('--pointer-y', '50%');
+    }, { passive: true });
+  }
   if (portal && portalEnter && stage) {
     const openPortal = () => {
       if (document.body.classList.contains('portal-opened')) return;
