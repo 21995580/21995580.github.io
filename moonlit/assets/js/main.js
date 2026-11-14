@@ -424,115 +424,77 @@ function initHomeIntro() {
   if (portal && !portal.dataset.pointerBound) {
     portal.dataset.pointerBound = 'true';
     const fog = $('#portalFog');
+    const water = $('#portalWater');
     const ctx = fog?.getContext('2d');
-    let wiping = false;
-    let lastPoint = null;
-    let restoreFrame = 0;
-    let restoreTime = 0;
-    const brushRadius = 43;
-    const restoreDuration = 18000;
-    const resizeFog = () => {
-      if (!fog || !ctx) return;
-      const rect = portal.getBoundingClientRect();
-      const dpr = Math.min(window.devicePixelRatio || 1, 2);
-      fog.width = Math.round(rect.width * dpr);
-      fog.height = Math.round(rect.height * dpr);
-      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-      ctx.clearRect(0, 0, rect.width, rect.height);
-      const haze = ctx.createLinearGradient(0, 0, rect.width, rect.height);
-      haze.addColorStop(0, 'rgba(220,237,242,.19)');
-      haze.addColorStop(.48, 'rgba(205,225,235,.13)');
-      haze.addColorStop(1, 'rgba(226,238,241,.2)');
-      ctx.fillStyle = haze;
-      ctx.fillRect(0, 0, rect.width, rect.height);
-      ctx.save();
-      ctx.filter = 'blur(48px)';
-      [[.18,.22,210,.18],[.72,.3,260,.13],[.45,.78,310,.14],[.9,.82,220,.12]].forEach(([x,y,r,a]) => {
-        const mist = ctx.createRadialGradient(rect.width*x,rect.height*y,0,rect.width*x,rect.height*y,r);
-        mist.addColorStop(0, `rgba(239,247,249,${a})`);
-        mist.addColorStop(1, 'rgba(239,247,249,0)');
-        ctx.fillStyle = mist;
-        ctx.fillRect(rect.width*x-r,rect.height*y-r,r*2,r*2);
+    const waterCtx = water?.getContext('2d');
+    let wiping = false, didWipe = false, downPoint = null, lastPoint = null;
+    let restoreFrame = 0, restoreTime = 0, waterFrame = 0;
+    const brushRadius = 52, restoreDuration = 18000;
+    const droplets = [], ripples = [];
+    const dpr = () => Math.min(window.devicePixelRatio || 1, 2);
+    const sizeCanvases = () => {
+      const rect = portal.getBoundingClientRect(), ratio = dpr();
+      [fog,water].forEach(canvas => { if(canvas){canvas.width=Math.round(rect.width*ratio);canvas.height=Math.round(rect.height*ratio);canvas.style.width=rect.width+'px';canvas.style.height=rect.height+'px';} });
+      if(ctx){ctx.setTransform(ratio,0,0,ratio,0,0);ctx.clearRect(0,0,rect.width,rect.height);
+        const haze=ctx.createLinearGradient(0,0,rect.width,rect.height);
+        haze.addColorStop(0,'rgba(220,237,242,.24)');haze.addColorStop(.5,'rgba(205,225,235,.18)');haze.addColorStop(1,'rgba(226,238,241,.25)');
+        ctx.fillStyle=haze;ctx.fillRect(0,0,rect.width,rect.height);
+        ctx.save();ctx.filter='blur(55px)';
+        [[.16,.2,230,.2],[.72,.3,280,.17],[.44,.78,330,.18],[.9,.82,240,.16]].forEach(([x,y,r,a])=>{const g=ctx.createRadialGradient(rect.width*x,rect.height*y,0,rect.width*x,rect.height*y,r);g.addColorStop(0,`rgba(239,247,249,${a})`);g.addColorStop(1,'rgba(239,247,249,0)');ctx.fillStyle=g;ctx.fillRect(rect.width*x-r,rect.height*y-r,r*2,r*2);});ctx.restore();
+      }
+      if(waterCtx)waterCtx.setTransform(ratio,0,0,ratio,0,0);
+    };
+    const pointFrom=e=>{const r=portal.getBoundingClientRect();return{x:e.clientX-r.left,y:e.clientY-r.top};};
+    const eraseAt=(x,y)=>{if(!ctx)return;ctx.save();ctx.globalCompositeOperation='destination-out';const g=ctx.createRadialGradient(x,y,5,x,y,brushRadius);g.addColorStop(0,'rgba(0,0,0,1)');g.addColorStop(.62,'rgba(0,0,0,.94)');g.addColorStop(1,'rgba(0,0,0,0)');ctx.fillStyle=g;ctx.beginPath();ctx.arc(x,y,brushRadius,0,Math.PI*2);ctx.fill();ctx.restore();};
+    const addWater=(x,y)=>{
+      ripples.push({x,y,r:5,life:1,speed:.75});
+      for(let i=0;i<3;i++)droplets.push({x:x+(Math.random()-.5)*34,y:y+(Math.random()-.5)*25,r:1.5+Math.random()*3.2,life:.8+Math.random()*.2,vy:-.12-Math.random()*.25});
+      if(droplets.length>180)droplets.splice(0,droplets.length-180);
+    };
+    const paintWater=now=>{
+      if(!waterCtx||!water)return;
+      const rect=portal.getBoundingClientRect();waterCtx.clearRect(0,0,rect.width,rect.height);
+      for(let i=ripples.length-1;i>=0;i--){const p=ripples[i];p.r+=p.speed;p.life-=.012;waterCtx.beginPath();waterCtx.ellipse(p.x,p.y,p.r*1.55,p.r*.72,-.18,0,Math.PI*2);waterCtx.strokeStyle=`rgba(225,246,247,${Math.max(0,p.life)*.42})`;waterCtx.lineWidth=1.2;waterCtx.stroke();if(p.life<=0)ripples.splice(i,1);}
+      for(let i=droplets.length-1;i>=0;i--){const p=droplets[i];p.y+=p.vy;p.life-=.0028;waterCtx.save();waterCtx.globalAlpha=Math.max(0,p.life)*.8;const g=waterCtx.createRadialGradient(p.x-p.r*.3,p.y-p.r*.35,.2,p.x,p.y,p.r*1.7);g.addColorStop(0,'rgba(255,255,255,.95)');g.addColorStop(.35,'rgba(218,241,244,.62)');g.addColorStop(1,'rgba(160,199,208,0)');waterCtx.fillStyle=g;waterCtx.beginPath();waterCtx.ellipse(p.x,p.y,p.r*.78,p.r*1.35,-.3,0,Math.PI*2);waterCtx.fill();waterCtx.strokeStyle='rgba(245,255,255,.7)';waterCtx.lineWidth=.65;waterCtx.stroke();waterCtx.restore();if(p.life<=0)droplets.splice(i,1);}
+      if(droplets.length||ripples.length)waterFrame=requestAnimationFrame(paintWater);else waterFrame=0;
+    };
+    const animateWater=()=>{if(!waterFrame)waterFrame=requestAnimationFrame(paintWater);};
+    const stopRestore=()=>{if(restoreFrame)cancelAnimationFrame(restoreFrame);restoreFrame=0;restoreTime=0;};
+    const restoreMist=now=>{
+      if(!ctx||!fog||wiping){restoreFrame=0;return;}
+      if(!restoreTime)restoreTime=now;
+      const elapsed=now-restoreTime,rect=portal.getBoundingClientRect(),amount=Math.min(1,elapsed/restoreDuration);
+      ctx.save();ctx.globalCompositeOperation='source-over';ctx.fillStyle=`rgba(218,233,239,${Math.min(.014,.24*(1/60)/(restoreDuration/1000))})`;ctx.fillRect(0,0,rect.width,rect.height);ctx.restore();
+      if(amount<1)restoreFrame=requestAnimationFrame(restoreMist);else{restoreFrame=0;restoreTime=0;}
+    };
+    if(fog&&ctx){
+      sizeCanvases();window.addEventListener('resize',sizeCanvases,{passive:true});
+      portal.addEventListener('pointerdown',e=>{
+        if(e.button!==undefined&&e.button!==0)return;
+        wiping=true;didWipe=false;downPoint=pointFrom(e);lastPoint=downPoint;stopRestore();
       });
-      ctx.restore();
-    };
-    const eraseAt = (x, y) => {
-      if (!ctx || !fog) return;
-      ctx.save();
-      ctx.globalCompositeOperation = 'destination-out';
-      const brush = ctx.createRadialGradient(x,y,brushRadius*.12,x,y,brushRadius);
-      brush.addColorStop(0,'rgba(0,0,0,1)');
-      brush.addColorStop(.68,'rgba(0,0,0,.92)');
-      brush.addColorStop(1,'rgba(0,0,0,0)');
-      ctx.fillStyle = brush;
-      ctx.beginPath();
-      ctx.arc(x,y,brushRadius,0,Math.PI*2);
-      ctx.fill();
-      ctx.restore();
-    };
-    const pointFrom = (event) => {
-      const rect = portal.getBoundingClientRect();
-      return {x:event.clientX-rect.left,y:event.clientY-rect.top};
-    };
-    const stopRestore = () => {
-      if (restoreFrame) cancelAnimationFrame(restoreFrame);
-      restoreFrame = 0;
-      restoreTime = 0;
-    };
-    const restoreMist = (now) => {
-      if (!ctx || !fog || wiping) { restoreFrame = 0; return; }
-      if (!restoreTime) restoreTime = now;
-      const elapsed = now - restoreTime;
-      const rect = portal.getBoundingClientRect();
-      const amount = Math.min(1, elapsed / restoreDuration);
-      ctx.save();
-      ctx.globalCompositeOperation = 'source-over';
-      ctx.fillStyle = `rgba(218,233,239,${Math.min(.012, .18 * (1/60) / (restoreDuration/1000))})`;
-      ctx.fillRect(0,0,rect.width,rect.height);
-      ctx.restore();
-      if (amount < 1) restoreFrame = requestAnimationFrame(restoreMist);
-      else { restoreFrame = 0; restoreTime = 0; }
-    };
-    if (fog && ctx) {
-      resizeFog();
-      window.addEventListener('resize', resizeFog, {passive:true});
-      portal.addEventListener('pointerdown', (event) => {
-        if (event.button !== undefined && event.button !== 0) return;
-        wiping = true;
-        lastPoint = pointFrom(event);
-        stopRestore();
-        eraseAt(lastPoint.x,lastPoint.y);
-      });
-      portal.addEventListener('pointermove', (event) => {
-        const rect = portal.getBoundingClientRect();
-        portal.style.setProperty('--pointer-x', ((event.clientX-rect.left)/rect.width*100)+'%');
-        portal.style.setProperty('--pointer-y', ((event.clientY-rect.top)/rect.height*100)+'%');
-        if (!wiping) return;
-        const next = pointFrom(event);
-        const dx = next.x-lastPoint.x, dy = next.y-lastPoint.y;
-        const steps = Math.max(1,Math.ceil(Math.hypot(dx,dy)/14));
-        for(let i=1;i<=steps;i++) eraseAt(lastPoint.x+dx*i/steps,lastPoint.y+dy*i/steps);
-        lastPoint = next;
-      }, {passive:true});
-      const endWipe = () => {
-        if (!wiping) return;
-        wiping = false;
-        lastPoint = null;
-        restoreTime = 0;
-        restoreFrame = requestAnimationFrame(restoreMist);
-      };
-      window.addEventListener('pointerup',endWipe,{passive:true});
-      window.addEventListener('pointercancel',endWipe,{passive:true});
-      portal.addEventListener('pointerleave',() => {
-        portal.style.setProperty('--pointer-x','50%');
-        portal.style.setProperty('--pointer-y','50%');
+      portal.addEventListener('pointermove',e=>{
+        const rect=portal.getBoundingClientRect();
+        portal.style.setProperty('--pointer-x',((e.clientX-rect.left)/rect.width*100)+'%');
+        portal.style.setProperty('--pointer-y',((e.clientY-rect.top)/rect.height*100)+'%');
+        if(!wiping)return;
+        const next=pointFrom(e),dx=next.x-lastPoint.x,dy=next.y-lastPoint.y;
+        if(!didWipe&&Math.hypot(next.x-downPoint.x,next.y-downPoint.y)>4){didWipe=true;eraseAt(downPoint.x,downPoint.y);addWater(downPoint.x,downPoint.y);}
+        if(!didWipe)return;
+        const steps=Math.max(1,Math.ceil(Math.hypot(dx,dy)/12));
+        for(let i=1;i<=steps;i++){const x=lastPoint.x+dx*i/steps,y=lastPoint.y+dy*i/steps;eraseAt(x,y);if(i===steps||i%4===0)addWater(x,y);}
+        lastPoint=next;animateWater();
       },{passive:true});
+      const endWipe=()=>{
+        if(!wiping)return;wiping=false;lastPoint=null;downPoint=null;
+        if(didWipe){const suppress=e=>{e.preventDefault();e.stopImmediatePropagation();portal.removeEventListener('click',suppress,true);};portal.addEventListener('click',suppress,true);}
+        restoreTime=0;restoreFrame=requestAnimationFrame(restoreMist);
+      };
+      window.addEventListener('pointerup',endWipe,{passive:true});window.addEventListener('pointercancel',endWipe,{passive:true});
+      portal.addEventListener('pointerleave',()=>{portal.style.setProperty('--pointer-x','50%');portal.style.setProperty('--pointer-y','50%');},{passive:true});
+      portal.addEventListener('dragstart',e=>e.preventDefault());
     } else {
-      portal.addEventListener('pointermove', (event) => {
-        const rect = portal.getBoundingClientRect();
-        portal.style.setProperty('--pointer-x', ((event.clientX - rect.left) / rect.width * 100) + '%');
-        portal.style.setProperty('--pointer-y', ((event.clientY - rect.top) / rect.height * 100) + '%');
-      }, { passive: true });
+      portal.addEventListener('pointermove',e=>{const r=portal.getBoundingClientRect();portal.style.setProperty('--pointer-x',((e.clientX-r.left)/r.width*100)+'%');portal.style.setProperty('--pointer-y',((e.clientY-r.top)/r.height*100)+'%');},{passive:true});
     }
   }
   if (portal && portalEnter && stage) {
