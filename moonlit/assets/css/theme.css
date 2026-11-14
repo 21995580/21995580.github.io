@@ -1124,3 +1124,7 @@ body[data-page="home"].portal-opened .intro-stage{display:block;visibility:visib
 .portal-water{position:absolute;inset:0;z-index:6;width:100%;height:100%;pointer-events:none;user-select:none}
 .portal-glass-wrap{z-index:2}
 @media(max-width:700px){.portal-actions{gap:12px}.portal-action{padding:11px 16px}.portal-action.primary{min-width:140px}}
+
+.portal-screen,.portal-screen *{-webkit-user-select:none;user-select:none}
+.portal-screen{ -webkit-tap-highlight-color:transparent }
+.portal-water{mix-blend-mode:screen}
