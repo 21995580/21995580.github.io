@@ -1039,3 +1039,56 @@ body[data-page="home"] .enter-cabin{font-family:"Noto Serif TC",serif;cursor:poi
  body[data-page="home"] .room-windchime span,
  body[data-page="home"] .room-petals i{animation:none!important;transition:none!important}
 }
+
+
+/* === First arrival: moonlit frosted-glass portal === */
+body[data-page="home"]{background:#132c2b;overflow:hidden}
+body[data-page="home"] .portal-screen{position:fixed;inset:0;z-index:60;display:grid;place-items:center;overflow:hidden;padding:24px;background:#173b37;color:#f4ead2}
+body[data-page="home"] .portal-backdrop{position:absolute;inset:-3%;background:
+ linear-gradient(120deg,#153c38aa,#1b5149a8 48%,#142d30b8),
+ url("../images/meadow-intro.webp?v=20261114-3") center/cover no-repeat;
+ filter:blur(2px) saturate(.78);transform:scale(1.035)}
+body[data-page="home"] .portal-backdrop:before{content:"";position:absolute;inset:0;background:
+ radial-gradient(ellipse at 18% 24%,#e6d7ae35,transparent 32%),
+ radial-gradient(ellipse at 82% 70%,#8ebbb044,transparent 38%),
+ linear-gradient(180deg,#102e2b22,#0e282c88)}
+body[data-page="home"] .portal-vignette{position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse at center,transparent 28%,#081c1dcc 100%)}
+body[data-page="home"] .portal-glass{position:relative;width:min(620px,92vw);min-height:500px;padding:clamp(34px,6vw,68px) 30px 35px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;
+ background:linear-gradient(145deg,#e9f4e51c,#d5e9df0b 42%,#e6d7b21b);
+ border:1px solid #f2e8ce77;outline:1px solid #d8e7d333;outline-offset:8px;
+ box-shadow:0 24px 90px #061d1c88,inset 0 1px 0 #ffffff70,inset 0 -1px 0 #d9e8dc33;
+ backdrop-filter:blur(22px) saturate(1.35);-webkit-backdrop-filter:blur(22px) saturate(1.35);
+ clip-path:polygon(0 2.2%,2.1% 0,97.8% 0,100% 2.2%,100% 97.8%,97.8% 100%,2.2% 100%,0 97.8%);
+ animation:portalRise 1.15s cubic-bezier(.2,.7,.2,1) both}
+body[data-page="home"] .portal-glass:before{content:"";position:absolute;inset:7px;pointer-events:none;border:1px solid #f2e6c744;clip-path:polygon(0 2%,2% 0,98% 0,100% 2%,100% 98%,98% 100%,2% 100%,0 98%);box-shadow:inset 0 0 35px #e5f0e51c}
+body[data-page="home"] .portal-glass:after{content:"";position:absolute;inset:-25%;pointer-events:none;opacity:.28;background:linear-gradient(112deg,transparent 35%,#ffffff22 47%,transparent 59%);transform:translateX(-35%);animation:glassSheen 8s ease-in-out infinite}
+body[data-page="home"] .portal-ornament{position:relative;z-index:1;color:#e7d5a8;font:11px Georgia,serif;letter-spacing:4px;opacity:.8}
+body[data-page="home"] .portal-eyebrow{position:relative;z-index:1;margin-top:24px;color:#e4d7b8;font:10px Georgia,serif;letter-spacing:4px}
+body[data-page="home"] .portal-emblem{position:relative;z-index:1;width:76px;height:76px;margin:27px 0 12px;border:1px solid #e8d7ad;border-radius:50%;display:grid;place-items:center;box-shadow:0 0 0 7px #e8d7ad16,0 0 32px #e8d7ad22}
+body[data-page="home"] .portal-emblem:before,body[data-page="home"] .portal-emblem:after{content:"";position:absolute;width:5px;height:5px;background:#e8d7ad;transform:rotate(45deg)}
+body[data-page="home"] .portal-emblem:before{top:-3px}body[data-page="home"] .portal-emblem:after{bottom:-3px}
+body[data-page="home"] .portal-emblem span{color:#f3e7c9;font:34px "Noto Serif TC",serif}
+body[data-page="home"] .portal-glass h1{position:relative;z-index:1;margin:7px 0 0;color:#fff3d9;font:clamp(29px,5vw,43px) "Noto Serif TC",serif;letter-spacing:.3em;text-indent:.3em;text-shadow:0 2px 18px #102c2a}
+body[data-page="home"] .portal-en{position:relative;z-index:1;margin:10px 0 0;color:#e4d5b2;font:10px Georgia,serif;letter-spacing:5px}
+body[data-page="home"] .portal-rule{position:relative;z-index:1;display:flex;align-items:center;gap:12px;width:min(230px,70%);margin:25px 0 18px;color:#e6d4a8;font-size:12px}
+body[data-page="home"] .portal-rule i{height:1px;flex:1;background:linear-gradient(90deg,transparent,#e6d4a8aa)}
+body[data-page="home"] .portal-rule i:last-child{transform:scaleX(-1)}
+body[data-page="home"] .portal-description{position:relative;z-index:1;margin:0;color:#f0e8d4;font:13px/2 "Noto Serif TC",serif;letter-spacing:2px;text-shadow:0 1px 8px #102c2a}
+body[data-page="home"] .portal-enter{position:relative;z-index:2;display:flex;align-items:center;justify-content:center;gap:35px;min-width:190px;margin:30px 0 20px;padding:13px 23px;border:1px solid #e8d7ad;background:linear-gradient(120deg,#e8d9b4e8,#f3e9d1d9);color:#24463f;font:14px "Noto Serif TC",serif;letter-spacing:4px;cursor:pointer;box-shadow:0 8px 26px #081d1b55;transition:transform .3s,box-shadow .3s,background .3s}
+body[data-page="home"] .portal-enter:hover{transform:translateY(-3px);background:#fff1d4;box-shadow:0 10px 32px #e9d9ad55}
+body[data-page="home"] .portal-enter b{font:18px Georgia,serif;font-weight:400}
+body[data-page="home"] .portal-shortcuts{position:relative;z-index:1;display:flex;align-items:center;gap:13px;color:#e8d8b7;font:11px "Noto Serif TC",serif;letter-spacing:1px}
+body[data-page="home"] .portal-shortcuts a{color:inherit;text-decoration:none;opacity:.8;transition:opacity .2s,color .2s}
+body[data-page="home"] .portal-shortcuts a:hover{opacity:1;color:#fff2cf}
+body[data-page="home"] .portal-shortcuts i{font-style:normal;opacity:.5}
+body[data-page="home"] .portal-footnote{position:absolute;z-index:1;bottom:20px;color:#e4d9bd99;font:9px Georgia,serif;letter-spacing:3px}
+body[data-page="home"] .portal-footnote span{padding:0 8px;color:#d9c18e}
+body[data-page="home"] .intro-stage{display:none;visibility:hidden;opacity:0}
+body[data-page="home"].portal-opened .portal-screen{animation:portalFadeOut .9s ease forwards;pointer-events:none}
+body[data-page="home"].portal-opened .intro-stage{display:block;visibility:visible;opacity:1;animation:portalStageIn 1s ease both}
+@keyframes portalRise{from{opacity:0;transform:translateY(18px) scale(.97);filter:blur(8px)}to{opacity:1;transform:translateY(0) scale(1);filter:blur(0)}}
+@keyframes glassSheen{0%,35%{transform:translateX(-45%)}70%,100%{transform:translateX(45%)}}
+@keyframes portalFadeOut{to{opacity:0;visibility:hidden;transform:scale(1.04)}}
+@keyframes portalStageIn{from{opacity:0;filter:blur(8px)}to{opacity:1;filter:blur(0)}}
+@media(max-width:600px){body[data-page="home"] .portal-glass{min-height:460px;padding:34px 18px 28px}body[data-page="home"] .portal-description{font-size:12px;letter-spacing:1px}body[data-page="home"] .portal-shortcuts{gap:9px;font-size:10px}body[data-page="home"] .portal-emblem{margin-top:22px}}
+@media(prefers-reduced-motion:reduce){body[data-page="home"] .portal-glass,body[data-page="home"] .portal-glass:after,body[data-page="home"].portal-opened .portal-screen,body[data-page="home"].portal-opened .intro-stage{animation:none!important}}
