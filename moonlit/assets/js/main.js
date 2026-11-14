@@ -423,15 +423,117 @@ function initHomeIntro() {
   const stage = $('#introStage');
   if (portal && !portal.dataset.pointerBound) {
     portal.dataset.pointerBound = 'true';
-    portal.addEventListener('pointermove', (event) => {
+    const fog = $('#portalFog');
+    const ctx = fog?.getContext('2d');
+    let wiping = false;
+    let lastPoint = null;
+    let restoreFrame = 0;
+    let restoreTime = 0;
+    const brushRadius = 43;
+    const restoreDuration = 18000;
+    const resizeFog = () => {
+      if (!fog || !ctx) return;
       const rect = portal.getBoundingClientRect();
-      portal.style.setProperty('--pointer-x', ((event.clientX - rect.left) / rect.width * 100) + '%');
-      portal.style.setProperty('--pointer-y', ((event.clientY - rect.top) / rect.height * 100) + '%');
-    }, { passive: true });
-    portal.addEventListener('pointerleave', () => {
-      portal.style.setProperty('--pointer-x', '50%');
-      portal.style.setProperty('--pointer-y', '50%');
-    }, { passive: true });
+      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      fog.width = Math.round(rect.width * dpr);
+      fog.height = Math.round(rect.height * dpr);
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      ctx.clearRect(0, 0, rect.width, rect.height);
+      const haze = ctx.createLinearGradient(0, 0, rect.width, rect.height);
+      haze.addColorStop(0, 'rgba(220,237,242,.19)');
+      haze.addColorStop(.48, 'rgba(205,225,235,.13)');
+      haze.addColorStop(1, 'rgba(226,238,241,.2)');
+      ctx.fillStyle = haze;
+      ctx.fillRect(0, 0, rect.width, rect.height);
+      ctx.save();
+      ctx.filter = 'blur(48px)';
+      [[.18,.22,210,.18],[.72,.3,260,.13],[.45,.78,310,.14],[.9,.82,220,.12]].forEach(([x,y,r,a]) => {
+        const mist = ctx.createRadialGradient(rect.width*x,rect.height*y,0,rect.width*x,rect.height*y,r);
+        mist.addColorStop(0, `rgba(239,247,249,${a})`);
+        mist.addColorStop(1, 'rgba(239,247,249,0)');
+        ctx.fillStyle = mist;
+        ctx.fillRect(rect.width*x-r,rect.height*y-r,r*2,r*2);
+      });
+      ctx.restore();
+    };
+    const eraseAt = (x, y) => {
+      if (!ctx || !fog) return;
+      ctx.save();
+      ctx.globalCompositeOperation = 'destination-out';
+      const brush = ctx.createRadialGradient(x,y,brushRadius*.12,x,y,brushRadius);
+      brush.addColorStop(0,'rgba(0,0,0,1)');
+      brush.addColorStop(.68,'rgba(0,0,0,.92)');
+      brush.addColorStop(1,'rgba(0,0,0,0)');
+      ctx.fillStyle = brush;
+      ctx.beginPath();
+      ctx.arc(x,y,brushRadius,0,Math.PI*2);
+      ctx.fill();
+      ctx.restore();
+    };
+    const pointFrom = (event) => {
+      const rect = portal.getBoundingClientRect();
+      return {x:event.clientX-rect.left,y:event.clientY-rect.top};
+    };
+    const stopRestore = () => {
+      if (restoreFrame) cancelAnimationFrame(restoreFrame);
+      restoreFrame = 0;
+      restoreTime = 0;
+    };
+    const restoreMist = (now) => {
+      if (!ctx || !fog || wiping) { restoreFrame = 0; return; }
+      if (!restoreTime) restoreTime = now;
+      const elapsed = now - restoreTime;
+      const rect = portal.getBoundingClientRect();
+      const amount = Math.min(1, elapsed / restoreDuration);
+      ctx.save();
+      ctx.globalCompositeOperation = 'source-over';
+      ctx.fillStyle = `rgba(218,233,239,${Math.min(.012, .18 * (1/60) / (restoreDuration/1000))})`;
+      ctx.fillRect(0,0,rect.width,rect.height);
+      ctx.restore();
+      if (amount < 1) restoreFrame = requestAnimationFrame(restoreMist);
+      else { restoreFrame = 0; restoreTime = 0; }
+    };
+    if (fog && ctx) {
+      resizeFog();
+      window.addEventListener('resize', resizeFog, {passive:true});
+      portal.addEventListener('pointerdown', (event) => {
+        if (event.button !== undefined && event.button !== 0) return;
+        wiping = true;
+        lastPoint = pointFrom(event);
+        stopRestore();
+        eraseAt(lastPoint.x,lastPoint.y);
+      });
+      portal.addEventListener('pointermove', (event) => {
+        const rect = portal.getBoundingClientRect();
+        portal.style.setProperty('--pointer-x', ((event.clientX-rect.left)/rect.width*100)+'%');
+        portal.style.setProperty('--pointer-y', ((event.clientY-rect.top)/rect.height*100)+'%');
+        if (!wiping) return;
+        const next = pointFrom(event);
+        const dx = next.x-lastPoint.x, dy = next.y-lastPoint.y;
+        const steps = Math.max(1,Math.ceil(Math.hypot(dx,dy)/14));
+        for(let i=1;i<=steps;i++) eraseAt(lastPoint.x+dx*i/steps,lastPoint.y+dy*i/steps);
+        lastPoint = next;
+      }, {passive:true});
+      const endWipe = () => {
+        if (!wiping) return;
+        wiping = false;
+        lastPoint = null;
+        restoreTime = 0;
+        restoreFrame = requestAnimationFrame(restoreMist);
+      };
+      window.addEventListener('pointerup',endWipe,{passive:true});
+      window.addEventListener('pointercancel',endWipe,{passive:true});
+      portal.addEventListener('pointerleave',() => {
+        portal.style.setProperty('--pointer-x','50%');
+        portal.style.setProperty('--pointer-y','50%');
+      },{passive:true});
+    } else {
+      portal.addEventListener('pointermove', (event) => {
+        const rect = portal.getBoundingClientRect();
+        portal.style.setProperty('--pointer-x', ((event.clientX - rect.left) / rect.width * 100) + '%');
+        portal.style.setProperty('--pointer-y', ((event.clientY - rect.top) / rect.height * 100) + '%');
+      }, { passive: true });
+    }
   }
   if (portal && portalEnter && stage) {
     const openPortal = () => {
