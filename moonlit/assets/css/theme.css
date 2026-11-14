@@ -952,3 +952,12 @@ body[data-page="home"] .enter-cabin{box-shadow:0 0 0 0 #e9d6a066;animation:butto
  body[data-page="home"] .cabin-footer{animation:none!important}
  body[data-page="home"] .world-art{transform:scale(1)!important}
 }
+
+/* Layer and timing correction: keep the valley camera above the landing scene until the hand-off. */
+body[data-page="home"] .ukiyo-transition{z-index:12}
+body[data-page="home"] .world-art{transform:scale(2.18);transform-origin:64% 56%;animation:none}
+body[data-page="home"] .home-world.entered .world-art{animation:worldCameraSettle 2.7s 1.55s cubic-bezier(.18,.72,.12,1) both}
+@media(max-width:700px){
+ body[data-page="home"] .world-art{transform:scale(2.18);transform-origin:62% 58%;animation:none}
+ body[data-page="home"] .home-world.entered .world-art{animation:worldCameraSettle 2.7s 1.55s cubic-bezier(.18,.72,.12,1) both}
+}
