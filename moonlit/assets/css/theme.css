@@ -1128,3 +1128,19 @@ body[data-page="home"].portal-opened .intro-stage{display:block;visibility:visib
 .portal-screen,.portal-screen *{-webkit-user-select:none;user-select:none}
 .portal-screen{ -webkit-tap-highlight-color:transparent }
 .portal-water{mix-blend-mode:screen}
+
+/* Portal spacing refinement: keep the editorial copy comfortably inside the glass */
+.portal-glass-inner{padding:clamp(42px,6.2vw,78px) clamp(38px,7.2vw,92px)}
+.portal-sign{margin:0 0 2px}
+.portal-rule{margin:22px 0 25px}
+.portal-copy{max-width:570px}
+.portal-copy h1{margin-bottom:16px}
+.portal-description{max-width:540px}
+.portal-actions{margin-top:30px}
+.portal-bottom{right:clamp(38px,6.5vw,82px);bottom:clamp(28px,4.5vh,44px)}
+@media(max-width:700px){
+ .portal-glass-inner{padding:42px 24px 76px}
+ .portal-copy{max-width:100%}
+ .portal-bottom{right:24px;bottom:22px}
+}
+@media(max-width:420px){.portal-glass-inner{padding:38px 17px 74px}}
