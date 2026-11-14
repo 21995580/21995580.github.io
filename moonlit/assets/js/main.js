@@ -414,13 +414,49 @@ async function renderFaq() {
   list.innerHTML = faqs.map((f) => `<details><summary>${f.question}</summary><p>${f.answer}</p></details>`).join('');
 }
 
+
+/** 首頁雙場景開場：像素春日草原 → 浮世繪山水小屋 */
+function initHomeIntro() {
+  const stage = $('#introStage');
+  const wakeButton = $('#wakeCharacter');
+  const transition = $('#ukiyoTransition');
+  const world = $('#homeWorld');
+  if (!stage || !wakeButton || !transition || !world) return;
+  let started = false;
+  wakeButton.addEventListener('click', () => {
+    if (started) return;
+    started = true;
+    document.body.classList.add('intro-waking');
+    $('#introHint')?.classList.add('hidden');
+    wakeButton.setAttribute('aria-label', '旅人已醒來');
+    window.setTimeout(() => {
+      document.body.classList.add('intro-leaving');
+      transition.classList.add('active');
+      transition.setAttribute('aria-hidden', 'false');
+    }, 1650);
+    window.setTimeout(() => {
+      world.classList.add('entered');
+      world.setAttribute('aria-hidden', 'false');
+    }, 4050);
+    window.setTimeout(() => {
+      stage.remove();
+      transition.remove();
+      document.body.classList.remove('intro-waking', 'intro-leaving');
+    }, 5650);
+  });
+}
+
 async function init() {
+  const page = document.body.dataset.page;
+  if (page === 'home') {
+    initHomeIntro();
+    return;
+  }
   createParticles();
 
   // 頁面初次進場時，所有標示 ui-fade-panel 的區塊會淡入
   $$('.ui-fade-panel').forEach((el) => activateFadeIn(el));
 
-  const page = document.body.dataset.page;
   if (page === 'works') await renderWorks();
   if (page === 'work') await renderWorkPage();
   if (page === 'character') await renderCharacterPage();
