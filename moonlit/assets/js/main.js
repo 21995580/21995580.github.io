@@ -464,7 +464,7 @@ function initHomeIntro() {
       if(!ctx||!fog||wiping){restoreFrame=0;return;}
       if(!restoreTime)restoreTime=now;
       const elapsed=now-restoreTime,rect=portal.getBoundingClientRect(),amount=Math.min(1,elapsed/restoreDuration);
-      ctx.save();ctx.globalCompositeOperation='source-over';ctx.fillStyle=`rgba(218,233,239,${Math.min(.014,.24*(1/60)/(restoreDuration/1000))})`;ctx.fillRect(0,0,rect.width,rect.height);ctx.restore();
+      ctx.save();ctx.globalCompositeOperation='source-over';ctx.fillStyle=`rgba(218,233,239,${0.0065})`;ctx.fillRect(0,0,rect.width,rect.height);ctx.restore();
       if(amount<1)restoreFrame=requestAnimationFrame(restoreMist);else{restoreFrame=0;restoreTime=0;}
     };
     if(fog&&ctx){
