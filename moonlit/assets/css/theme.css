@@ -1046,7 +1046,7 @@ body[data-page="home"]{background:#132c2b;overflow:hidden}
 body[data-page="home"] 
 /* Glass welcome screen — layout inspired by Internal Beyond; Moonlit Atlas adaptation */
 .portal-screen{position:fixed;inset:0;z-index:60;display:grid;place-items:center;overflow:hidden;padding:clamp(18px,4vw,48px);background:#18243b;color:#edf2f8}
-.portal-backdrop{position:absolute;inset:-2%;background:url("https://raw.githubusercontent.com/Sui-IB/InternalBeyond/main/bg-internal.jpg") center 42%/cover no-repeat;filter:blur(2px) saturate(.82);transform:scale(1.035)}
+.portal-backdrop{position:absolute;inset:-2%;background:url("../images/meadow-intro.webp") center 42%/cover no-repeat;filter:blur(2px) saturate(.82);transform:scale(1.035)}
 .portal-wash{position:absolute;inset:0;background:linear-gradient(90deg,rgba(13,25,45,.68),rgba(19,38,66,.28) 55%,rgba(13,25,45,.48)),linear-gradient(180deg,rgba(15,31,54,.25),rgba(10,20,38,.52));backdrop-filter:blur(3px);-webkit-backdrop-filter:blur(3px)}
 .portal-glass-wrap{position:relative;width:min(1120px,94vw);min-height:min(690px,86vh);display:flex;align-items:center;padding:clamp(34px,7vw,88px);isolation:isolate}
 .portal-glass{position:absolute;inset:0;background:rgba(154,180,218,.105);border:1px solid rgba(208,226,250,.34);box-shadow:0 28px 90px rgba(3,10,24,.34),inset 0 1px 0 rgba(255,255,255,.24),inset 0 -1px 0 rgba(220,235,255,.1);backdrop-filter:blur(26px) saturate(.82) brightness(1.04);-webkit-backdrop-filter:blur(26px) saturate(.82) brightness(1.04);clip-path:polygon(0 2%,1.4% 0,98.6% 0,100% 2%,100% 98%,98.6% 100%,1.4% 100%,0 98%);animation:portalRise 1.25s cubic-bezier(.2,.7,.2,1) both}
@@ -1087,3 +1087,12 @@ body[data-page="home"].portal-opened .intro-stage{display:block;visibility:visib
 @media(max-width:700px){.portal-glass-wrap{min-height:620px;width:96vw;padding:28px}.portal-glass-inner{min-height:550px}.portal-copy{max-width:100%}.portal-copy h1{font-size:24px}.portal-description{font-size:12px}.portal-glass-butterfly{right:26px;top:24%;width:90px;opacity:.5}.portal-bottom{right:24px;bottom:22px}.portal-actions{gap:8px}.portal-action{min-width:0;padding:10px 13px;font-size:11px}}
 @media(max-width:420px){.portal-glass-wrap{padding:18px}.portal-glass-inner{min-height:560px}.portal-copy h1{font-size:21px}.portal-sign{font-size:10px}.portal-action.primary{min-width:145px}}
 @media(prefers-reduced-motion:reduce){.portal-glass,.portal-glass:after,.portal-glass-butterfly,.portal-sign,.portal-rule,.portal-copy h1,.portal-description,.portal-note,.portal-actions,.portal-skip{animation:none!important}}
+
+/* Pointer-responsive light: original CSS effect, no third-party assets */
+.portal-screen{--pointer-x:50%;--pointer-y:50%}
+.portal-screen:after{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;background:radial-gradient(460px circle at var(--pointer-x) var(--pointer-y),rgba(218,235,255,.17),rgba(190,218,250,.055) 35%,transparent 72%);mix-blend-mode:screen;transition:background .12s ease}
+.portal-glass{transition:background .35s ease,border-color .35s ease,box-shadow .35s ease}
+.portal-glass-wrap:hover .portal-glass{background:rgba(170,197,232,.14);border-color:rgba(226,239,255,.5);box-shadow:0 30px 100px rgba(3,10,24,.4),inset 0 1px 0 rgba(255,255,255,.3),inset 0 -1px 0 rgba(220,235,255,.14)}
+.portal-glass-butterfly{transition:filter .35s ease}
+.portal-screen:has(.portal-action:hover) .portal-glass-butterfly{filter:drop-shadow(0 0 24px rgba(205,228,255,.7))}
+@media(hover:none){.portal-screen:after{display:none}}
