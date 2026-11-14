@@ -126,9 +126,31 @@
       <span class="welcome-kicker">A PLACE FOR STORIES & DREAMS</span>
       <h1>山水有相逢，故事自此始。</h1>
       <p>在月色與山嵐之間，收藏每一段相遇。</p>
-      <a class="enter-cabin" href="works.html">踏入故事 <span>↗</span></a>
+      <button class="enter-cabin" id="openDoor" type="button">推開小屋的門 <span>↗</span></button>
     </div>
     <div class="cabin-footer">月相地圖 · 以夢為引，以故事為歸</div>
+
+    <section class="room-interior" id="roomInterior" aria-label="小屋室內" aria-hidden="true">
+      <img class="room-art" src="assets/images/teahouse-interior.webp" alt="木質古風書齋，窗外可見櫻花與遠山，桌上鋪著地圖繪卷">
+      <div class="room-light" aria-hidden="true"></div>
+      <div class="room-windchime" aria-hidden="true"><i></i><b></b><span></span></div>
+      <div class="room-petals" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>
+      <div class="room-door-glow" aria-hidden="true"></div>
+      <a class="room-hotspot map-hotspot" href="works.html" aria-label="查看世界地圖與作品">
+        <span class="hotspot-ring"></span><span class="hotspot-label">世界地圖 · 作品</span>
+      </a>
+      <a class="room-hotspot scholar-hotspot" href="profile.html" aria-label="查看藍髮主人的個人檔案">
+        <span class="hotspot-ring"></span><span class="hotspot-label">主人 · 個人檔案</span>
+        <span class="scholar-dialog"><b>月相地圖的主人</b><span>歡迎客人，可以四處看看。</span></span>
+      </a>
+      <a class="room-hotspot guide-hotspot" href="faq.html" aria-label="向門口的綠髮旅人詢問常見問題">
+        <span class="hotspot-ring"></span><span class="hotspot-label">引路人 · FAQ</span>
+        <span class="guide-dialog">有問題可以問我！</span>
+      </a>
+      <div class="room-caption"><span>月相書齋</span><i></i><small>THE MOONLIT STUDY</small></div>
+      <button class="room-return" id="roomReturn" type="button">返回庭院</button>
+    </section>
+
   </div>
   <script src="assets/js/main.js"></script>
 </body>
