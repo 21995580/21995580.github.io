@@ -796,3 +796,91 @@ body[data-page="home"] .page-bg {
   .character-hero img { position: relative; width: 100%; height: auto; right: auto; }
   .star-map-scroll { max-height: 48vh; }
 }
+
+
+/* ===== 首頁：春日像素 RPG → 浮世繪山水小屋 ===== */
+body[data-page="home"] { min-height:100vh; overflow-x:hidden; background:#a8d8cf; color:#203d3a; }
+body[data-page="home"] .page-bg, body[data-page="home"] .particles,
+body[data-page="home"] .site-footer { display:none; }
+body[data-page="home"] .intro-stage { position:fixed; inset:0; overflow:hidden; isolation:isolate; background:#a8d8cf; cursor:default; z-index:5; image-rendering:pixelated; }
+.pixel-sky { position:absolute; inset:0 0 34%; overflow:hidden; background:linear-gradient(180deg,#8dc9d0 0%,#b6e1d4 72%,#d6e9c7 100%); }
+.pixel-sun { position:absolute; width:82px; height:82px; top:12%; right:17%; background:#ffe7a4; box-shadow:0 0 0 12px #ffe7a433,0 0 50px #fff0b5aa; border-radius:50%; }
+.pixel-cloud { position:absolute; width:150px; height:35px; background:#f7f5df; border-radius:30px; opacity:.94; filter:drop-shadow(0 5px 0 #d6e9d5); animation:cloudDrift 32s linear infinite; }
+.pixel-cloud:before,.pixel-cloud:after { content:""; position:absolute; bottom:12px; background:inherit; border-radius:50%; }
+.pixel-cloud:before { width:62px;height:62px;left:22px; }.pixel-cloud:after { width:48px;height:48px;left:72px; }
+.cloud-a{top:19%;left:8%;}.cloud-b{top:33%;left:57%;transform:scale(.72);animation-duration:42s;animation-delay:-13s}.cloud-c{top:9%;left:78%;transform:scale(.48);animation-duration:48s;animation-delay:-20s}
+@keyframes cloudDrift{from{translate:-20px 0}50%{translate:55px 6px}to{translate:-20px 0}}
+.pixel-bird{position:absolute;color:#426e67;font-size:36px;font-weight:bold;animation:birdFlight 8s ease-in-out infinite}.bird-a{top:40%;left:39%}.bird-b{top:25%;left:49%;font-size:25px;animation-delay:-3s}
+@keyframes birdFlight{0%,100%{transform:translate(0,0) scaleX(1)}50%{transform:translate(38px,-20px) scaleX(-1)}}
+.pixel-hills{position:absolute;left:-5%;width:110%;bottom:24%;height:35%;border-radius:50% 50% 0 0/35% 35% 0 0}
+.hill-back{background:#8cbd91;bottom:28%;transform:rotate(-3deg);}.hill-front{background:#609b75;height:29%;bottom:20%;transform:rotate(2deg)}
+.pixel-grass{position:absolute;bottom:0;left:0;right:0;height:28%;background:linear-gradient(180deg,#78b77a,#4c916a 75%,#367a60)}
+.pixel-grass:before{content:"";position:absolute;inset:0;background:repeating-linear-gradient(174deg,transparent 0 15px,#9bc982 16px 18px,transparent 19px 32px);opacity:.5}
+.pixel-grass i{position:absolute;bottom:100%;width:4px;height:22px;background:#5c9c70;transform-origin:bottom;animation:grassSway 2.6s ease-in-out infinite alternate}.pixel-grass i:nth-child(1){left:7%;height:17px}.pixel-grass i:nth-child(2){left:19%;height:28px;animation-delay:-1s}.pixel-grass i:nth-child(3){left:32%;height:16px}.pixel-grass i:nth-child(4){left:48%;height:25px;animation-delay:-.8s}.pixel-grass i:nth-child(5){left:62%;height:18px}.pixel-grass i:nth-child(6){left:76%;height:26px;animation-delay:-1.4s}.pixel-grass i:nth-child(7){left:89%;height:20px}.pixel-grass i:nth-child(8){left:96%;height:14px}.pixel-grass i:nth-child(9){left:13%;height:12px}.pixel-grass i:nth-child(10){left:42%;height:14px}.pixel-grass i:nth-child(11){left:70%;height:13px}.pixel-grass i:nth-child(12){left:83%;height:17px}
+@keyframes grassSway{to{transform:rotate(18deg)}}
+.pixel-sakura-tree{position:absolute;left:4%;bottom:20%;width:270px;height:390px;transform-origin:50% 100%;animation:treeSway 5s ease-in-out infinite alternate}
+.tree-trunk{position:absolute;bottom:0;left:48%;width:35px;height:230px;background:#765b4a;clip-path:polygon(34% 0,65% 0,72% 45%,100% 100%,0 100%,30% 50%)}
+.tree-trunk:before{content:"";position:absolute;width:115px;height:18px;background:#765b4a;top:60px;left:-72px;transform:rotate(-32deg)}
+.tree-crown{position:absolute;background:#e7a8a6;border:8px solid #f2c3b1;border-radius:48%;box-shadow:inset -13px -12px #d98f99,0 8px 0 #c98289}
+.crown-one{width:150px;height:112px;left:10px;top:75px}.crown-two{width:142px;height:122px;left:100px;top:38px}.crown-three{width:120px;height:100px;left:66px;top:0}.crown-four{width:120px;height:100px;left:-18px;top:8px}.crown-five{width:115px;height:100px;left:152px;top:108px}
+.tree-glow{position:absolute;top:32px;left:35px;width:180px;height:100px;background:radial-gradient(ellipse,#fff2d466,transparent 70%)}
+@keyframes treeSway{from{transform:rotate(-1.5deg)}to{transform:rotate(1.8deg)}}
+.pixel-butterfly{position:absolute;color:#fff2b8;text-shadow:2px 2px #d68e9c;font-size:28px;animation:butterflyFloat 6s ease-in-out infinite}.butterfly-a{left:70%;bottom:38%}.butterfly-b{left:84%;bottom:55%;animation-delay:-2.5s}
+@keyframes butterflyFloat{0%,100%{transform:translate(0,0) rotate(-12deg)}50%{transform:translate(22px,-30px) rotate(18deg)}}
+.pixel-petals{position:absolute;inset:0;pointer-events:none;overflow:hidden}.pixel-petals i{position:absolute;top:-5%;left:var(--x);width:9px;height:7px;background:#f7c3c1;border-radius:60% 10% 60% 10%;animation:petalFall var(--d) linear infinite;animation-delay:var(--delay)}
+.pixel-petals i:nth-child(1){--x:20%;--d:12s;--delay:-4s}.pixel-petals i:nth-child(2){--x:38%;--d:15s;--delay:-10s}.pixel-petals i:nth-child(3){--x:53%;--d:13s;--delay:-2s}.pixel-petals i:nth-child(4){--x:68%;--d:16s;--delay:-8s}.pixel-petals i:nth-child(5){--x:79%;--d:11s;--delay:-6s}.pixel-petals i:nth-child(6){--x:91%;--d:14s;--delay:-12s}.pixel-petals i:nth-child(7){--x:31%;--d:17s;--delay:-1s}.pixel-petals i:nth-child(8){--x:59%;--d:10s;--delay:-7s}
+@keyframes petalFall{0%{transform:translate(0,-5vh) rotate(0);opacity:0}12%{opacity:1}100%{transform:translate(80px,115vh) rotate(520deg);opacity:0}}
+.intro-sign{position:absolute;top:7%;left:50%;transform:translateX(-50%);display:grid;justify-items:center;color:#315e54;text-shadow:0 2px #e9f2d5aa;z-index:2}
+.intro-sign .sign-kicker{font:700 10px/1.5 Georgia,serif;letter-spacing:3px;opacity:.7}.intro-sign strong{font:700 clamp(27px,4vw,44px)/1.35 "Noto Serif TC",serif;letter-spacing:9px}.intro-sign small{font:11px Georgia,serif;letter-spacing:4px;opacity:.7}
+.sleeping-character{position:absolute;z-index:3;left:50%;bottom:13%;width:min(330px,46vw);height:auto;transform:translateX(-50%);border:0;background:none;padding:0;cursor:pointer;filter:drop-shadow(0 13px 4px #315f4b55);transition:transform .4s ease,filter .4s ease}
+.sleeping-character:hover{transform:translateX(-50%) translateY(-8px) scale(1.04);filter:drop-shadow(0 18px 8px #315f4b66)}
+.pixel-person{display:block;width:100%;height:auto;overflow:visible;image-rendering:pixelated}
+.awake-pose{display:none}.sleep-z{position:absolute;color:#fff4c4;font:bold 24px Georgia;animation:sleepBob 1.8s ease-in-out infinite}.z-one{right:12%;top:8%}.z-two{right:5%;top:-2%;animation-delay:-.8s}
+@keyframes sleepBob{50%{transform:translateY(-9px);opacity:.4}}
+.wake-halo{position:absolute;inset:5%;border-radius:50%;background:radial-gradient(ellipse,#fff3c522,transparent 68%);z-index:-1}
+.intro-hint{position:absolute;bottom:5%;left:50%;transform:translateX(-50%);padding:10px 18px;border:1px solid #f8e6bd99;border-radius:30px;background:#244f4777;color:#fff6dc;font-size:13px;letter-spacing:1px;white-space:nowrap;animation:hintPulse 2.3s ease-in-out infinite}
+.intro-hint span{color:#ffe4a2;margin-right:6px}@keyframes hintPulse{50%{transform:translateX(-50%) translateY(-4px);opacity:.72}}
+.intro-credit{position:absolute;right:22px;bottom:17px;color:#e9f0d3aa;font:9px Georgia,serif;letter-spacing:2px}
+.wake-dialog{position:absolute;z-index:4;left:50%;bottom:40%;transform:translate(-50%,12px);width:min(330px,82vw);padding:16px 20px 14px;background:#fff8e7;border:3px solid #6f9679;box-shadow:5px 5px 0 #345d50;border-radius:12px;text-align:center;opacity:0;visibility:hidden;transition:.35s}
+.wake-dialog:after{content:"";position:absolute;bottom:-14px;left:50%;width:20px;height:20px;background:#fff8e7;border-right:3px solid #6f9679;border-bottom:3px solid #6f9679;transform:translateX(-50%) rotate(45deg)}
+.dialog-name{display:block;font-size:10px;color:#71927c;letter-spacing:2px;margin-bottom:5px}.wake-dialog strong{display:block;color:#31584c;font-family:"Noto Serif TC",serif;font-size:19px}.dialog-hint{display:block;margin-top:7px;color:#8d9d80;font-size:10px}
+.intro-waking .sleep-pose{display:none}.intro-waking .awake-pose{display:block}.intro-waking .sleep-z{display:none}.intro-waking .wake-dialog{opacity:1;visibility:visible;transform:translate(-50%,0)}
+.intro-leaving .intro-stage{animation:pixelSceneOut 1.7s cubic-bezier(.72,0,.2,1) forwards}
+@keyframes pixelSceneOut{to{transform:scale(2.8);opacity:0;filter:blur(8px)}}
+.ukiyo-transition{position:fixed;inset:0;z-index:8;overflow:hidden;background:#b5cbbd;opacity:0;visibility:hidden;transform:scale(.75);transform-origin:50% 58%}
+.ukiyo-transition.active{visibility:visible;animation:ukiyoReveal 3.4s cubic-bezier(.2,.7,.1,1) forwards}
+@keyframes ukiyoReveal{0%{opacity:0;transform:scale(.75)}20%{opacity:1}100%{opacity:1;transform:scale(1.16)}}
+.ukiyo-sky{position:absolute;inset:0;background:linear-gradient(#b6d4ca,#e6d6b5 75%)}.ukiyo-sun{position:absolute;right:19%;top:12%;width:160px;height:160px;border-radius:50%;background:#d88d7d;opacity:.8}
+.ukiyo-cloud{position:absolute;width:35vw;height:70px;border-top:2px solid #f3e9d2;border-bottom:2px solid #f3e9d2;border-radius:50%;opacity:.8}.cloud-ink-one{top:24%;left:-5%}.cloud-ink-two{top:34%;right:-10%;transform:scale(.7)}
+.ukiyo-landscape{position:absolute;inset:0;width:100%;height:100%}
+.ukiyo-house{position:absolute;left:50%;bottom:9%;width:260px;height:210px;transform:translateX(-50%);filter:drop-shadow(0 14px 0 #1a444033)}
+.house-roof{position:absolute;left:-28px;top:0;width:316px;height:110px;background:#254d48;clip-path:polygon(50% 0,100% 64%,91% 72%,50% 30%,9% 72%,0 64%);border-bottom:8px solid #b28d64}
+.house-body{position:absolute;left:20px;top:70px;width:220px;height:140px;background:#d8c49b;border:8px solid #345c51}
+.house-door{position:absolute;left:92px;bottom:0;width:76px;height:110px;background:#785c48;border:7px solid #36574d}
+.house-window{position:absolute;right:34px;top:100px;width:42px;height:48px;background:#efc982;border:6px solid #345c51;box-shadow:0 0 22px #ffe0a6}
+.house-lantern{position:absolute;right:-12px;top:90px;width:25px;height:42px;background:#e8ba72;box-shadow:0 0 24px #ffe3a4;border:3px solid #6b5b46}
+.transition-caption{position:absolute;bottom:5%;left:50%;width:100%;text-align:center;color:#f7edcf;font:18px "Noto Serif TC",serif;letter-spacing:4px;text-shadow:0 2px 8px #153c37}
+.home-world{position:fixed;inset:0;z-index:10;overflow:hidden;background:#a9c9b7;opacity:0;visibility:hidden;transform:scale(1.08);transition:opacity 1s ease,transform 1.5s cubic-bezier(.2,.7,.2,1)}
+.home-world.entered{opacity:1;visibility:visible;transform:scale(1)}
+.world-backdrop{position:absolute;inset:0;overflow:hidden;background:linear-gradient(#b7d5c9 0%,#e5d5b6 65%,#c5a77b 100%)}
+.world-mountain{position:absolute;bottom:16%;width:75%;height:68%;clip-path:polygon(0 100%,17% 48%,29% 65%,49% 0,70% 64%,82% 42%,100% 100%);background:#779b8c}
+.mountain-one{left:-10%;bottom:22%;background:#9db8a0}.mountain-two{right:-13%;bottom:17%;height:74%;background:#5f887d;transform:scaleX(-1)}.mountain-three{left:24%;bottom:8%;height:62%;width:60%;background:#426f65}
+.world-river{position:absolute;bottom:-4%;left:22%;width:70%;height:38%;background:#b2cfc1;clip-path:polygon(0 35%,20% 12%,42% 25%,63% 0,100% 25%,84% 48%,57% 42%,36% 73%,12% 100%);opacity:.8}
+.world-pine{position:absolute;bottom:17%;width:90px;height:210px;background:#234d43;clip-path:polygon(50% 0,64% 24%,58% 24%,77% 49%,65% 49%,91% 77%,59% 77%,59% 100%,41% 100%,41% 77%,9% 77%,35% 49%,23% 49%,42% 24%,36% 24%);filter:drop-shadow(5px 5px #1b463e)}.pine-one{left:8%;transform:scale(1.25)}.pine-two{right:12%;bottom:15%;transform:scale(1.65)}
+.world-house{position:absolute;left:50%;bottom:16%;width:190px;height:150px;transform:translateX(-50%);filter:drop-shadow(0 12px 0 #264d4433)}
+.world-house .roof{position:absolute;left:-22px;top:0;width:234px;height:75px;background:#284f48;clip-path:polygon(50% 0,100% 75%,92% 82%,50% 30%,8% 82%,0 75%)}
+.world-house .walls{position:absolute;left:18px;top:47px;width:154px;height:103px;background:#d9c49d;border:6px solid #526f5d}
+.world-house .door{position:absolute;left:72px;bottom:0;width:46px;height:75px;background:#755d4b;border:5px solid #526f5d}
+.world-house .warm-window{position:absolute;right:29px;top:75px;width:25px;height:28px;background:#f4d18b;border:4px solid #526f5d;box-shadow:0 0 18px #f9dca4}
+.world-mist{position:absolute;left:-10%;width:120%;height:90px;border-radius:50%;background:#edf0d8;filter:blur(20px);opacity:.38;animation:mistFlow 16s ease-in-out infinite alternate}.mist-one{bottom:27%}.mist-two{bottom:44%;animation-delay:-8s;opacity:.24}
+@keyframes mistFlow{to{transform:translateX(7%) translateY(15px)}}
+.cabin-header{position:absolute;z-index:2;left:0;right:0;top:0;padding:25px clamp(18px,5vw,72px);display:flex;align-items:center;justify-content:space-between;gap:22px;background:linear-gradient(#1b423d55,transparent);color:#f7f0da}
+.cabin-brand{display:flex;align-items:center;gap:12px;color:inherit;text-decoration:none}.cabin-brand>span{display:grid;place-items:center;width:42px;height:42px;border:1px solid #e9d6a0;border-radius:50%;font:24px "Noto Serif TC",serif;color:#f0d99f}.cabin-brand strong{display:block;font:20px "Noto Serif TC",serif;letter-spacing:4px}.cabin-brand small{display:block;font:9px Georgia,serif;letter-spacing:2px;opacity:.8;margin-top:3px}
+.cabin-nav{display:flex;gap:clamp(10px,2vw,28px);flex-wrap:wrap;justify-content:flex-end}.cabin-nav a{color:#fff7e3;text-decoration:none;font:14px "Noto Serif TC",serif;letter-spacing:2px;padding:9px 2px;border-bottom:1px solid transparent;transition:.25s}.cabin-nav a:hover,.cabin-nav a.active{color:#ffe4a9;border-color:#e8d3a0}
+.cabin-welcome{position:absolute;z-index:2;left:50%;top:45%;transform:translate(-50%,-50%);width:min(700px,90vw);text-align:center;color:#fff5df;text-shadow:0 2px 12px #173d36aa}
+.welcome-kicker{font:10px Georgia,serif;letter-spacing:4px;color:#f1dfb7}.cabin-welcome h1{font:clamp(25px,4vw,42px) "Noto Serif TC",serif;letter-spacing:5px;margin:18px 0 12px}.cabin-welcome p{font:14px "Noto Serif TC",serif;letter-spacing:2px;color:#f4ead2}
+.enter-cabin{display:inline-flex;align-items:center;gap:24px;margin-top:25px;padding:12px 28px;border:1px solid #e9d6a0;color:#fff1d2;text-decoration:none;font:14px "Noto Serif TC",serif;letter-spacing:3px;background:#173e3870;transition:.3s}.enter-cabin:hover{background:#e6d2a1;color:#294d43;transform:translateY(-3px)}
+.cabin-footer{position:absolute;bottom:22px;left:0;right:0;text-align:center;color:#f5e8c7aa;font:10px "Noto Serif TC",serif;letter-spacing:4px}
+body[data-page="home"] .intro-stage,body[data-page="home"] .ukiyo-transition,body[data-page="home"] .home-world{font-family:"Noto Serif TC","Songti TC",serif}
+@media(max-width:700px){.pixel-sakura-tree{transform:scale(.7);transform-origin:bottom left;left:-4%;bottom:19%}.sleeping-character{width:min(280px,68vw);bottom:16%}.intro-sign{top:8%}.intro-hint{bottom:5%;font-size:11px}.cabin-header{align-items:flex-start;flex-direction:column;padding:16px 18px;gap:12px}.cabin-nav{justify-content:flex-start;gap:8px 17px}.cabin-nav a{font-size:12px}.cabin-welcome{top:55%}.world-house{bottom:14%;transform:translateX(-50%) scale(.82)}.ukiyo-house{transform:translateX(-50%) scale(.82);transform-origin:bottom center}}
+@media(prefers-reduced-motion:reduce){body[data-page="home"] *,body[data-page="home"] *:before,body[data-page="home"] *:after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}}
