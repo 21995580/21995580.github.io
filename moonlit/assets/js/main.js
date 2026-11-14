@@ -419,13 +419,16 @@ async function renderFaq() {
 function initHomeIntro() {
   const portal = $('#portalScreen');
   const portalEnter = $('#portalEnter');
+  const portalSkip = $('#portalSkip');
   const stage = $('#introStage');
   if (portal && portalEnter && stage) {
-    portalEnter.addEventListener('click', () => {
+    const openPortal = () => {
       if (document.body.classList.contains('portal-opened')) return;
       document.body.classList.add('portal-opened');
       window.setTimeout(() => { portal.remove(); }, 1000);
-    });
+    };
+    portalEnter.addEventListener('click', openPortal);
+    portalSkip?.addEventListener('click', openPortal);
   }
   const wakeButton = $('#wakeCharacter');
   const transition = $('#ukiyoTransition');
