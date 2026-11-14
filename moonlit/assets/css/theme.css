@@ -888,7 +888,7 @@ body[data-page="home"] .intro-stage,body[data-page="home"] .ukiyo-transition,bod
 
 /* Pixel-art opening scene: replace the temporary geometric mock-up with the finished illustration. */
 body[data-page="home"] .intro-stage{background:#8bb8ac;isolation:isolate}
-body[data-page="home"] .intro-art{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center center;z-index:-1;image-rendering:auto}
+body[data-page="home"] .intro-art{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center center;z-index:0;pointer-events:none;image-rendering:auto}
 body[data-page="home"] .pixel-sky,
 body[data-page="home"] .pixel-hills,
 body[data-page="home"] .pixel-grass,
@@ -902,8 +902,8 @@ body[data-page="home"] .pixel-person,
 body[data-page="home"] .sleep-z,
 body[data-page="home"] .wake-halo{display:none!important}
 body[data-page="home"] .wake-dialog{display:none!important}
-body[data-page="home"] .intro-hint{bottom:3%;background:#214a438c;border-color:#f5e3c5aa;box-shadow:0 5px 22px #183d3540}
-body[data-page="home"] .intro-credit{color:#fff0d4;text-shadow:0 1px 4px #234b43}
+body[data-page="home"] .intro-hint{z-index:4;bottom:3%;background:#214a438c;border-color:#f5e3c5aa;box-shadow:0 5px 22px #183d3540}
+body[data-page="home"] .intro-credit{z-index:4;color:#fff0d4;text-shadow:0 1px 4px #234b43}
 body[data-page="home"].intro-waking .sleeping-character{animation:meadowWake .85s ease-in-out both}
 @keyframes meadowWake{0%{transform:scale(1)}35%{transform:translateY(-10px) rotate(-2deg) scale(1.025)}70%{transform:translateY(-4px) rotate(1deg) scale(1.04)}100%{transform:translateY(0) scale(1)}}
 @media(max-width:700px){
