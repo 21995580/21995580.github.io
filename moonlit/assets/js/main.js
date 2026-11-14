@@ -428,7 +428,7 @@ function initHomeIntro() {
     const ctx = fog?.getContext('2d');
     const waterCtx = water?.getContext('2d');
     let wiping = false, didWipe = false, downPoint = null, lastPoint = null;
-    let restoreFrame = 0, restoreTime = 0, waterFrame = 0;
+    let restoreFrame = 0, restoreTime = 0, restoreLast = 0, waterFrame = 0, baseFog = null, erasedFog = null;
     const brushRadius = 52, restoreDuration = 18000;
     const droplets = [], ripples = [];
     const dpr = () => Math.min(window.devicePixelRatio || 1, 2);
@@ -443,29 +443,59 @@ function initHomeIntro() {
         [[.16,.2,230,.2],[.72,.3,280,.17],[.44,.78,330,.18],[.9,.82,240,.16]].forEach(([x,y,r,a])=>{const g=ctx.createRadialGradient(rect.width*x,rect.height*y,0,rect.width*x,rect.height*y,r);g.addColorStop(0,`rgba(239,247,249,${a})`);g.addColorStop(1,'rgba(239,247,249,0)');ctx.fillStyle=g;ctx.fillRect(rect.width*x-r,rect.height*y-r,r*2,r*2);});ctx.restore();
       }
       if(waterCtx)waterCtx.setTransform(ratio,0,0,ratio,0,0);
+      baseFog=document.createElement('canvas');baseFog.width=fog.width;baseFog.height=fog.height;
+      baseFog.getContext('2d').drawImage(fog,0,0);erasedFog=null;
     };
     const pointFrom=e=>{const r=portal.getBoundingClientRect();return{x:e.clientX-r.left,y:e.clientY-r.top};};
     const eraseAt=(x,y)=>{if(!ctx)return;ctx.save();ctx.globalCompositeOperation='destination-out';const g=ctx.createRadialGradient(x,y,5,x,y,brushRadius);g.addColorStop(0,'rgba(0,0,0,1)');g.addColorStop(.62,'rgba(0,0,0,.94)');g.addColorStop(1,'rgba(0,0,0,0)');ctx.fillStyle=g;ctx.beginPath();ctx.arc(x,y,brushRadius,0,Math.PI*2);ctx.fill();ctx.restore();};
-    const addWater=(x,y)=>{
-      ripples.push({x,y,r:5,life:1,speed:.75});
-      for(let i=0;i<3;i++)droplets.push({x:x+(Math.random()-.5)*34,y:y+(Math.random()-.5)*25,r:1.5+Math.random()*3.2,life:.8+Math.random()*.2,vy:-.12-Math.random()*.25});
-      if(droplets.length>180)droplets.splice(0,droplets.length-180);
+    const addWater=(x,y,strength=1)=>{
+      const now=performance.now();
+      ripples.push({x,y,start:now,radius:48+Math.random()*28,strength,delay:0});
+      ripples.push({x:x+2,y:y-1,start:now+95,radius:30+Math.random()*20,strength:strength*.48,delay:95});
+      if(Math.random()<.62)droplets.push({x:x+(Math.random()-.5)*13,y:y+(Math.random()-.5)*10,rx:2.1+Math.random()*2.2,ry:3.4+Math.random()*3.4,life:1,vy:-.08-Math.random()*.16});
+      if(droplets.length>70)droplets.splice(0,droplets.length-70);
+      if(ripples.length>90)ripples.splice(0,ripples.length-90);
     };
     const paintWater=now=>{
       if(!waterCtx||!water)return;
       const rect=portal.getBoundingClientRect();waterCtx.clearRect(0,0,rect.width,rect.height);
-      for(let i=ripples.length-1;i>=0;i--){const p=ripples[i];p.r+=p.speed;p.life-=.012;waterCtx.beginPath();waterCtx.ellipse(p.x,p.y,p.r*1.55,p.r*.72,-.18,0,Math.PI*2);waterCtx.strokeStyle=`rgba(225,246,247,${Math.max(0,p.life)*.42})`;waterCtx.lineWidth=1.2;waterCtx.stroke();if(p.life<=0)ripples.splice(i,1);}
-      for(let i=droplets.length-1;i>=0;i--){const p=droplets[i];p.y+=p.vy;p.life-=.0028;waterCtx.save();waterCtx.globalAlpha=Math.max(0,p.life)*.8;const g=waterCtx.createRadialGradient(p.x-p.r*.3,p.y-p.r*.35,.2,p.x,p.y,p.r*1.7);g.addColorStop(0,'rgba(255,255,255,.95)');g.addColorStop(.35,'rgba(218,241,244,.62)');g.addColorStop(1,'rgba(160,199,208,0)');waterCtx.fillStyle=g;waterCtx.beginPath();waterCtx.ellipse(p.x,p.y,p.r*.78,p.r*1.35,-.3,0,Math.PI*2);waterCtx.fill();waterCtx.strokeStyle='rgba(245,255,255,.7)';waterCtx.lineWidth=.65;waterCtx.stroke();waterCtx.restore();if(p.life<=0)droplets.splice(i,1);}
+      for(let i=ripples.length-1;i>=0;i--){
+        const p=ripples[i],age=Math.max(0,now-p.start-p.delay),t=age/1050;
+        if(t>=1){ripples.splice(i,1);continue;}if(age<=0)continue;
+        const eased=1-Math.pow(1-t,1.45),r=7+eased*p.radius,fade=Math.sin(Math.PI*t)*p.strength;
+        const grad=waterCtx.createRadialGradient(p.x,p.y,Math.max(1,r-2),p.x,p.y,r+3);
+        grad.addColorStop(0,'rgba(220,244,244,0)');grad.addColorStop(.72,'rgba(210,239,239,'+(fade*.10)+')');grad.addColorStop(1,'rgba(242,252,250,'+(fade*.42)+')');
+        waterCtx.save();waterCtx.globalAlpha=Math.min(.78,fade*1.15);
+        waterCtx.beginPath();waterCtx.arc(p.x,p.y,r,0,Math.PI*2);waterCtx.strokeStyle=grad;waterCtx.lineWidth=2.2;waterCtx.stroke();
+        waterCtx.beginPath();waterCtx.arc(p.x-r*.012,p.y-r*.018,r*.94,Math.PI*1.08,Math.PI*1.88);waterCtx.strokeStyle='rgba(255,255,255,'+(fade*.5)+')';waterCtx.lineWidth=.8;waterCtx.stroke();
+        waterCtx.beginPath();waterCtx.arc(p.x+r*.01,p.y+r*.012,r*1.055,Math.PI*.08,Math.PI*.78);waterCtx.strokeStyle='rgba(133,183,190,'+(fade*.24)+')';waterCtx.lineWidth=1;waterCtx.stroke();
+        waterCtx.restore();
+      }
+      for(let i=droplets.length-1;i>=0;i--){
+        const p=droplets[i];p.y+=p.vy;p.life-=.006;
+        if(p.life<=0){droplets.splice(i,1);continue;}
+        waterCtx.save();waterCtx.globalAlpha=p.life*.76;
+        const g=waterCtx.createRadialGradient(p.x-p.rx*.38,p.y-p.ry*.48,.2,p.x,p.y,p.ry*1.25);
+        g.addColorStop(0,'rgba(255,255,255,.98)');g.addColorStop(.22,'rgba(237,250,249,.88)');g.addColorStop(.62,'rgba(180,218,222,.46)');g.addColorStop(1,'rgba(103,158,168,0)');
+        waterCtx.fillStyle=g;waterCtx.beginPath();waterCtx.ellipse(p.x,p.y,p.rx,p.ry,-.18,0,Math.PI*2);waterCtx.fill();
+        waterCtx.strokeStyle='rgba(239,252,250,.62)';waterCtx.lineWidth=.65;waterCtx.stroke();
+        waterCtx.fillStyle='rgba(255,255,255,.9)';waterCtx.beginPath();waterCtx.ellipse(p.x-p.rx*.3,p.y-p.ry*.42,p.rx*.25,p.ry*.16,-.5,0,Math.PI*2);waterCtx.fill();
+        waterCtx.restore();
+      }
       if(droplets.length||ripples.length)waterFrame=requestAnimationFrame(paintWater);else waterFrame=0;
     };
     const animateWater=()=>{if(!waterFrame)waterFrame=requestAnimationFrame(paintWater);};
     const stopRestore=()=>{if(restoreFrame)cancelAnimationFrame(restoreFrame);restoreFrame=0;restoreTime=0;};
     const restoreMist=now=>{
-      if(!ctx||!fog||wiping){restoreFrame=0;return;}
-      if(!restoreTime)restoreTime=now;
-      const elapsed=now-restoreTime,rect=portal.getBoundingClientRect(),amount=Math.min(1,elapsed/restoreDuration);
-      ctx.save();ctx.globalCompositeOperation='source-over';ctx.fillStyle=`rgba(218,233,239,${0.0065})`;ctx.fillRect(0,0,rect.width,rect.height);ctx.restore();
-      if(amount<1)restoreFrame=requestAnimationFrame(restoreMist);else{restoreFrame=0;restoreTime=0;}
+      if(!ctx||!fog||wiping||!baseFog||!erasedFog){restoreFrame=0;return;}
+      if(!restoreTime){restoreTime=now;restoreLast=now;}
+      const elapsed=now-restoreTime,rect=portal.getBoundingClientRect(),t=Math.min(1,elapsed/restoreDuration),amount=t*t*(3-2*t);
+      ctx.clearRect(0,0,rect.width,rect.height);ctx.drawImage(erasedFog,0,0,rect.width,rect.height);
+      ctx.save();ctx.globalAlpha=amount;ctx.drawImage(baseFog,0,0,rect.width,rect.height);ctx.restore();restoreLast=now;
+      if(t<1)restoreFrame=requestAnimationFrame(restoreMist);else{
+        ctx.clearRect(0,0,rect.width,rect.height);ctx.drawImage(baseFog,0,0,rect.width,rect.height);
+        restoreFrame=0;restoreTime=0;restoreLast=0;erasedFog=null;
+      }
     };
     if(fog&&ctx){
       sizeCanvases();window.addEventListener('resize',sizeCanvases,{passive:true});
@@ -487,8 +517,8 @@ function initHomeIntro() {
       },{passive:true});
       const endWipe=()=>{
         if(!wiping)return;wiping=false;lastPoint=null;downPoint=null;
-        if(didWipe){const suppress=e=>{e.preventDefault();e.stopImmediatePropagation();portal.removeEventListener('click',suppress,true);};portal.addEventListener('click',suppress,true);}
-        restoreTime=0;restoreFrame=requestAnimationFrame(restoreMist);
+        if(didWipe){erasedFog=document.createElement('canvas');erasedFog.width=fog.width;erasedFog.height=fog.height;erasedFog.getContext('2d').drawImage(fog,0,0);const suppress=e=>{e.preventDefault();e.stopImmediatePropagation();portal.removeEventListener('click',suppress,true);};portal.addEventListener('click',suppress,true);}
+        restoreTime=0;restoreLast=0;if(didWipe&&erasedFog)restoreFrame=requestAnimationFrame(restoreMist);
       };
       window.addEventListener('pointerup',endWipe,{passive:true});window.addEventListener('pointercancel',endWipe,{passive:true});
       portal.addEventListener('pointerleave',()=>{portal.style.setProperty('--pointer-x','50%');portal.style.setProperty('--pointer-y','50%');},{passive:true});
