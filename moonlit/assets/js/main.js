@@ -417,7 +417,16 @@ async function renderFaq() {
 
 /** 首頁雙場景開場：像素春日草原 → 浮世繪山水小屋 */
 function initHomeIntro() {
+  const portal = $('#portalScreen');
+  const portalEnter = $('#portalEnter');
   const stage = $('#introStage');
+  if (portal && portalEnter && stage) {
+    portalEnter.addEventListener('click', () => {
+      if (document.body.classList.contains('portal-opened')) return;
+      document.body.classList.add('portal-opened');
+      window.setTimeout(() => { portal.remove(); }, 1000);
+    });
+  }
   const wakeButton = $('#wakeCharacter');
   const transition = $('#ukiyoTransition');
   const world = $('#homeWorld');
