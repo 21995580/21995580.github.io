@@ -884,3 +884,29 @@ body[data-page="home"] .intro-stage { position:fixed; inset:0; overflow:hidden; 
 body[data-page="home"] .intro-stage,body[data-page="home"] .ukiyo-transition,body[data-page="home"] .home-world{font-family:"Noto Serif TC","Songti TC",serif}
 @media(max-width:700px){.pixel-sakura-tree{transform:scale(.7);transform-origin:bottom left;left:-4%;bottom:19%}.sleeping-character{width:min(280px,68vw);bottom:16%}.intro-sign{top:8%}.intro-hint{bottom:5%;font-size:11px}.cabin-header{align-items:flex-start;flex-direction:column;padding:16px 18px;gap:12px}.cabin-nav{justify-content:flex-start;gap:8px 17px}.cabin-nav a{font-size:12px}.cabin-welcome{top:55%}.world-house{bottom:14%;transform:translateX(-50%) scale(.82)}.ukiyo-house{transform:translateX(-50%) scale(.82);transform-origin:bottom center}}
 @media(prefers-reduced-motion:reduce){body[data-page="home"] *,body[data-page="home"] *:before,body[data-page="home"] *:after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}}
+
+
+/* Pixel-art opening scene: replace the temporary geometric mock-up with the finished illustration. */
+body[data-page="home"] .intro-stage{background:#8bb8ac;isolation:isolate}
+body[data-page="home"] .intro-art{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center center;z-index:-1;image-rendering:auto}
+body[data-page="home"] .pixel-sky,
+body[data-page="home"] .pixel-hills,
+body[data-page="home"] .pixel-grass,
+body[data-page="home"] .pixel-sakura-tree,
+body[data-page="home"] .pixel-butterfly,
+body[data-page="home"] .pixel-petals,
+body[data-page="home"] .intro-sign{display:none!important}
+body[data-page="home"] .sleeping-character{left:14%;top:51%;bottom:auto;width:44%;height:36%;transform:none;filter:none;cursor:pointer;z-index:4;border-radius:42%;background:transparent}
+body[data-page="home"] .sleeping-character:hover{transform:translateY(-3px);filter:drop-shadow(0 0 15px #fff0c477)}
+body[data-page="home"] .pixel-person,
+body[data-page="home"] .sleep-z,
+body[data-page="home"] .wake-halo{display:none!important}
+body[data-page="home"] .wake-dialog{display:none!important}
+body[data-page="home"] .intro-hint{bottom:3%;background:#214a438c;border-color:#f5e3c5aa;box-shadow:0 5px 22px #183d3540}
+body[data-page="home"] .intro-credit{color:#fff0d4;text-shadow:0 1px 4px #234b43}
+body[data-page="home"].intro-waking .sleeping-character{animation:meadowWake .85s ease-in-out both}
+@keyframes meadowWake{0%{transform:scale(1)}35%{transform:translateY(-10px) rotate(-2deg) scale(1.025)}70%{transform:translateY(-4px) rotate(1deg) scale(1.04)}100%{transform:translateY(0) scale(1)}}
+@media(max-width:700px){
+ body[data-page="home"] .intro-art{object-position:43% center}
+ body[data-page="home"] .sleeping-character{left:8%;top:54%;width:54%;height:31%}
+}
