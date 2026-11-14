@@ -444,6 +444,35 @@ function initHomeIntro() {
       document.body.classList.remove('intro-waking', 'intro-leaving');
     }, 5650);
   });
+
+  const door = $('#openDoor');
+  const room = $('#roomInterior');
+  const returnDoor = $('#roomReturn');
+  door?.addEventListener('click', () => {
+    if (!room || room.classList.contains('room-opening') || room.classList.contains('room-visible')) return;
+    door.classList.add('door-opening');
+    world.classList.add('door-opened');
+    window.setTimeout(() => {
+      room.classList.add('room-opening');
+      room.setAttribute('aria-hidden', 'false');
+    }, 420);
+    window.setTimeout(() => {
+      room.classList.add('room-visible');
+      room.classList.remove('room-opening');
+      world.classList.add('inside-room');
+    }, 1500);
+  });
+  returnDoor?.addEventListener('click', () => {
+    if (!room) return;
+    room.classList.remove('room-visible');
+    room.classList.add('room-closing');
+    world.classList.remove('inside-room', 'door-opened');
+    window.setTimeout(() => {
+      room.classList.remove('room-closing', 'room-opening');
+      room.setAttribute('aria-hidden', 'true');
+      door?.classList.remove('door-opening');
+    }, 1050);
+  });
 }
 
 async function init() {
