@@ -5,27 +5,45 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#a8d8cf">
   <title>月相地圖 Moonlit Atlas</title>
-  <link rel="stylesheet" href="assets/css/theme.css?v=20261114-3">
+  <link rel="stylesheet" href="assets/css/theme.css?v=20261114-4">
 </head>
 <body data-page="home" class="home-intro">
   <main class="portal-screen" id="portalScreen">
     <div class="portal-backdrop" aria-hidden="true"></div>
-    <div class="portal-vignette" aria-hidden="true"></div>
-    <section class="portal-glass" aria-label="月相地圖入口">
-      <div class="portal-ornament ornament-top" aria-hidden="true">✧　──────　☾　──────　✧</div>
-      <span class="portal-eyebrow">A QUIET WORLD BEYOND THE MOON</span>
-      <div class="portal-emblem" aria-hidden="true"><span>月</span></div>
-      <h1>月相地圖</h1>
-      <p class="portal-en">MOONLIT ATLAS</p>
-      <div class="portal-rule"><i></i><span>❖</span><i></i></div>
-      <p class="portal-description">循著月色與山嵐，走進一座收藏故事的庭院。<br>每一扇門後，都有值得相遇的人與風景。</p>
-      <button class="portal-enter" id="portalEnter" type="button"><span>開始探索</span><b>↗</b></button>
-      <div class="portal-shortcuts">
-        <a href="works.html">作品與世界</a><i>·</i><a href="characters.html">人物誌</a><i>·</i><a href="gallery.html">收藏畫廊</a>
-      </div>
-      <div class="portal-ornament ornament-bottom" aria-hidden="true">✧　────────────　✧</div>
-    </section>
-    <div class="portal-footnote">MOONLIT ATLAS <span>·</span> STORIES BEGIN HERE</div>
+    <div class="portal-wash" aria-hidden="true"></div>
+    <div class="portal-glass-wrap">
+      <section class="portal-glass" aria-label="月相地圖歡迎頁">
+        <div class="portal-glass-inner">
+          <p class="portal-sign">A QUIET WORLD BEYOND THE MOON</p>
+          <span class="portal-rule"></span>
+          <div class="portal-copy">
+            <p class="portal-title">Welcome to <em>Moonlit Atlas</em></p>
+            <h1>這是一處只屬於故事與相遇的庭院。</h1>
+            <p class="portal-description">沿著月色與山嵐，探索收藏於此的世界、人物與片段。<br>每一扇門後，都有值得停留的風景。</p>
+            <p class="portal-note">A place of waking in the mist. All stories begin somewhere.</p>
+            <div class="portal-actions">
+              <button class="portal-action primary" id="portalEnter" type="button">走進庭院 <span>↗</span></button>
+              <a class="portal-action" href="works.html">探索作品</a>
+              <a class="portal-action" href="characters.html">人物誌</a>
+            </div>
+            <button class="portal-skip" id="portalSkip" type="button">略過介紹，直接前往旅人</button>
+          </div>
+          <div class="portal-glass-butterfly" aria-hidden="true">
+            <svg viewBox="0 0 120 92">
+              <g fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M60 45 C49 26 27 8 13 13 C2 17 10 39 27 48 C39 55 50 52 60 48 C71 52 82 55 94 48 C111 39 118 17 107 13 C93 8 71 26 60 45Z"/>
+                <path d="M59 46 C48 40 30 30 20 24 M58 49 C44 48 31 45 24 39 M61 46 C72 40 90 30 100 24 M62 49 C76 48 89 45 96 39"/>
+                <path d="M60 43 C57 51 57 62 60 70 M60 44 C55 37 53 31 54 24 M60 44 C65 37 67 31 66 24"/>
+                <path d="M60 70 C56 76 52 80 47 82 M60 70 C64 76 68 80 73 82"/>
+              </g>
+              <path d="M60 40 C56 47 56 61 60 72 C64 61 64 47 60 40Z" fill="currentColor" opacity=".7"/>
+            </svg>
+          </div>
+          <div class="portal-bottom"><span>MOONLIT ATLAS</span><i></i><span>STORIES BEGIN HERE</span></div>
+        </div>
+      </section>
+    </div>
+    <p class="portal-credit">Inspired by the glass welcome-page composition of <a href="https://github.com/Sui-IB/InternalBeyond" target="_blank" rel="noreferrer">Internal Beyond — Sui</a>. Adapted for Moonlit Atlas.</p>
   </main>
 
   <main class="intro-stage" id="introStage">
@@ -102,7 +120,7 @@
   </main>
 
   <section class="ukiyo-transition" id="ukiyoTransition" aria-hidden="true">
-    <img class="ukiyo-art" src="assets/images/ukiyo-valley.webp?v=20261114-3" alt="">
+    <img class="ukiyo-art" src="assets/images/ukiyo-valley.webp?v=20261114-4" alt="">
     <div class="transition-atmosphere" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i></div>
     <div class="ukiyo-sky"></div>
     <div class="ukiyo-sun"></div>
@@ -127,7 +145,7 @@
 
   <div class="home-world" id="homeWorld" aria-hidden="true">
     <div class="world-backdrop">
-      <img class="world-art" src="assets/images/ukiyo-valley.webp?v=20261114-3" alt="">
+      <img class="world-art" src="assets/images/ukiyo-valley.webp?v=20261114-4" alt="">
       <div class="world-mountain mountain-one"></div><div class="world-mountain mountain-two"></div>
       <div class="world-mountain mountain-three"></div><div class="world-river"></div>
       <div class="world-pine pine-one"></div><div class="world-pine pine-two"></div>
@@ -151,7 +169,7 @@
     <div class="cabin-footer">月相地圖 · 以夢為引，以故事為歸</div>
 
     <section class="room-interior" id="roomInterior" aria-label="小屋室內" aria-hidden="true">
-      <img class="room-art" src="assets/images/teahouse-interior.webp?v=20261114-3" alt="木質古風書齋，窗外可見櫻花與遠山，桌上鋪著地圖繪卷">
+      <img class="room-art" src="assets/images/teahouse-interior.webp?v=20261114-4" alt="木質古風書齋，窗外可見櫻花與遠山，桌上鋪著地圖繪卷">
       <div class="room-light" aria-hidden="true"></div>
       <div class="room-windchime" aria-hidden="true"><i></i><b></b><span></span></div>
       <div class="room-petals" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>
@@ -172,6 +190,6 @@
     </section>
 
   </div>
-  <script src="assets/js/main.js?v=20261114-3"></script>
+  <script src="assets/js/main.js?v=20261114-4"></script>
 </body>
 </html>
