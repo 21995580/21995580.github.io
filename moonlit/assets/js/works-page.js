@@ -16,8 +16,15 @@
   function getTags(work) {
     return Array.isArray(work.tags) ? work.tags : (Array.isArray(work.categories) ? work.categories : ['原創']);
   }
+  const reservedWorks = [
+    { placeholder:true, title:'新作預留位置', subtitle:'COMING SOON', shortDescription:'下一個世界正在醞釀，完整故事即將公開。', cover:'images/bg/dragon-star-map.jpg' },
+    { placeholder:true, title:'新作預留位置', subtitle:'A NEW TALE', shortDescription:'此處保留給未來的新篇章，封面與內容都可以替換。', cover:'assets/images/teahouse-interior.webp' },
+    { placeholder:true, title:'新作預留位置', subtitle:'TO BE CONTINUED', shortDescription:'待作品資料加入後，這個位置便會自動更新。', cover:'images/bg/main.jpg' }
+  ];
   function visibleWorks() {
-    return state.works.filter((work) => state.filter === '全部' || getTags(work).includes(state.filter));
+    const filtered = state.works.filter((work) => state.filter === '全部' || getTags(work).includes(state.filter));
+    if (state.filter !== '全部' || filtered.length >= PAGE_SIZE) return filtered;
+    return filtered.concat(reservedWorks.slice(0, PAGE_SIZE - filtered.length));
   }
   function makeElement(tag, className, text) {
     const element = document.createElement(tag);
@@ -56,10 +63,10 @@
   }
 
   function createCard(work, index) {
-    const card = makeElement('a', 'work-card');
-    card.href = 'work.html?id=' + encodeURIComponent(work.id || '');
+    const card = makeElement(work.placeholder ? 'article' : 'a', work.placeholder ? 'work-card is-placeholder' : 'work-card');
+    if (!work.placeholder) card.href = 'work.html?id=' + encodeURIComponent(work.id || '');
     card.style.setProperty('--order', String(index));
-    card.setAttribute('aria-label', '探索作品：' + (work.title || '未命名作品'));
+    card.setAttribute('aria-label', work.placeholder ? '新作品預留位置' : '探索作品：' + (work.title || '未命名作品'));
 
     const cover = makeElement('div', 'work-cover');
     const image = document.createElement('img');
@@ -70,12 +77,12 @@
     cover.appendChild(image);
 
     const tagWrap = makeElement('div', 'work-tags');
-    getTags(work).slice(0, 2).forEach((tag) => tagWrap.appendChild(makeElement('span', '', tag)));
+    (work.placeholder ? ['新作籌備中'] : getTags(work).slice(0, 2)).forEach((tag) => tagWrap.appendChild(makeElement('span', '', tag)));
     const content = makeElement('div', 'work-card-content');
     content.appendChild(makeElement('h3', '', work.title || '未命名作品'));
     content.appendChild(makeElement('span', 'work-en', work.subtitle || 'Original World'));
     content.appendChild(makeElement('p', '', work.shortDescription || '一段等待被探索的故事。'));
-    content.appendChild(makeElement('span', 'work-explore', '探索世界　◇'));
+    content.appendChild(makeElement('span', 'work-explore', work.placeholder ? '敬請期待　◇' : '探索世界　◇'));
 
     card.append(cover, tagWrap, content);
     return card;
@@ -243,7 +250,7 @@
   window.addEventListener('scroll', () => {
     if (scrollFrame) return;
     scrollFrame = requestAnimationFrame(() => {
-      background.style.setProperty('--parallax-y', (window.scrollY * .105).toFixed(1) + 'px');
+      background.style.setProperty('--parallax-y', (-window.scrollY * .19).toFixed(1) + 'px');
       scrollFrame = 0;
     });
   }, { passive: true });
