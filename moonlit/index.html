@@ -1,79 +1,278 @@
 <!doctype html>
 <html lang="zh-Hant">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#a8d8cf">
-  <title>月相地圖 Moonlit Atlas</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Noto+Sans+TC:wght@300;400;500&family=Noto+Serif+TC:wght@400;500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="assets/css/theme.css?v=20261115-8">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#173e50">
+<title>雲間絮語｜月相地圖</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=Noto+Serif+TC:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#173b4d;--ink-soft:#345a6b;--paper:#f8ffff;--gold:#e8d7ae;
+  --glass:rgba(16,48,62,.30);--glass-light:rgba(222,246,245,.16);
+  --glass-line:rgba(245,255,255,.70);
+  --glass-blur:blur(22px) saturate(155%);
+  --serif:'Noto Serif TC','Songti TC','PMingLiU',serif;
+  --latin:'Cormorant Garamond',Georgia,serif;
+}
+*{box-sizing:border-box}
+html,body{width:100%;height:100%;margin:0}
+body{font-family:var(--serif);color:var(--paper);overflow:hidden;background:#183e50}
+button,a{font:inherit}
+button:focus-visible,a:focus-visible{outline:2px solid #fff4d6;outline-offset:4px}
+.scene{position:fixed;inset:0;z-index:0;overflow:hidden;background:#254c5a}
+.scene-image{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 54%;transform:scale(1.025);filter:saturate(.9) brightness(.82)}
+.scene-shade{position:absolute;inset:0;background:linear-gradient(180deg,rgba(9,34,48,.26),rgba(10,45,57,.10) 45%,rgba(8,33,47,.36)),linear-gradient(90deg,rgba(8,35,47,.20),transparent 45%,rgba(8,35,47,.17))}
+#fx{position:fixed;inset:0;width:100%;height:100%;z-index:1;pointer-events:none}
+.frame{position:fixed;inset:14px;z-index:2;border:1px solid rgba(246,255,255,.38);pointer-events:none;box-shadow:inset 0 0 42px rgba(230,255,250,.045)}
+.frame:before,.frame:after{content:"✧";position:absolute;left:50%;transform:translateX(-50%);color:rgba(255,249,226,.82);font-size:13px;line-height:1;background:#183e50;padding:0 10px}
+.frame:before{top:-7px}.frame:after{bottom:-7px}
+.glass{
+  background:linear-gradient(135deg,rgba(235,251,251,.20),rgba(19,57,72,.34) 48%,rgba(221,245,241,.13));
+  border:1px solid var(--glass-line);border-radius:26px;
+  -webkit-backdrop-filter:var(--glass-blur);backdrop-filter:var(--glass-blur);
+  box-shadow:0 18px 60px rgba(4,26,40,.24),inset 0 1px 0 rgba(255,255,255,.65),inset 0 -1px 0 rgba(255,255,255,.12);
+}
+.welcome{position:fixed;inset:0;z-index:4;display:grid;place-items:center;padding:32px 22px;opacity:1;visibility:visible;transition:opacity .8s ease,visibility .8s}
+.welcome.is-leaving{opacity:0;visibility:hidden;pointer-events:none}
+.welcome-card{position:relative;width:min(720px,92vw);padding:clamp(42px,7vw,76px) clamp(26px,6vw,72px);text-align:center;overflow:hidden;isolation:isolate}
+.welcome-card:before{content:"";position:absolute;inset:10px;border:1px solid rgba(239,255,252,.24);border-radius:19px;pointer-events:none}
+.welcome-card:after{content:"";position:absolute;inset:-35%;z-index:-1;background:radial-gradient(ellipse at 50% 0%,rgba(230,255,250,.19),transparent 55%);pointer-events:none}
+.kicker{font:500 12px var(--latin);letter-spacing:.34em;color:#e4f3f0;text-shadow:0 1px 8px rgba(3,25,37,.8)}
+.welcome-seal{width:52px;height:52px;margin:0 auto 20px;border:1px solid rgba(255,255,255,.65);border-radius:50%;display:grid;place-items:center;color:#fff4d6;font-size:22px;box-shadow:0 0 28px rgba(211,243,239,.22),inset 0 0 18px rgba(255,255,255,.13)}
+.welcome h1{margin:16px 0 10px;font-weight:500;letter-spacing:.24em;font-size:clamp(29px,5vw,46px);color:#fff;text-shadow:0 3px 15px rgba(3,24,37,.78)}
+.welcome .latin-title{font:400 clamp(19px,3vw,25px) var(--latin);letter-spacing:.22em;color:#f4e8c9;text-shadow:0 2px 12px rgba(3,24,37,.8)}
+.welcome-copy{margin:24px auto 0;max-width:490px;font-size:15px;line-height:2.25;letter-spacing:.12em;color:#f6fbfa;text-shadow:0 2px 9px rgba(2,26,39,.9)}
+.welcome-rule{display:flex;align-items:center;justify-content:center;gap:13px;margin:24px 0 28px;color:#f1dfb8}
+.welcome-rule:before,.welcome-rule:after{content:"";width:74px;height:1px;background:linear-gradient(90deg,transparent,rgba(247,238,209,.84))}
+.welcome-rule:after{transform:rotate(180deg)}
+.primary{
+  position:relative;min-width:202px;min-height:52px;padding:12px 28px;border:1px solid rgba(232,250,247,.86);border-radius:999px;
+  color:#fff;background:linear-gradient(135deg,rgba(219,247,241,.24),rgba(35,96,110,.40));
+  -webkit-backdrop-filter:blur(14px) saturate(145%);backdrop-filter:blur(14px) saturate(145%);
+  box-shadow:0 0 0 5px rgba(227,250,245,.07),0 10px 30px rgba(3,25,37,.23),inset 0 1px 0 rgba(255,255,255,.55);
+  letter-spacing:.28em;font-size:15px;cursor:pointer;transition:transform .3s,box-shadow .3s,background .3s
+}
+.primary:hover{transform:translateY(-3px);background:linear-gradient(135deg,rgba(236,255,250,.34),rgba(44,120,132,.48));box-shadow:0 0 0 8px rgba(227,250,245,.11),0 0 42px rgba(216,255,250,.32),0 12px 32px rgba(3,25,37,.25)}
+.primary:active{transform:translateY(0) scale(.98)}
+.site-header{position:fixed;top:0;left:0;right:0;z-index:5;display:flex;align-items:center;justify-content:space-between;padding:24px clamp(22px,5vw,62px);opacity:0;visibility:hidden;transform:translateY(-12px);transition:opacity .65s,transform .65s,visibility .65s}
+.site-header.is-visible{opacity:1;visibility:visible;transform:translateY(0)}
+.logo{display:flex;align-items:center;gap:12px;color:white;text-decoration:none;text-shadow:0 2px 12px rgba(4,25,37,.8)}
+.logo-mark{width:43px;height:43px;display:grid;place-items:center;border:1px solid rgba(255,255,255,.78);border-radius:50%;font-size:20px;background:rgba(226,249,244,.14);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px)}
+.logo b{display:block;font-size:23px;font-weight:500;letter-spacing:.16em}
+.logo small{display:block;margin-top:2px;font:500 10px var(--latin);letter-spacing:.28em;color:#f1e6cd}
+.site-nav{display:flex;gap:4px;padding:6px 8px;border:1px solid rgba(255,255,255,.5);border-radius:999px;background:rgba(15,47,60,.24);-webkit-backdrop-filter:blur(18px) saturate(145%);backdrop-filter:blur(18px) saturate(145%);box-shadow:0 8px 30px rgba(3,24,38,.14)}
+.site-nav a{padding:9px 17px;border-radius:999px;text-decoration:none;color:#f8ffff;font-size:13px;letter-spacing:.12em;text-shadow:0 1px 7px rgba(0,20,31,.75);transition:background .25s,color .25s}
+.site-nav a:hover{background:rgba(239,255,250,.22);color:#fff}
+.home{position:fixed;inset:0;z-index:3;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:115px 24px 74px;opacity:0;visibility:hidden;pointer-events:none;transform:scale(1.015);transition:opacity .85s,transform .85s,visibility .85s;overflow:auto}
+.home.is-visible{opacity:1;visibility:visible;pointer-events:auto;transform:scale(1)}
+.home-heading{text-align:center;margin:0 auto 26px;max-width:720px;text-shadow:0 2px 13px rgba(3,25,38,.9)}
+.home-heading .eyebrow{font:500 12px var(--latin);letter-spacing:.34em;color:#f0e5ca}
+.home-heading h2{margin:12px 0 8px;font-size:clamp(28px,4vw,42px);font-weight:500;letter-spacing:.22em;color:#fff}
+.home-heading p{font-size:14px;letter-spacing:.14em;color:#f4fbf9}
+.orbs{display:flex;gap:clamp(25px,7vw,100px);align-items:flex-start;justify-content:center;flex-wrap:wrap;width:min(900px,100%);margin:16px auto 0}
+.orb{display:block;min-width:160px;padding:0 8px 12px;text-align:center;text-decoration:none;color:#fff;text-shadow:0 2px 12px rgba(3,26,39,.9);border-radius:24px;transition:transform .35s,filter .35s}
+.bubble{position:relative;width:clamp(126px,15vw,166px);aspect-ratio:1;border-radius:50%;margin:0 auto 15px;display:grid;place-items:center;font-size:55px;color:#fff;
+ background:radial-gradient(circle at 28% 22%,rgba(255,255,255,.62),rgba(229,250,249,.23) 27%,rgba(110,181,191,.14) 61%,rgba(20,66,82,.19) 100%);
+ border:1px solid rgba(247,255,255,.82);-webkit-backdrop-filter:blur(17px) saturate(155%);backdrop-filter:blur(17px) saturate(155%);
+ box-shadow:0 0 0 7px rgba(240,255,251,.12),0 0 30px rgba(218,252,249,.34),inset 0 2px 10px rgba(255,255,255,.48),inset 0 -14px 24px rgba(12,52,70,.18);
+ transition:transform .45s,box-shadow .45s,background .45s;animation:float 6.5s ease-in-out infinite}
+.bubble:before{content:"";position:absolute;left:22%;top:14%;width:24%;height:10%;border-radius:50%;background:rgba(255,255,255,.72);filter:blur(5px);transform:rotate(-24deg)}
+.bubble:after{content:"";position:absolute;inset:8%;border:1px solid rgba(248,255,255,.22);border-radius:50%;box-shadow:inset 0 0 16px rgba(247,255,255,.10)}
+.orb:nth-child(2) .bubble{animation-delay:-2.1s}
+.orb:nth-child(3) .bubble{animation-delay:-4.2s}
+.orb:hover{transform:translateY(-7px);filter:brightness(1.08)}
+.orb:hover .bubble{transform:scale(1.075);background:radial-gradient(circle at 28% 22%,rgba(255,255,255,.76),rgba(229,250,249,.3) 28%,rgba(110,181,191,.19) 62%,rgba(20,66,82,.17) 100%);box-shadow:0 0 0 10px rgba(240,255,251,.17),0 0 52px rgba(218,252,249,.58),inset 0 2px 12px rgba(255,255,255,.56),inset 0 -14px 24px rgba(12,52,70,.16)}
+.orb b{display:block;font-size:20px;font-weight:500;letter-spacing:.24em;color:#fff}
+.orb span{display:block;margin-top:5px;font:500 14px var(--latin);letter-spacing:.22em;color:#f1e8d3}
+.orb:focus-visible{outline:2px solid #fff4d6;outline-offset:5px}
+.enter-label{display:flex;align-items:center;gap:15px;margin:44px 0 0;font-size:13px;letter-spacing:.24em;color:#fff;text-shadow:0 2px 10px rgba(0,22,35,.9)}
+.enter-label:before,.enter-label:after{content:"";width:50px;height:1px;background:rgba(244,255,250,.7)}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-9px)}}
+@media(max-width:760px){
+  .frame{inset:8px}
+  .site-header{padding:16px 17px;align-items:flex-start}
+  .logo b{font-size:18px}.logo-mark{width:37px;height:37px}
+  .site-nav{gap:0;padding:4px}
+  .site-nav a{padding:8px 10px;font-size:12px;letter-spacing:.04em}
+  .home{justify-content:flex-start;padding:108px 18px 42px}
+  .home-heading{margin-bottom:14px}.home-heading h2{font-size:29px}
+  .orbs{gap:16px 12px;margin-top:18px}
+  .orb{min-width:calc(33.33% - 10px);padding:0 2px 10px}
+  .bubble{width:min(25vw,138px);font-size:42px;margin-bottom:12px}
+  .orb b{font-size:15px;letter-spacing:.13em}
+  .orb span{font-size:12px}
+  .enter-label{margin-top:22px}
+}
+@media(max-width:420px){
+  .site-header{display:block}
+  .logo{justify-content:center;margin-bottom:10px}
+  .site-nav{justify-content:center;width:max-content;max-width:100%;margin:auto}
+  .home{padding-top:132px}
+  .welcome-card{padding:38px 20px}
+  .welcome-copy{font-size:13px}
+  .orbs{gap:15px 4px}
+  .orb{min-width:31%}
+  .bubble{width:26vw}
+  .orb b{font-size:14px}
+}
+@media(prefers-reduced-motion:reduce){
+  *,*:before,*:after{animation:none!important;scroll-behavior:auto!important;transition:none!important}
+}
+</style>
 </head>
-<body data-page="home" class="home-intro">
-  <main class="portal-screen" id="portalScreen">
-    <div class="portal-backdrop scene-landscape" aria-hidden="true"></div>
-    <div class="portal-wash" aria-hidden="true"></div>
-    <canvas class="portal-fog" id="portalFog" aria-hidden="true"></canvas>
-    <canvas class="portal-rain" id="portalRain" aria-hidden="true"></canvas><canvas class="portal-water" id="portalWater" aria-hidden="true"></canvas>
-    <div class="portal-glass-wrap">
-      <section class="portal-glass" aria-label="月相地圖歡迎頁">
-        <div class="portal-glass-inner">
-          <p class="portal-sign">A QUIET WORLD BEYOND THE MOON</p>
-          <span class="portal-rule"></span>
-          <div class="portal-copy">
-            <p class="portal-title">Welcome to <em>Moonlit Atlas</em></p>
-            <h1>這是一處只屬於故事與相遇的庭院。</h1>
-            <p class="portal-description">沿著月色與山嵐，探索收藏於此的世界、人物與片段。<br>每一扇門後，都有值得停留的風景。</p>
-            <p class="portal-note">A place of waking in the mist. All stories begin somewhere.</p>
-            <div class="portal-actions">
-              <button class="portal-action primary" id="portalEnter" type="button">踏入仙境 <span>↗</span></button>
-              
-            </div>
+<body>
+<div class="scene" aria-hidden="true">
+  <img class="scene-image" src="assets/images/moonlit-landscape.webp?v=20261115-1" alt="">
+  <div class="scene-shade"></div>
+</div>
+<canvas id="fx" aria-hidden="true"></canvas>
+<div class="frame" aria-hidden="true"></div>
 
-          </div>
-          <div class="portal-glass-butterfly" aria-hidden="true">
-            <svg viewBox="0 0 120 92">
-              <g fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M60 45 C49 26 27 8 13 13 C2 17 10 39 27 48 C39 55 50 52 60 48 C71 52 82 55 94 48 C111 39 118 17 107 13 C93 8 71 26 60 45Z"/>
-                <path d="M59 46 C48 40 30 30 20 24 M58 49 C44 48 31 45 24 39 M61 46 C72 40 90 30 100 24 M62 49 C76 48 89 45 96 39"/>
-                <path d="M60 43 C57 51 57 62 60 70 M60 44 C55 37 53 31 54 24 M60 44 C65 37 67 31 66 24"/>
-                <path d="M60 70 C56 76 52 80 47 82 M60 70 C64 76 68 80 73 82"/>
-              </g>
-              <path d="M60 40 C56 47 56 61 60 72 C64 61 64 47 60 40Z" fill="currentColor" opacity=".7"/>
-            </svg>
-          </div>
-          <div class="portal-bottom"><span>MOONLIT ATLAS</span><i></i><span>STORIES BEGIN HERE</span></div>
-        </div>
-      </section>
-    </div>
-    
-  </main>
+<header class="site-header" id="siteHeader">
+  <a class="logo" href="index.html" aria-label="雲間絮語首頁">
+    <span class="logo-mark">月</span><span><b>雲間絮語</b><small>MOONLIT ATLAS</small></span>
+  </a>
+  <nav class="site-nav" aria-label="主要導覽">
+    <a href="works.html">世界觀</a>
+    <a href="profile.html">個人檔案</a>
+    <a href="faq.html">FAQ</a>
+  </nav>
+</header>
 
-  <div class="home-world" id="homeWorld" aria-hidden="true">
-    <div class="world-backdrop">
-      <div class="portal-art-stage">
-        <div class="world-art scene-portal" role="img" aria-label="雲間絮語仙境入口：世界觀、個人檔案與常見問題"></div>
-        <nav class="portal-hotspots" aria-label="仙境主入口">
-          <a class="portal-hotspot hotspot-world" href="works.html" aria-label="世界觀與作品"></a>
-          <a class="portal-hotspot hotspot-profile" href="profile.html" aria-label="個人檔案"></a>
-          <a class="portal-hotspot hotspot-faq" href="faq.html" aria-label="常見問題"></a>
-          <a class="portal-hotspot hotspot-enter" href="works.html" aria-label="踏入仙境，探索作品"></a>
-        </nav>
-        <nav class="portal-nav-hotspots" aria-label="頁面導覽">
-          <a class="portal-logo-hotspot" href="index.html" aria-label="月相地圖首頁"></a>
-          <a class="nav-home" href="index.html" aria-label="首頁"></a>
-          <a class="nav-world" href="works.html" aria-label="世界觀"></a>
-          <a class="nav-profile" href="profile.html" aria-label="個人檔案"></a>
-          <a class="nav-faq" href="faq.html" aria-label="FAQ"></a>
-        </nav>
-      </div>
-      <div class="world-glass-pane" aria-hidden="true"></div>
-      <div class="world-atmosphere" aria-hidden="true"></div>
-      <canvas class="world-rain" id="worldRain" aria-hidden="true"></canvas>
-      <canvas class="world-water" id="worldWater" aria-hidden="true"></canvas>
-    </div>
+<section class="welcome" id="welcome" aria-label="歡迎進入雲間絮語">
+  <div class="welcome-card glass">
+    <div class="welcome-seal" aria-hidden="true">❀</div>
+    <p class="kicker">A QUIET WORLD BEYOND THE MOON</p>
+    <h1>雲間絮語</h1>
+    <p class="latin-title">Whispers Between Clouds</p>
+    <p class="welcome-copy">沿著月色與山嵐，尋訪收藏於此的世界、人物與故事。<br>願每一次相遇，都能在雲間留下溫柔的回音。</p>
+    <div class="welcome-rule" aria-hidden="true">✧</div>
+    <button class="primary" id="enterButton" type="button">踏入仙境　↗</button>
   </div>
-  <script src="assets/js/main.js?v=20261115-8"></script>
+</section>
+
+<main class="home" id="home" aria-label="網站主要入口">
+  <div class="home-heading">
+    <p class="eyebrow">A WORLD OF STORIES</p>
+    <h2>雲間絮語</h2>
+    <p>循著月色與山嵐，尋訪故事的所在</p>
+  </div>
+  <nav class="orbs" aria-label="主要入口">
+    <a class="orb" href="works.html">
+      <div class="bubble" aria-hidden="true">📖</div>
+      <b>世界觀</b><span>World</span>
+    </a>
+    <a class="orb" href="profile.html">
+      <div class="bubble" aria-hidden="true">◈</div>
+      <b>個人檔案</b><span>Profile</span>
+    </a>
+    <a class="orb" href="faq.html">
+      <div class="bubble" aria-hidden="true">？</div>
+      <b>常見問題</b><span>FAQ</span>
+    </a>
+  </nav>
+  <p class="enter-label">選擇一扇門，開始你的旅程</p>
+</main>
+
+<script>
+(() => {
+  const welcome = document.getElementById('welcome');
+  const home = document.getElementById('home');
+  const header = document.getElementById('siteHeader');
+  const enter = document.getElementById('enterButton');
+
+  function enterSite() {
+    welcome.classList.add('is-leaving');
+    home.classList.add('is-visible');
+    header.classList.add('is-visible');
+    document.body.classList.add('in-site');
+    if (location.hash !== '#home') history.replaceState(null, '', '#home');
+  }
+  enter.addEventListener('click', enterSite);
+  if (location.hash === '#home' || location.hash === '#homeWorld') enterSite();
+
+  const canvas = document.getElementById('fx');
+  const ctx = canvas.getContext('2d', { alpha: true });
+  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let width = 0, height = 0, dpr = 1, frame = 0, previous = 0, lastRipple = 0;
+  const random = (min, max) => min + Math.random() * (max - min);
+  const drops = [], streaks = [], petals = [], lights = [], ripples = [];
+
+  function resize() {
+    width = window.innerWidth;
+    height = window.innerHeight;
+    dpr = Math.min(window.devicePixelRatio || 1, 1.5);
+    canvas.width = Math.round(width * dpr);
+    canvas.height = Math.round(height * dpr);
+    canvas.style.width = width + 'px';
+    canvas.style.height = height + 'px';
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    drops.length = streaks.length = petals.length = lights.length = 0;
+    for (let i = 0; i < 45; i++) drops.push({x:random(0,width),y:random(0,height),r:random(2,6.2),speed:random(.12,.42),drift:random(-.08,.08),phase:random(0,6.28),alpha:random(.23,.52),trail:random(12,34)});
+    for (let i = 0; i < 58; i++) streaks.push({x:random(0,width),y:random(0,height),len:random(9,25),speed:random(.35,.9),alpha:random(.07,.2)});
+    for (let i = 0; i < 17; i++) petals.push({x:random(0,width),y:random(0,height),r:random(3,6),speed:random(.12,.33),drift:random(-.22,.22),angle:random(0,6.28),turn:random(-.006,.006),alpha:random(.3,.68)});
+    for (let i = 0; i < 24; i++) lights.push({x:random(0,width),y:random(0,height),r:random(.7,1.8),phase:random(0,6.28),speed:random(.0005,.0014)});
+  }
+  function drawDrop(d, time) {
+    const x = d.x + Math.sin(time * .00025 + d.phase) * 1.2, y = d.y, r = d.r;
+    ctx.save();
+    ctx.globalAlpha = d.alpha;
+    const grad = ctx.createRadialGradient(x-r*.36,y-r*.48,.3,x,y,r*1.45);
+    grad.addColorStop(0,'rgba(255,255,255,.96)');
+    grad.addColorStop(.2,'rgba(242,255,255,.75)');
+    grad.addColorStop(.5,'rgba(184,226,232,.28)');
+    grad.addColorStop(.82,'rgba(74,139,154,.12)');
+    grad.addColorStop(1,'rgba(70,126,143,0)');
+    ctx.fillStyle=grad;
+    ctx.beginPath();ctx.ellipse(x,y,r*.72,r*1.15,-.12,0,Math.PI*2);ctx.fill();
+    ctx.strokeStyle='rgba(248,255,255,.52)';ctx.lineWidth=.7;ctx.stroke();
+    ctx.fillStyle='rgba(255,255,255,.84)';ctx.beginPath();ctx.ellipse(x-r*.23,y-r*.43,r*.18,r*.09,-.4,0,Math.PI*2);ctx.fill();
+    if(r>4.6){
+      ctx.globalAlpha=d.alpha*.42;ctx.strokeStyle='rgba(236,252,255,.42)';ctx.lineWidth=.7;
+      ctx.beginPath();ctx.moveTo(x,y+r*.9);ctx.bezierCurveTo(x-1,y+r+6,x+1,y+r+13,x+d.drift*12,y+r+d.trail);ctx.stroke();
+    }
+    ctx.restore();
+  }
+  function drawPetal(p) {
+    ctx.save();ctx.translate(p.x,p.y);ctx.rotate(p.angle);ctx.globalAlpha=p.alpha;
+    ctx.fillStyle='rgba(255,218,229,.84)';ctx.beginPath();ctx.ellipse(0,0,p.r,p.r*.58,0,0,Math.PI*2);ctx.fill();
+    ctx.fillStyle='rgba(255,247,246,.38)';ctx.beginPath();ctx.ellipse(-p.r*.2,-p.r*.12,p.r*.45,p.r*.19,-.3,0,Math.PI*2);ctx.fill();
+    ctx.restore();
+  }
+  function drawRipple(r,time) {
+    const progress=(time-r.start)/2400;
+    if(progress>=1)return false;
+    const radius=progress*r.radius,fade=Math.sin(Math.PI*progress)*r.alpha;
+    ctx.save();ctx.globalAlpha=fade;
+    ctx.strokeStyle='rgba(233,253,251,.33)';ctx.lineWidth=.8;
+    ctx.beginPath();ctx.ellipse(r.x,r.y,radius,radius*.22,0,0,Math.PI*2);ctx.stroke();
+    ctx.globalAlpha*=.48;ctx.beginPath();ctx.ellipse(r.x,r.y,radius*.63,radius*.13,0,0,Math.PI*2);ctx.stroke();
+    ctx.restore();return true;
+  }
+  function animate(time) {
+    if(time-previous<25){frame=requestAnimationFrame(animate);return}
+    previous=time;ctx.clearRect(0,0,width,height);
+    ctx.save();ctx.lineCap='round';
+    for(const d of streaks){
+      ctx.strokeStyle='rgba(239,252,255,'+d.alpha+')';ctx.lineWidth=.65;
+      ctx.beginPath();ctx.moveTo(d.x,d.y);ctx.lineTo(d.x-1.2,d.y+d.len);ctx.stroke();
+      d.y+=d.speed;d.x-=.15;
+      if(d.y>height+30){d.y=-30;d.x=random(0,width)}
+    }
+    ctx.restore();
+    for(const d of drops){drawDrop(d,time);d.y+=d.speed;d.x+=d.drift;if(d.y>height+45){d.y=-random(12,100);d.x=random(0,width)}}
+    for(const p of petals){drawPetal(p);p.y+=p.speed;p.x+=p.drift*.2;p.angle+=p.turn;if(p.y>height+20){p.y=-20;p.x=random(0,width)}}
+    for(const l of lights){const alpha=.12+.26*(.5+.5*Math.sin(time*l.speed+l.phase));ctx.fillStyle='rgba(255,248,222,'+alpha+')';ctx.beginPath();ctx.arc(l.x,l.y,l.r,0,Math.PI*2);ctx.fill()}
+    if(time-lastRipple>random(3400,6400)){ripples.push({x:random(width*.18,width*.82),y:height*random(.73,.91),start:time,radius:random(28,62),alpha:random(.10,.22)});lastRipple=time}
+    for(let i=ripples.length-1;i>=0;i--)if(!drawRipple(ripples[i],time))ripples.splice(i,1);
+    frame=requestAnimationFrame(animate);
+  }
+  resize();window.addEventListener('resize',resize,{passive:true});
+  if(!reduced)frame=requestAnimationFrame(animate);
+})();
+</script>
 </body>
 </html>
