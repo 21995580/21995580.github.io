@@ -401,7 +401,7 @@ function initHomeIntro() {
   const worldWaterCtx = worldWater?.getContext('2d');
   const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
   let width=0,height=0,dpr=1,raf=0,wiping=false,moved=false,start=null,last=null,restoreAt=0,erased=null,base=null;
-  const drops=[],ripples=[],streaks=[];
+  const drops=[],ripples=[],worldRipples=[],streaks=[];let nextLakeRipple=0;
   const rand=(a,b)=>a+Math.random()*(b-a);
   const point=e=>{const r=portal.getBoundingClientRect();return{x:e.clientX-r.left,y:e.clientY-r.top};};
 
@@ -445,10 +445,10 @@ function initHomeIntro() {
     for(let i=0;i<30;i++){const x=(i*137.7+t*.018)%width,y=(i*83.1+t*.095)%(height+45)-20;ctx.strokeStyle='rgba(229,246,247,'+(i%3===0?.17:.085)+')';ctx.beginPath();ctx.moveTo(x,y);ctx.lineTo(x-1.4,y+rand(5,13));ctx.stroke();}
     ctx.restore();
   }
-  function drawRipples(ctx,t){
+  function drawRipples(ctx,t,collection=ripples){
     if(!ctx)return;ctx.clearRect(0,0,width,height);
-    for(let i=ripples.length-1;i>=0;i--){
-      const p=ripples[i],k=(t-p.t)/1150;if(k>=1){ripples.splice(i,1);continue;}
+    for(let i=collection.length-1;i>=0;i--){
+      const p=collection[i],k=(t-p.t)/1450;if(k>=1){collection.splice(i,1);continue;}
       const radius=5+k*p.r,fade=Math.sin(Math.PI*k)*p.power;
       ctx.save();ctx.globalAlpha=fade*.48;
       ctx.strokeStyle='rgba(240,255,253,.72)';ctx.lineWidth=1.1;ctx.beginPath();ctx.ellipse(p.x,p.y,radius,radius*.34,0,0,Math.PI*2);ctx.stroke();
@@ -457,7 +457,8 @@ function initHomeIntro() {
   }
   function animate(t){
     drawRain(rainCtx,t);drawRain(worldRain?.getContext('2d'),t);
-    drawRipples(waterCtx,t);drawRipples(worldWaterCtx,t);
+    drawRipples(waterCtx,t);drawRipples(worldWaterCtx,t,worldRipples);
+    if(t>nextLakeRipple){worldRipples.push({x:rand(width*.16,width*.86),y:rand(height*.7,height*.94),t,r:rand(18,42),power:rand(.18,.34)});nextLakeRipple=t+rand(2100,4800);}
     if(!reduceMotion)raf=requestAnimationFrame(animate);
   }
   function addRipple(x,y,power=1){ripples.push({x,y,t:performance.now(),r:rand(25,58),power});if(ripples.length>24)ripples.shift();}
