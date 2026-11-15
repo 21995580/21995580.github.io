@@ -76,41 +76,23 @@ function getWorldSections(world = {}) {
  */
 async function renderWorks() {
   const { works } = await loadJson('./data/works.json');
-  const map = $('#workMap');
-  const detail = $('#workDetail');
-  let selected = works[0];
-
-  works.forEach((w) => {
-    const node = document.createElement('button');
-    node.className = 'work-node';
-    node.style.left = `${w.starPos.x}%`;
-    node.style.top = `${w.starPos.y}%`;
-
-    // 作品 icon 隨機大小：避免過大或過小
-    const size = randInt(122, 176);
-    node.style.setProperty('--work-size', `${size}px`);
-
-    node.innerHTML = `<strong>${w.title}</strong><small>${w.subtitle}</small>`;
-    node.addEventListener('click', () => {
-      selected = w;
-      renderDetail();
-    });
-    map.appendChild(node);
-  });
-
-  function renderDetail() {
-    detail.innerHTML = `
-      <img src="${selected.cover}" alt="${selected.title}封面">
-      <div>
-        <h3>${selected.title}</h3>
-        <p>${selected.shortDescription}</p>
-      </div>
-      <a class="btn" href="work.html?id=${selected.id}">進入世界觀</a>
-    `;
-    activateFadeIn(detail);
-  }
-
-  renderDetail();
+  const grid = $('#workMap'), filters = $('#workFilters');
+  if (!grid || !filters) return;
+  const categories = ['全部', ...new Set(works.flatMap(w => w.tags || w.categories || ['原創']))];
+  filters.innerHTML = categories.map((tag,i)=>`<button type="button" class="${i===0?'active':''}" data-filter="${tag}">${tag}</button>`).join('');
+  const render = (filter='全部') => {
+    const visible = works.filter(w => filter==='全部' || (w.tags || w.categories || ['原創']).includes(filter));
+    grid.innerHTML = visible.map((w,index)=> {
+      const cover = w.cover || 'assets/images/ukiyo-valley.webp';
+      const tags = (w.tags || w.categories || ['原創']).slice(0,2);
+      return `<a class="atlas-work-card" href="work.html?id=${encodeURIComponent(w.id)}" style="animation:fadeUpIn .55s ${index*70}ms both">
+        <div class="work-cover"><img src="${cover}" alt="${w.title}作品封面" loading="lazy"><div class="work-tags">${tags.map(t=>`<span>${t}</span>`).join('')}</div></div>
+        <div class="work-card-body"><h3>${w.title}</h3><span class="work-en">${w.subtitle || 'Original World'}</span><p>${w.shortDescription || '一段等待被探索的故事。'}</p><span class="work-explore">探索世界　◇</span></div>
+      </a>`;
+    }).join('') || '<p class="atlas-loading">此分類尚未收錄作品。</p>';
+  };
+  filters.addEventListener('click',e=>{const btn=e.target.closest('button[data-filter]');if(!btn)return;filters.querySelectorAll('button').forEach(x=>x.classList.toggle('active',x===btn));render(btn.dataset.filter);});
+  render();
 }
 
 /**
@@ -307,27 +289,17 @@ async function renderCharacterPage() {
 async function renderCharactersPage() {
   const { works } = await loadJson('./data/works.json');
   const board = $('#charactersBoard');
-  board.innerHTML = works.map((work) => {
-    const cards = work.characters.length
-      ? work.characters.map((character) => {
-        const tags = Array.isArray(character.tags) ? character.tags : [];
-        return `
-          <a class="character-card" href="character.html?id=${character.id}&work=${work.id}">
-            <img src="${character.avatar}" alt="${character.name}">
-            <div class="character-tags">
-              ${tags.map((t) => `<span>${t}</span>`).join('')}
-            </div>
-            <div class="character-name">${character.name}</div>
-          </a>
-        `;
-      }).join('')
-      : '<p>此分類暫無角色，之後新增在 <code>data/works.json</code> 會自動顯示。</p>';
-    return `
-      <section class="characters-group panel ui-fade-panel" style="padding:14px;">
-        <h3>${work.title} / ${work.subtitle}</h3>
-        <div class="characters-grid">${cards}</div>
-      </section>
-    `;
+  if (!board) return;
+  board.innerHTML = works.map(work => {
+    const cards = (work.characters || []).map(character => {
+      const tags = Array.isArray(character.tags) ? character.tags : [];
+      const description = character.summary || character.description || character.quote || '故事仍在書寫，更多人物資訊將陸續公開。';
+      return `<a class="atlas-character-card" href="character.html?id=${encodeURIComponent(character.id)}&work=${encodeURIComponent(work.id)}">
+        <div class="character-portrait"><img src="${character.avatar || character.full}" alt="${character.name}" loading="lazy"></div>
+        <div class="character-card-info"><h4>${character.name}</h4><div class="character-tags">${tags.slice(0,3).map(t=>`<span>${t}</span>`).join('')}</div><p>${description}</p><span class="character-more">查看人物誌　→</span></div>
+      </a>`;
+    }).join('');
+    return `<section class="atlas-character-group"><h3>${work.title} <small>/ ${work.subtitle || ''}</small></h3><div class="atlas-character-grid">${cards || '<p class="atlas-loading">此世界的角色資料尚待補充。</p>'}</div></section>`;
   }).join('');
 }
 
