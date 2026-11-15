@@ -480,7 +480,7 @@ function initHomeIntro() {
   },{passive:true});
   const stop=()=>{if(!wiping)return;wiping=false;if(moved&&fog){restoreCanvas=document.createElement('canvas');restoreCanvas.width=fog.width;restoreCanvas.height=fog.height;restoreCanvas.getContext('2d').drawImage(fog,0,0);restoreAt=performance.now();lastRestoreFrame=0;requestAnimationFrame(restore);}start=last=null;};
   window.addEventListener('pointerup',stop,{passive:true});window.addEventListener('pointercancel',stop,{passive:true});
-  const open=()=>{if(document.body.classList.contains('portal-opened'))return;document.body.classList.add('portal-opened');world.classList.add('entered');world.setAttribute('aria-hidden','false');};
+  const open=()=>{if(document.body.classList.contains('portal-opened'))return;document.body.classList.add('portal-opened');world.classList.add('entered');world.setAttribute('aria-hidden','false');requestAnimationFrame(()=>{resize();saveBase();});};
   enter?.addEventListener('click',open);
 }
 async function init() {
