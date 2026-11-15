@@ -1321,3 +1321,86 @@ body[data-page="home"]{overflow:hidden;background:#b9d5d7}
 }
 @media(max-width:390px){.realm-gate-list{gap:0}.gate-emblem{width:68px;height:68px}.gate-orbit{width:98px;height:76px}.orbit-back{width:112px}.gate-title{font-size:12px}}
 @media(prefers-reduced-motion:reduce){.world-art,.world-petals i{animation:none!important}.realm-gate,.gate-emblem,.gate-orbit{transition:none!important}}
+
+
+/* ===== FINAL HOME SCENE: continuous rain glass + floral glass-orb gates ===== */
+body[data-page="home"]{background:#a8cbd0;overflow:hidden}
+.portal-screen{background:#b9d4d9}
+.portal-backdrop{background-image:url("../images/ukiyo-valley.webp");background-position:center 54%;filter:blur(1.8px) saturate(.9) brightness(.91);transform:scale(1.045)}
+.portal-wash{background:linear-gradient(180deg,rgba(24,58,72,.19),rgba(28,70,82,.08) 48%,rgba(20,56,68,.26)),linear-gradient(90deg,rgba(23,58,70,.18),transparent 42%,rgba(23,58,70,.16));backdrop-filter:blur(1.2px) saturate(1.08);-webkit-backdrop-filter:blur(1.2px) saturate(1.08)}
+.portal-glass-wrap{width:min(1180px,96vw);min-height:min(760px,92vh);padding:clamp(16px,3vw,38px)}
+.portal-glass{border-radius:3px;clip-path:none;background:linear-gradient(135deg,rgba(218,243,245,.2),rgba(180,221,230,.09) 48%,rgba(221,241,241,.16));border:1px solid rgba(246,255,255,.7);backdrop-filter:blur(17px) saturate(1.14) brightness(1.06);-webkit-backdrop-filter:blur(17px) saturate(1.14) brightness(1.06);box-shadow:0 22px 75px rgba(22,64,76,.2),inset 0 0 65px rgba(238,255,255,.13),inset 0 1px 0 rgba(255,255,255,.82),inset 0 -1px 0 rgba(224,250,249,.36)}
+.portal-glass:before{inset:10px;border:1px solid rgba(244,255,255,.48);clip-path:none;box-shadow:inset 0 0 38px rgba(237,255,255,.1)}
+.portal-glass:after{background:linear-gradient(112deg,transparent 35%,rgba(255,255,255,.17) 49%,transparent 62%);animation:portalSheen 13s ease-in-out infinite}
+.portal-glass-inner{min-height:610px;align-items:center;text-align:center;padding:clamp(44px,7vh,78px) clamp(25px,5vw,70px)}
+.portal-sign{font:500 11px "Noto Sans TC",sans-serif;letter-spacing:.32em;color:#f3ffff;text-shadow:0 1px 14px #244e5c}
+.portal-sign:before{content:"✿";color:#f7dfe4}
+.portal-rule{width:76px;margin:22px auto 28px;background:linear-gradient(90deg,transparent,#f2ffff,transparent)}
+.portal-copy{max-width:760px}
+.portal-title{font:400 15px "Cormorant Garamond","Noto Serif TC",serif;letter-spacing:.24em;color:#f1fffc}
+.portal-copy h1{font:400 clamp(25px,3.2vw,39px)/1.8 "Noto Serif TC",serif;letter-spacing:.18em;color:#f6ffff;text-shadow:0 2px 18px rgba(31,76,89,.72)}
+.portal-description{font:14px/2.3 "Noto Serif TC",serif;letter-spacing:.12em;color:#f2fffc;text-shadow:0 1px 12px rgba(34,76,86,.7)}
+.portal-note{color:#edf9f7;text-shadow:0 1px 10px #315d67}
+.portal-action.primary{min-width:190px;padding:14px 32px;border:1px solid rgba(246,255,255,.88);border-radius:28px;background:linear-gradient(135deg,rgba(226,249,246,.3),rgba(153,206,211,.18));color:#f8ffff;font:14px "Noto Serif TC",serif;letter-spacing:.25em;box-shadow:0 0 25px rgba(223,255,250,.26),inset 0 1px 0 #fff9,inset 0 -8px 18px rgba(113,177,186,.13);backdrop-filter:blur(14px);transition:transform .35s,box-shadow .35s,background .35s}
+.portal-action.primary:hover{transform:translateY(-3px) scale(1.025);background:rgba(223,250,246,.38);color:#fff;box-shadow:0 0 38px rgba(225,255,251,.55),inset 0 1px 0 #fff}
+.portal-action.primary span{font-size:17px}
+.portal-bottom{color:#f0fffbcc}
+.portal-fog{z-index:5;mix-blend-mode:screen}
+.portal-rain{z-index:6;mix-blend-mode:screen}
+.portal-water{z-index:7;mix-blend-mode:screen}
+
+/* Main entrance: keep the full scenic image visible; glass is a real overlay, not just a dark tint */
+.home-world{background:#a9cbd0;isolation:isolate}
+.world-backdrop{z-index:0;background:#a9cbd0}
+body[data-page="home"] .world-art,body[data-page="home"] .home-world.entered .world-art{inset:0;width:100%;height:100%;object-fit:cover;object-position:center 52%;transform:scale(1.025)!important;transform-origin:center;filter:brightness(.9) saturate(.91);animation:worldSlowPan 38s ease-in-out infinite alternate!important}
+.world-glass-pane{position:absolute;z-index:1;inset:0;pointer-events:none;background:linear-gradient(180deg,rgba(219,244,242,.14),rgba(193,226,228,.09) 48%,rgba(197,231,229,.16));backdrop-filter:blur(2.4px) saturate(1.12);-webkit-backdrop-filter:blur(2.4px) saturate(1.12);box-shadow:inset 0 0 100px rgba(225,255,250,.12),inset 0 1px 0 rgba(255,255,255,.24)}
+.world-glass-pane:before{content:"";position:absolute;inset:12px;border:1px solid rgba(239,255,251,.33);box-shadow:inset 0 0 50px rgba(239,255,251,.08)}
+.world-glass-pane:after{content:"";position:absolute;inset:0;background:linear-gradient(112deg,transparent 36%,rgba(255,255,255,.1) 49%,transparent 61%);animation:portalSheen 18s ease-in-out infinite}
+.world-atmosphere{z-index:2;background:linear-gradient(180deg,rgba(22,59,71,.12),rgba(41,101,109,.015) 43%,rgba(17,61,70,.18)),linear-gradient(90deg,rgba(22,58,70,.1),transparent 32%,transparent 70%,rgba(22,58,70,.1))}
+.world-rain{z-index:3}
+.world-water{position:absolute;inset:0;width:100%;height:100%;z-index:4;pointer-events:none;mix-blend-mode:screen}
+.world-petals{z-index:5}
+.cabin-header{z-index:7;background:linear-gradient(180deg,rgba(203,233,233,.26),rgba(203,233,233,.05) 85%,transparent)!important;border-bottom:1px solid rgba(239,255,251,.2)!important;backdrop-filter:blur(13px);-webkit-backdrop-filter:blur(13px);color:#f5fffc}
+.cabin-brand>span{width:49px;height:49px;border-color:#f2fffb;background:rgba(230,255,249,.16);box-shadow:0 0 20px rgba(238,255,250,.22)}
+.cabin-brand strong{font-size:23px;letter-spacing:.24em;text-shadow:0 2px 12px rgba(33,76,87,.52)}
+.cabin-brand small{letter-spacing:.22em}
+.cabin-motto{color:#f1fffc}
+.realm-gates{z-index:8;top:51%;width:min(940px,94vw);text-shadow:0 2px 14px rgba(24,69,80,.56)}
+.realm-kicker{letter-spacing:.4em;color:#edfffb}
+.realm-gates h1{font-size:clamp(29px,3.5vw,43px);letter-spacing:.28em;text-shadow:0 2px 20px rgba(31,79,89,.52)}
+.realm-subtitle{margin:10px 0 40px;color:#effffc;letter-spacing:.17em}
+.realm-gate-list{max-width:760px;gap:clamp(18px,5vw,72px)}
+.realm-gate{min-height:218px;justify-content:flex-start;padding-top:2px;color:#f6fffd;text-shadow:0 2px 10px rgba(30,74,83,.52)}
+.gate-orbit{top:8px;width:164px;height:132px;border:1px solid rgba(244,255,253,.48);border-radius:50%;box-shadow:0 0 20px rgba(227,255,250,.12),inset 0 0 18px rgba(235,255,250,.12)}
+.orbit-back{width:190px;height:106px;top:20px;transform:translateX(-50%) rotate(-14deg);border-color:rgba(240,255,252,.34)}
+.orbit-front{border-top-color:rgba(255,255,255,.88);border-bottom-color:rgba(231,255,250,.24)}
+.gate-emblem{position:relative;z-index:1;width:120px;height:120px;margin:14px 0 17px;border:1px solid rgba(246,255,253,.86);border-radius:50%;background:radial-gradient(ellipse at 35% 23%,rgba(255,255,255,.42),rgba(222,250,248,.2) 30%,rgba(149,203,211,.16) 68%,rgba(230,255,250,.1));box-shadow:0 0 25px rgba(227,255,251,.27),inset 0 2px 5px rgba(255,255,255,.72),inset 0 -10px 24px rgba(104,165,177,.14),0 9px 24px rgba(22,67,79,.1);backdrop-filter:blur(14px) saturate(1.2);-webkit-backdrop-filter:blur(14px) saturate(1.2);transition:transform .45s,box-shadow .45s,background .45s}
+.gate-emblem:before,.gate-emblem:after{content:"";position:absolute;inset:5px;border:1px solid rgba(247,255,253,.38);border-radius:50%;pointer-events:none}
+.gate-emblem:after{inset:-8px;border-color:rgba(237,255,251,.24);transform:rotate(-16deg) scaleX(1.14)}
+.gate-emblem svg{width:57px;height:57px;stroke:#f5fffd;stroke-width:1.45;filter:drop-shadow(0 0 7px rgba(239,255,251,.8))}
+.gate-question{font:300 57px "Cormorant Garamond",serif}
+.gate-flora{position:absolute;z-index:3;color:#fff1f1;text-shadow:0 0 9px #fff,0 0 16px rgba(255,227,237,.9);font-family:serif;line-height:1;pointer-events:none}
+.flora-a{left:-13px;bottom:15px;font-size:23px;transform:rotate(-15deg)}
+.flora-b{right:-12px;top:16px;font-size:19px;transform:rotate(18deg)}
+.flora-c{left:10px;top:8px;font-size:13px;color:#fff}
+.gate-title{font:400 19px "Noto Serif TC",serif;letter-spacing:.22em;color:#f5fffd}
+.gate-en{font:12px "Cormorant Garamond",serif;letter-spacing:.14em;color:#e9faf6}
+.realm-gate:hover,.realm-gate:focus-visible{transform:translateY(-8px);color:#fff}
+.realm-gate:hover .gate-emblem,.realm-gate:focus-visible .gate-emblem{transform:scale(1.075);background:radial-gradient(ellipse at 35% 23%,rgba(255,255,255,.58),rgba(222,250,248,.27) 35%,rgba(149,203,211,.2) 68%,rgba(230,255,250,.14));box-shadow:0 0 40px rgba(228,255,250,.6),inset 0 2px 6px #fff, inset 0 -10px 24px rgba(104,165,177,.12),0 12px 28px rgba(22,67,79,.16)}
+.realm-gate:hover .gate-orbit,.realm-gate:focus-visible .gate-orbit{transform:translateX(-50%) rotate(0) scale(1.08);border-color:#f1fffb;box-shadow:0 0 28px rgba(227,255,250,.48)}
+.realm-gate:hover .gate-flora,.realm-gate:focus-visible .gate-flora{filter:drop-shadow(0 0 7px #fff);transform:scale(1.16) rotate(12deg)}
+.realm-gate:hover .gate-title,.realm-gate:focus-visible .gate-title{color:#fff;text-shadow:0 0 17px #e9fffa}
+.realm-watermark{margin-top:28px;color:#eafff9}
+.cabin-footer{z-index:7;color:#effffbba}
+@media(max-width:700px){
+ .portal-glass-wrap{width:96vw;min-height:91vh;padding:12px}.portal-glass-inner{min-height:540px;padding:38px 20px 68px}
+ .portal-copy h1{font-size:24px}.portal-description{font-size:12px}.portal-actions{margin-top:25px}
+ .home-world .cabin-header{padding:17px 20px}.cabin-brand strong{font-size:19px}.cabin-motto{display:none}
+ .realm-gates{top:53%;width:96vw}.realm-gates h1{font-size:28px}.realm-subtitle{margin-bottom:24px;font-size:11px}
+ .realm-gate-list{gap:4px}.realm-gate{min-height:175px}.gate-emblem{width:82px;height:82px;margin:10px 0 12px}
+ .gate-emblem svg{width:43px;height:43px}.gate-question{font-size:46px}.gate-orbit{width:112px;height:90px}.orbit-back{width:130px;height:76px}
+ .flora-a{font-size:18px;left:-8px}.flora-b{font-size:16px;right:-8px}
+ .gate-title{font-size:14px;letter-spacing:.1em}.gate-en{font-size:10px}.realm-watermark{font-size:10px;margin-top:20px}
+}
+@media(max-width:390px){.realm-gate-list{gap:0}.gate-emblem{width:72px;height:72px}.gate-orbit{width:100px;height:80px}.orbit-back{width:116px}.gate-title{font-size:12px}}
+@media(prefers-reduced-motion:reduce){.world-art,.world-petals i,.world-glass-pane:after{animation:none!important}.realm-gate,.gate-emblem,.gate-orbit{transition:none!important}}
