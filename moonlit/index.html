@@ -52,24 +52,27 @@
 
   <div class="home-world" id="homeWorld" aria-hidden="true">
     <div class="world-backdrop">
-      <div class="world-art scene-portal" role="img" aria-label="雲間絮語仙境入口：世界觀、個人檔案與常見問題"></div>
+      <div class="portal-art-stage">
+        <div class="world-art scene-portal" role="img" aria-label="雲間絮語仙境入口：世界觀、個人檔案與常見問題"></div>
+        <nav class="portal-hotspots" aria-label="仙境主入口">
+          <a class="portal-hotspot hotspot-world" href="works.html" aria-label="世界觀與作品"></a>
+          <a class="portal-hotspot hotspot-profile" href="profile.html" aria-label="個人檔案"></a>
+          <a class="portal-hotspot hotspot-faq" href="faq.html" aria-label="常見問題"></a>
+          <a class="portal-hotspot hotspot-enter" href="works.html" aria-label="踏入仙境，探索作品"></a>
+        </nav>
+        <nav class="portal-nav-hotspots" aria-label="頁面導覽">
+          <a class="portal-logo-hotspot" href="index.html" aria-label="月相地圖首頁"></a>
+          <a class="nav-home" href="index.html" aria-label="首頁"></a>
+          <a class="nav-world" href="works.html" aria-label="世界觀"></a>
+          <a class="nav-profile" href="profile.html" aria-label="個人檔案"></a>
+          <a class="nav-faq" href="faq.html" aria-label="FAQ"></a>
+        </nav>
+      </div>
       <div class="world-glass-pane" aria-hidden="true"></div>
       <div class="world-atmosphere" aria-hidden="true"></div>
       <canvas class="world-rain" id="worldRain" aria-hidden="true"></canvas>
       <canvas class="world-water" id="worldWater" aria-hidden="true"></canvas>
     </div>
-    <nav class="portal-hotspots" aria-label="仙境主入口">
-      <a class="portal-hotspot hotspot-world" href="works.html" aria-label="世界觀與作品"></a>
-      <a class="portal-hotspot hotspot-profile" href="profile.html" aria-label="個人檔案"></a>
-      <a class="portal-hotspot hotspot-faq" href="faq.html" aria-label="常見問題"></a>
-      <a class="portal-hotspot hotspot-enter" href="works.html" aria-label="踏入仙境，探索作品"></a>
-    </nav>
-    <nav class="portal-nav-hotspots" aria-label="頁面導覽">
-      <a href="index.html" aria-label="首頁"></a>
-      <a href="works.html" aria-label="世界觀"></a>
-      <a href="profile.html" aria-label="個人檔案"></a>
-      <a href="faq.html" aria-label="FAQ"></a>
-    </nav>
   </div>
   <script src="assets/js/main.js?v=20261115-7"></script>
 </body>
