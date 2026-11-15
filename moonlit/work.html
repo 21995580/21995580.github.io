@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=Noto+Serif+TC:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/css/story-pages.css?v=20261115-4">
+<link rel="stylesheet" href="assets/css/story-pages.css?v=20261115-5">
 </head>
 <body class="story-page" data-page="work">
 <div class="story-background" aria-hidden="true"><div class="story-background-image"></div><div class="story-background-wash"></div><div class="story-mist story-mist-one"></div><div class="story-mist story-mist-two"></div></div>
@@ -26,23 +26,25 @@
 <main class="story-main">
   <div class="story-layout">
     <aside class="story-intro glass-surface">
-      <div class="story-ornament" aria-hidden="true">✧　❀　✧</div>
-      <p class="story-kicker">THE SOULS WITHIN EACH STORY</p>
-      <h1>角色介紹</h1>
-      <p class="story-english">CHARACTER</p>
-      <div class="story-divider"><i></i><span>◇</span><i></i></div>
-      <h2 id="workTitle">作品名稱</h2>
-      <p id="workSubtitle" class="story-work-en"></p>
-      <p id="workDescription" class="story-description">每一段故事，都因相遇而有了形狀。</p>
-      <a class="back-to-works" href="works.html">←　返回作品一覽</a>
-    </aside>
-
-    <section class="story-content" aria-label="作品內容">
+      <div class="story-intro-copy" id="introCopy">
+        <div class="story-ornament" aria-hidden="true">✧　❀　✧</div>
+        <p class="story-kicker" id="introKicker">THE SOULS WITHIN EACH STORY</p>
+        <h1 id="introTitle">角色介紹</h1>
+        <p class="story-english" id="introEnglish">CHARACTER</p>
+        <div class="story-divider"><i></i><span>◇</span><i></i></div>
+        <h2 id="workTitle">作品名稱</h2>
+        <p id="workSubtitle" class="story-work-en"></p>
+        <p id="workDescription" class="story-description">每一段故事，都因相遇而有了形狀。</p>
+      </div>
       <nav class="story-tabs" id="storyTabs" aria-label="作品內容分類">
         <button type="button" data-tab="world">世界觀介紹</button>
         <button type="button" data-tab="map">地圖探索</button>
         <button type="button" data-tab="characters" class="active" aria-current="page">角色</button>
       </nav>
+      <a class="back-to-works" href="works.html">←　返回作品一覽</a>
+    </aside>
+
+    <section class="story-content" aria-label="作品內容">
 
       <section class="story-panel" id="panel-characters">
         <span class="panel-count" id="characterCount" hidden aria-hidden="true"></span>
@@ -70,6 +72,6 @@
 </main>
 
 <footer class="story-footer"><span>✧</span><p>在每一個故事裡，與命運再次相遇。</p><small>MOONLIT ATLAS</small></footer>
-<script src="assets/js/work-detail.js?v=20261115-3"></script>
+<script src="assets/js/work-detail.js?v=20261115-4"></script>
 </body>
 </html>

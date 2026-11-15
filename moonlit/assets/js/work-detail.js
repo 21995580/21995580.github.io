@@ -95,10 +95,35 @@ function renderMap(){
   });wrap.appendChild(pin);
  });
 }
-function activateTab(key,updateUrl=true){
+function tabIntro(key){
+ const world=state.work.world||{},map=state.work.map||{},locations=Array.isArray(map.locations)?map.locations:[];
+ const firstWorld=(Array.isArray(world.sections)?world.sections:[]).find(x=>x&&x.content&&x.content!=='待新增')?.content||world.basic;
+ const desc={
+  characters:state.work.shortDescription||'每一段故事，都因相遇而有了形狀。',
+  world:firstWorld&&firstWorld!=='待新增'?firstWorld:'此作品的世界觀資料尚待補充。',
+  map:locations.length?('地圖收錄 '+locations.length+' 處探索地點，點選標記即可查看各處的場景與介紹。'):'此作品的地圖節點尚待補充。'
+ }[key];
+ const copy={characters:{kicker:'THE SOULS WITHIN EACH STORY',title:'角色介紹',english:'CHARACTER'},
+  world:{kicker:'WORLD LORE',title:'世界觀介紹',english:'WORLD LORE'},
+  map:{kicker:'EXPLORE THE WORLD',title:'地圖探索',english:'WORLD MAP'}}[key];
+ $('#introKicker').textContent=copy.kicker;
+ $('#introTitle').textContent=copy.title;
+ $('#introEnglish').textContent=copy.english;
+ $('#workTitle').textContent=state.work.title||'作品世界';
+ $('#workSubtitle').textContent=state.work.subtitle||'';
+ $('#workDescription').textContent=desc;
+}
+function activateTab(key,updateUrl=true,animateIntro=true){
  const valid=['world','map','characters'];if(!valid.includes(key))key='characters';
+ const current=document.querySelector('.story-panel:not(.is-hidden)');
  $('#storyTabs').querySelectorAll('button').forEach(b=>{const active=b.dataset.tab===key;b.classList.toggle('active',active);b.setAttribute('aria-current',active?'page':'false')});
  ['world','map','characters'].forEach(k=>$('#panel-'+k).classList.toggle('is-hidden',k!==key));
+ if(animateIntro&&!reduced){
+  const copy=$('#introCopy');copy.classList.add('is-changing');
+  setTimeout(()=>{tabIntro(key);copy.classList.remove('is-changing')},170);
+ }else tabIntro(key);
+ const panel=$('#panel-'+key);
+ if(panel!==current&&!reduced){panel.classList.remove('panel-enter');void panel.offsetWidth;panel.classList.add('panel-enter');setTimeout(()=>panel.classList.remove('panel-enter'),1150)}
  if(updateUrl){const p=new URLSearchParams(location.search);p.set('tab',key);history.replaceState(null,'',location.pathname+'?'+p.toString())}
 }
 $('#storyTabs').addEventListener('click',e=>{const b=e.target.closest('button[data-tab]');if(b)activateTab(b.dataset.tab)});
@@ -124,9 +149,8 @@ async function init(){
   document.title=(state.work.title||'作品')+'｜角色介紹';
   $('#workTitle').textContent=state.work.title||'作品世界';
   $('#workSubtitle').textContent=state.work.subtitle||'';
-  $('#workDescription').textContent=state.work.shortDescription||'每一段故事，都因相遇而有了形狀。';
   renderFiltersAndContent();
-  activateTab(requestedTab,false);
+  activateTab(requestedTab,false,false);
  }catch(error){
   $('#workTitle').textContent='作品資料暫時無法載入';
   $('#workDescription').textContent='請返回作品一覽，稍後再試。';

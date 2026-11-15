@@ -32,9 +32,6 @@ async function init(){
   document.title=(character.name||'角色')+'｜角色檔案';
   $('#backToWork').href='work.html?id='+encodeURIComponent(work.id)+'&tab=characters';
   $('#backToWork').textContent='← 返回 '+(work.title||'作品');
-  $('#worldLink').href='work.html?id='+encodeURIComponent(work.id)+'&tab=world';
-  $('#mapLink').href='work.html?id='+encodeURIComponent(work.id)+'&tab=map';
-  $('#otherCharactersLink').href='work.html?id='+encodeURIComponent(work.id)+'&tab=characters';
   $('#characterName').textContent=character.name||'未命名角色';
   $('#characterEn').textContent=character.subtitle||'CHARACTER PROFILE';
   $('#characterQuote').textContent=character.quote?'「'+character.quote+'」':'角色語錄尚待補充。';
