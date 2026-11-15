@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Noto+Sans+TC:wght@300;400;500&family=Noto+Serif+TC:wght@400;500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="assets/css/theme.css?v=20261115-1">
+  <link rel="stylesheet" href="assets/css/theme.css?v=20261115-2">
 </head>
 <body data-page="home" class="home-intro">
   <main class="portal-screen" id="portalScreen">
@@ -51,150 +51,46 @@
     
   </main>
 
-  <main class="intro-stage" id="introStage">
-    <div class="pixel-sky" aria-hidden="true">
-      <span class="pixel-cloud cloud-a"></span><span class="pixel-cloud cloud-b"></span>
-      <span class="pixel-cloud cloud-c"></span><span class="pixel-sun"></span>
-      <span class="pixel-bird bird-a">⌁</span><span class="pixel-bird bird-b">⌁</span>
-    </div>
-    <div class="pixel-hills hill-back"></div><div class="pixel-hills hill-front"></div>
-    <div class="pixel-grass">
-      <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
-    </div>
-    <div class="pixel-sakura-tree" aria-hidden="true">
-      <span class="tree-trunk"></span><span class="tree-crown crown-one"></span>
-      <span class="tree-crown crown-two"></span><span class="tree-crown crown-three"></span>
-      <span class="tree-crown crown-four"></span><span class="tree-crown crown-five"></span>
-      <span class="tree-glow"></span>
-    </div>
-    <div class="pixel-butterfly butterfly-a">✦</div><div class="pixel-butterfly butterfly-b">✧</div>
-    <div class="pixel-petals" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
-    <div class="intro-sign">
-      <span class="sign-kicker">A LITTLE WORLD OF STORIES</span>
-      <strong>月相地圖</strong>
-      <small>Moonlit Atlas</small>
-    </div>
-    <button class="sleeping-character" id="wakeCharacter" type="button" aria-label="輕輕叫醒正在睡覺的角色">
-      <svg class="pixel-person" viewBox="0 0 240 190" role="img" aria-label="綠髮、身穿深綠色修仙衣袍的 Q 版男子">
-        <g class="sleep-pose" shape-rendering="crispEdges">
-          <ellipse cx="119" cy="158" rx="91" ry="13" fill="#315f4b" opacity=".28"/>
-          <path d="M28 125h28v-13h31v-9h83v9h27v14h15v28H31v-12H18v-15h10z" fill="#d8e7c4"/>
-          <path d="M48 127h25v-13h25v-8h55v8h24v13h20v19H48z" fill="#bfd6b2"/>
-          <path d="M81 111h26V92h47v16h22v29h-15v12H92v-12H75v-14h6z" fill="#173d35"/>
-          <path d="M83 103h24V88h38v14h22v25h-15v12H99v-12H83z" fill="#285a4a"/>
-          <path d="M104 94h39v10h-39z" fill="#e4e0c5"/>
-          <path d="M96 88h12V68h47v15h-10v19h-41z" fill="#f2cdb4"/>
-          <path d="M91 80h11V55h17V43h33v10h17v27h-11v13h-13V78h-17v11h-18v-8h-19z" fill="#183e38"/>
-          <path d="M99 61h11V47h15V39h29v9h13v22h-11v12h-12V66h-20v9h-25z" fill="#2f6754"/>
-          <path d="M111 69h9v5h-9z" fill="#29453c"/><path d="M145 68h9v5h-9z" fill="#29453c"/>
-          <path d="M118 84h21v5h-21z" fill="#e4a68d"/>
-          <path d="M62 127h29v10H62z" fill="#f0e8d1"/><path d="M166 127h27v10h-27z" fill="#f0e8d1"/>
-          <path d="M69 134h20v7H69zM169 134h20v7h-20z" fill="#285a4a"/>
-          <path d="M111 108h10v5h-10zM132 108h10v5h-10z" fill="#c8b77d"/>
-          <path d="M158 54h7v14h-7z" fill="#c9b77a"/><path d="M161 67h8v5h-8z" fill="#e8d8a6"/>
-        </g>
-        <g class="awake-pose" shape-rendering="crispEdges">
-          <ellipse cx="120" cy="164" rx="62" ry="10" fill="#315f4b" opacity=".25"/>
-          <path d="M67 112h105v43H67z" fill="#183f37"/>
-          <path d="M76 119h87v29H76z" fill="#2d6552"/>
-          <path d="M91 115h54v38H91z" fill="#e8e4ce"/>
-          <path d="M101 115h35v42h-35z" fill="#1b453b"/>
-          <path d="M107 123h22v25h-22z" fill="#d8d0ae"/>
-          <path d="M89 74h62v49H89z" fill="#f2cdb4"/>
-          <path d="M81 62h13V44h17V34h37v10h17v31h-11v16h-15V75h-19v12h-18V75H81z" fill="#1d493e"/>
-          <path d="M88 57h13V43h16V35h28v9h14v21h-12v12h-14V62h-20v10H98v-9H88z" fill="#34705a"/>
-          <path d="M95 82h13v8H95zM132 82h13v8h-13z" fill="#344c43"/>
-          <path d="M111 101h21v6h-21z" fill="#c77e70"/>
-          <path d="M70 120h-17v-9h-9v-9h17v8h17v10z" fill="#f2cdb4"/>
-          <path d="M169 114h15V99h10V86h10v18h-9v19h-26z" fill="#f2cdb4"/>
-          <path d="M183 85h10V72h9v14h-9v13h-10z" fill="#34705a"/>
-          <path d="M105 117h8v8h-8zM137 117h8v8h-8z" fill="#d4bd7b"/>
-          <path d="M157 47h8v17h-8z" fill="#d9c58a"/><path d="M161 63h9v5h-9z" fill="#f0dfa9"/>
-        </g>
-      </svg>
-      <span class="sleep-z z-one">z</span><span class="sleep-z z-two">z</span>
-      <span class="wake-halo"></span>
-    </button>
-    <div class="wake-dialog" id="wakeDialog" aria-live="polite">
-      <span class="dialog-name">旅人醒來了</span>
-      <strong>啊！歡迎，請進。</strong>
-      <span class="dialog-hint">正在為你打開通往小屋的路……</span>
-    </div>
-    <div class="intro-hint" id="introHint"><span>✧</span> 點一下正在午睡的旅人</div>
-    <div class="intro-credit">A QUIET SPRING AFTERNOON · 2026</div>
-  </main>
-
-  <section class="ukiyo-transition" id="ukiyoTransition" aria-hidden="true">
-    <img class="ukiyo-art" src="assets/images/ukiyo-valley.webp?v=20261114-6" alt="">
-    <div class="transition-atmosphere" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i></div>
-    <div class="ukiyo-sky"></div>
-    <div class="ukiyo-sun"></div>
-    <div class="ukiyo-cloud cloud-ink-one"></div><div class="ukiyo-cloud cloud-ink-two"></div>
-    <svg class="ukiyo-landscape" viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
-      <path d="M0 410L170 250 270 340 430 150 580 340 730 205 870 365 1050 175 1190 315 1320 225 1440 345V900H0Z" fill="#719c91"/>
-      <path d="M0 500L180 355 300 445 475 280 610 455 790 325 940 490 1110 320 1260 440 1440 350V900H0Z" fill="#4c7c70"/>
-      <path d="M0 565Q190 480 350 570T690 560T1040 560T1440 520V900H0Z" fill="#254f4a"/>
-      <path d="M0 670Q220 585 410 660T800 655T1180 640T1440 620V900H0Z" fill="#183f3d"/>
-      <path d="M0 770Q240 690 460 750T880 735T1240 710T1440 735V900H0Z" fill="#d4b783"/>
-      <path d="M-40 720Q190 640 380 720T760 720T1130 690T1490 715" fill="none" stroke="#e7d4a8" stroke-width="24"/>
-      <path d="M-40 754Q190 674 380 754T760 754T1130 724T1490 749" fill="none" stroke="#779c91" stroke-width="8"/>
-      <g fill="#173e3b">
-        <path d="M170 615l32-110 32 110h-18l18 37h-64l18-37zM1250 600l38-135 38 135h-22l22 43h-76l22-43z"/>
-        <path d="M1180 680l30-95 30 95h-17l17 34h-60l17-34zM250 700l26-84 26 84h-15l15 30h-52l15-30z"/>
-      </g>
-      <g fill="#d9a5a0"><circle cx="315" cy="560" r="10"/><circle cx="335" cy="550" r="8"/><circle cx="1290" cy="525" r="9"/><circle cx="1310" cy="515" r="7"/></g>
-    </svg>
-    <div class="ukiyo-house"><span class="house-roof"></span><span class="house-body"></span><span class="house-door"></span><span class="house-window"></span><span class="house-lantern"></span></div>
-    <div class="transition-caption">沿著山水之間，走進月相地圖</div>
-  </section>
-
   <div class="home-world" id="homeWorld" aria-hidden="true">
     <div class="world-backdrop">
       <img class="world-art" src="assets/images/ukiyo-valley.webp?v=20261114-6" alt="">
-      <div class="world-mountain mountain-one"></div><div class="world-mountain mountain-two"></div>
-      <div class="world-mountain mountain-three"></div><div class="world-river"></div>
-      <div class="world-pine pine-one"></div><div class="world-pine pine-two"></div>
-      <div class="world-house"><span class="roof"></span><span class="walls"></span><span class="door"></span><span class="warm-window"></span></div>
-      <div class="world-mist mist-one"></div><div class="world-mist mist-two"></div>
+      <div class="world-atmosphere" aria-hidden="true"></div>
+      <canvas class="world-rain" id="worldRain" aria-hidden="true"></canvas>
+      <div class="world-petals" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
     </div>
     <header class="cabin-header">
       <a class="cabin-brand" href="index.html"><span>月</span><div><strong>月相地圖</strong><small>MOONLIT ATLAS</small></div></a>
-      <nav class="cabin-nav" aria-label="主選單">
-        <a class="active" href="index.html">首頁</a><a href="profile.html">個人檔案</a>
-        <a href="works.html">作品</a><a href="characters.html">角色</a>
-        <a href="gallery.html">畫廊</a><a href="faq.html">FAQ</a>
-      </nav>
+      <span class="cabin-motto">以夢為引・與你相遇</span>
     </header>
-    <div class="cabin-welcome">
-      <span class="welcome-kicker">A PLACE FOR STORIES & DREAMS</span>
-      <h1>山水有相逢，故事自此始。</h1>
-      <p>在月色與山嵐之間，收藏每一段相遇。</p>
-      <button class="enter-cabin" id="openDoor" type="button">推開小屋的門 <span>↗</span></button>
-    </div>
-    <div class="cabin-footer">月相地圖 · 以夢為引，以故事為歸</div>
-
-    <section class="room-interior" id="roomInterior" aria-label="小屋室內" aria-hidden="true">
-      <img class="room-art" src="assets/images/teahouse-interior.webp?v=20261114-6" alt="木質古風書齋，窗外可見櫻花與遠山，桌上鋪著地圖繪卷">
-      <div class="room-light" aria-hidden="true"></div>
-      <div class="room-windchime" aria-hidden="true"><i></i><b></b><span></span></div>
-      <div class="room-petals" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>
-      <div class="room-door-glow" aria-hidden="true"></div>
-      <a class="room-hotspot map-hotspot" href="works.html" aria-label="查看世界地圖與作品">
-        <span class="hotspot-ring"></span><span class="hotspot-label">世界地圖 · 作品</span>
-      </a>
-      <a class="room-hotspot scholar-hotspot" href="profile.html" aria-label="查看藍髮主人的個人檔案">
-        <span class="hotspot-ring"></span><span class="hotspot-label">主人 · 個人檔案</span>
-        <span class="scholar-dialog"><b>月相地圖的主人</b><span>歡迎客人，可以四處看看。</span></span>
-      </a>
-      <a class="room-hotspot guide-hotspot" href="faq.html" aria-label="向門口的綠髮旅人詢問常見問題">
-        <span class="hotspot-ring"></span><span class="hotspot-label">引路人 · FAQ</span>
-        <span class="guide-dialog">有問題可以問我！</span>
-      </a>
-      <div class="room-caption"><span>月相書齋</span><i></i><small>THE MOONLIT STUDY</small></div>
-      <button class="room-return" id="roomReturn" type="button">返回庭院</button>
+    <section class="realm-gates" aria-label="仙境入口">
+      <p class="realm-kicker">A WORLD OF STORIES</p>
+      <h1>雲間絮語</h1>
+      <p class="realm-subtitle">循著月色與山嵐，尋訪故事的所在</p>
+      <div class="realm-gate-list">
+        <a class="realm-gate" href="works.html" aria-label="進入世界觀與作品">
+          <span class="gate-orbit orbit-back"></span><span class="gate-orbit orbit-front"></span>
+          <span class="gate-emblem">
+            <svg viewBox="0 0 72 72" aria-hidden="true"><path d="M12 19Q24 13 36 21Q48 13 60 19V53Q48 47 36 55Q24 47 12 53Z"/><path d="M36 21V55M17 25Q26 21 32 26M40 26Q49 21 55 25M17 33Q26 29 32 34M40 34Q49 29 55 33"/></svg>
+          </span>
+          <span class="gate-title">世界觀</span><span class="gate-en">Worldview</span>
+        </a>
+        <a class="realm-gate" href="profile.html" aria-label="進入個人檔案">
+          <span class="gate-orbit orbit-back"></span><span class="gate-orbit orbit-front"></span>
+          <span class="gate-emblem">
+            <svg viewBox="0 0 72 72" aria-hidden="true"><circle cx="36" cy="24" r="12"/><path d="M13 59Q15 39 36 39Q57 39 59 59Q36 68 13 59Z"/><path d="M8 61Q36 73 64 61"/></svg>
+          </span>
+          <span class="gate-title">個人檔案</span><span class="gate-en">Profile</span>
+        </a>
+        <a class="realm-gate" href="faq.html" aria-label="進入常見問題">
+          <span class="gate-orbit orbit-back"></span><span class="gate-orbit orbit-front"></span>
+          <span class="gate-emblem gate-question">?</span>
+          <span class="gate-title">常見問題</span><span class="gate-en">FAQ</span>
+        </a>
+      </div>
+      <div class="realm-watermark">✧　雲會散，霧會開，該見的人總會見到。　✧</div>
     </section>
-
+    <div class="cabin-footer">MOONLIT ATLAS　·　A QUIET WORLD BEYOND THE MOON</div>
   </div>
-  <script src="assets/js/main.js?v=20261115-1"></script>
+  <script src="assets/js/main.js?v=20261115-2"></script>
 </body>
 </html>
