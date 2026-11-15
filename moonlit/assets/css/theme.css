@@ -1218,3 +1218,14 @@ body.atlas-page{min-height:100vh;color:var(--ink);font-family:"Noto Sans TC",san
 @media(max-width:900px){.atlas-work-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.atlas-character-grid{grid-template-columns:repeat(3,minmax(0,1fr))}.atlas-nav{padding-inline:20px}}
 @media(max-width:620px){.atlas-nav{position:relative;flex-wrap:wrap;justify-content:center;gap:10px;padding:12px 14px}.atlas-brand{margin-right:auto}.atlas-brand b{font-size:21px}.brand-seal{width:40px;height:40px}.atlas-nav nav{order:3;width:100%;gap:0;justify-content:space-around}.atlas-nav nav a{font-size:13px;letter-spacing:1px}.atlas-nav-cta{font-size:12px;padding:7px 12px}.atlas-hero{min-height:330px;padding:54px 18px 44px}.atlas-hero h1{letter-spacing:7px}.hero-lead{font-size:12px}.works-section,.characters-section{padding:30px 15px 52px}.atlas-work-grid{grid-template-columns:1fr;gap:17px}.atlas-character-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.character-portrait{margin:7px 7px 0}.character-card-info h4{font-size:17px}.character-card-info{padding:11px 7px 14px}.section-heading h2{font-size:25px}}
 @media(prefers-reduced-motion:reduce){.atlas-page *{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+
+/* Home entry hierarchy and unified navigation */
+.cabin-header{background:rgba(209,231,231,.48)!important;border-bottom:1px solid rgba(255,255,255,.62)!important;backdrop-filter:blur(15px)}
+.cabin-brand{color:#effbfa!important;text-shadow:0 1px 10px rgba(51,91,101,.5)}
+.cabin-brand>span{border-color:rgba(255,255,255,.75)!important;background:rgba(232,248,246,.18)!important}
+.cabin-nav a{color:#f5fbfa!important;text-shadow:0 1px 8px rgba(37,74,82,.55);border-radius:24px;transition:.25s}
+.cabin-nav a:hover,.cabin-nav a.active{background:rgba(235,250,247,.22);box-shadow:0 0 18px rgba(255,255,255,.25)}
+.cabin-welcome{backdrop-filter:blur(2px)}
+.cabin-welcome h1{font-family:var(--serif);letter-spacing:5px;text-shadow:0 2px 18px rgba(255,255,255,.7)}
+.enter-cabin{border:1px solid rgba(255,255,255,.85)!important;background:rgba(221,243,240,.24)!important;color:#f6ffff!important;backdrop-filter:blur(12px);border-radius:28px!important;letter-spacing:2px;box-shadow:0 0 20px rgba(255,255,255,.22);transition:transform .3s,box-shadow .3s}
+.enter-cabin:hover{transform:translateY(-3px);box-shadow:0 0 28px rgba(255,255,255,.55)!important}
