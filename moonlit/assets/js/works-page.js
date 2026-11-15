@@ -49,13 +49,11 @@
   }
 
   function observeReveal(elements) {
-    const observer = ('IntersectionObserver' in window) ? new IntersectionObserver((entries, current) => {
+    const observer = ('IntersectionObserver' in window) ? new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
-        if (!entry.isIntersecting) return;
-        entry.target.classList.add('is-visible');
-        current.unobserve(entry.target);
+        entry.target.classList.toggle('is-visible', entry.isIntersecting);
       });
-    }, { threshold: 0.15, rootMargin: '0px 0px -14% 0px' }) : null;
+    }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' }) : null;
     elements.forEach((element) => {
       if (observer) observer.observe(element);
       else element.classList.add('is-visible');
