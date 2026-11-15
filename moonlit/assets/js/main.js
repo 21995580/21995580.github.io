@@ -503,7 +503,11 @@ function initHomeIntro() {
     const openPortal = () => {
       if (document.body.classList.contains('portal-opened')) return;
       document.body.classList.add('portal-opened');
-      window.setTimeout(() => { portal.remove(); }, 1000);
+      const world = $('#homeWorld');
+      const stage = $('#introStage');
+      const transition = $('#ukiyoTransition');
+      if (world) { world.classList.add('entered'); world.setAttribute('aria-hidden','false'); }
+      window.setTimeout(() => { portal.remove(); stage?.remove(); transition?.remove(); }, 850);
     };
     portalEnter.addEventListener('click', openPortal);
     portalSkip?.addEventListener('click', openPortal);
