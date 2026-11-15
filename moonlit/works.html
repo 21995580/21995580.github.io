@@ -1,43 +1,7 @@
 <!doctype html>
-<html lang="zh-Hant">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>月相地圖 | 作品</title>
-  <link rel="stylesheet" href="assets/css/theme.css">
-</head>
-<body data-page="works">
-  <div class="page-bg"></div>
-  <main class="site-shell">
-    <nav class="top-nav">
-      <a href="index.html">首頁</a>
-      <a href="profile.html">個人檔案</a>
-      <a class="active" href="works.html">作品</a>
-      <a href="characters.html">角色</a>
-      <a href="gallery.html">畫廊</a>
-      <a href="faq.html">FAQ</a>
-    </nav>
-
-    <section class="panel works-canvas ui-fade-panel">
-      <h1 class="hero-title">作品星圖</h1>
-      <div class="section-divider" aria-hidden="true"></div>
-
-      <!-- 星圖獨立捲動，避免下方作品資訊卡擋住星圖 -->
-      <div class="star-map-scroll">
-        <div id="workMap" class="star-map"></div>
-      </div>
-
-      <article id="workDetail" class="panel work-detail ui-fade-panel"></article>
-
-      <p style="opacity:.86;">
-        新增作品只要在 <code>data/works.json</code> 補一筆 <code>works[]</code>。
-        地圖星點座標使用百分比：左上是 (0,0)，右下是 (100,100)。
-      </p>
-    </section>
-  </main>
-  <footer class="site-footer panel">
-    Copyright © 2026 Dragon月．版權所有
-  </footer>
-  <script src="assets/js/main.js"></script>
-</body>
-</html>
+<html lang="zh-Hant"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="theme-color" content="#b7d7d8"><title>月相地圖｜世界觀與作品</title><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=Noto+Serif+TC:wght@400;500;600&family=Noto+Sans+TC:wght@300;400;500&display=swap" rel="stylesheet"><link rel="stylesheet" href="assets/css/theme.css?v=20261115-1"></head>
+<body data-page="works" class="atlas-page"><div class="atlas-page-backdrop"></div><header class="atlas-nav"><a class="atlas-brand" href="index.html"><span class="brand-seal">月</span><span><b>月相地圖</b><small>MOONLIT ATLAS</small></span></a><nav aria-label="主導覽"><a href="index.html">首頁</a><a href="works.html">世界觀</a><a href="profile.html">個人檔案</a><a href="faq.html">FAQ</a></nav><a class="atlas-nav-cta" href="index.html#homeWorld">返回庭院</a></header>
+<main class="atlas-main">
+<section class="atlas-hero world-hero"><div class="hero-ornament">✧　❀　✧</div><p class="eyebrow">A WORLD BETWEEN MIST AND MEMORY</p><h1>世界觀</h1><span class="hero-en">Worldview</span><p class="hero-lead">在這片被遺忘的天地之間，有風、有雨，還有未完的故事。<br>沿著山水與月色，尋訪每一個等待被看見的世界。</p><a class="scroll-cue" href="#worksSection">向下探索 <span>⌄</span></a></section>
+<section class="works-section" id="worksSection"><div class="section-heading"><span class="heading-flower">✿</span><div><h2>作品一覽</h2><p>Our Works</p></div><span class="heading-flower">✿</span></div><div class="atlas-filter" id="workFilters" aria-label="作品分類"></div><div class="atlas-work-grid" id="workMap"><p class="atlas-loading">正在整理世界的篇章……</p></div><div class="atlas-footnote">每一個世界，都是一段尚未結束的旅程。</div></section>
+</main><footer class="atlas-footer">於雲海之上 · 願與你再相遇 <span>✧</span></footer><script src="assets/js/main.js?v=20261115-1"></script></body></html>
