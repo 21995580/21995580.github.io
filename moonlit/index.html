@@ -381,7 +381,8 @@ body.in-site #waterFX{opacity:0}
   let drawing=false,lastPoint=null;
   function localMistPoint(e){const r=mistSurface.getBoundingClientRect();return{x:e.clientX-r.left,y:e.clientY-r.top}}
   welcome.addEventListener('pointerdown',e=>{
-    if(!interactionActive||reduced||e.target.closest('button'))return;
+    /* 文字與按鈕只負責閱讀/點擊；只有玻璃留白區才啟動擦霧和水面筆畫 */
+    if(!interactionActive||reduced||e.button!==0||e.target.closest('.welcome-content'))return;
     drawing=true;lastPoint=waterPoint(e);
     poke(lastPoint.x,lastPoint.y,.9,1.8);
     const m=localMistPoint(e);clearMistLine(m,m);
@@ -397,7 +398,7 @@ body.in-site #waterFX{opacity:0}
   let mistLast={x:0,y:0};
   welcome.addEventListener('pointerdown',e=>{if(drawing)mistLast=localMistPoint(e)});
   function stopDrawing(){drawing=false;lastPoint=null;welcome.classList.remove('is-drawing')}
-  welcome.addEventListener('pointerup',stopDrawing);welcome.addEventListener('pointercancel',stopDrawing);welcome.addEventListener('lostpointercapture',stopDrawing);
+  welcome.addEventListener('pointerup',stopDrawing);welcome.addEventListener('pointercancel',stopDrawing);welcome.addEventListener('lostpointercapture',stopDrawing);window.addEventListener('blur',stopDrawing);
   setupWater();sceneImage.addEventListener('load',setupWater,{once:true});window.addEventListener('resize',setupWater,{passive:true});
   if(!reduced){
     let last=0,acc=0;
