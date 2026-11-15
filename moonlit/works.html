@@ -1,7 +1,86 @@
 <!doctype html>
-<html lang="zh-Hant"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="theme-color" content="#b7d7d8"><title>月相地圖｜世界觀與作品</title><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=Noto+Serif+TC:wght@400;500;600&family=Noto+Sans+TC:wght@300;400;500&display=swap" rel="stylesheet"><link rel="stylesheet" href="assets/css/theme.css?v=20261115-1"></head>
-<body data-page="works" class="atlas-page"><div class="atlas-page-backdrop"></div><header class="atlas-nav"><a class="atlas-brand" href="index.html"><span class="brand-seal">月</span><span><b>月相地圖</b><small>MOONLIT ATLAS</small></span></a><nav aria-label="主導覽"><a href="index.html">首頁</a><a href="works.html">世界觀</a><a href="profile.html">個人檔案</a><a href="faq.html">FAQ</a></nav><a class="atlas-nav-cta" href="index.html#homeWorld">返回庭院</a></header>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#b6d5d8">
+<title>世界觀｜雲間絮語</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=Noto+Serif+TC:wght@400;500;600&family=Noto+Sans+TC:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/works-page.css?v=20261115-1">
+</head>
+<body class="works-page">
+<div class="page-atmosphere" aria-hidden="true">
+  <div class="atmosphere-image"></div>
+  <div class="atmosphere-wash"></div>
+  <div class="mist-bank mist-bank-a"></div>
+  <div class="mist-bank mist-bank-b"></div>
+</div>
+<canvas id="worksPetals" aria-hidden="true"></canvas>
+
+<header class="atlas-header">
+  <a class="atlas-brand" href="index.html" aria-label="返回雲間絮語首頁">
+    <span class="brand-emblem" aria-hidden="true"><span>✿</span></span>
+    <span class="brand-words"><b>雲間絮語</b><small>MOONLIT ATLAS</small></span>
+  </a>
+  <nav class="atlas-nav" aria-label="主要導覽">
+    <a href="index.html">首頁</a>
+    <a class="active" href="works.html" aria-current="page">世界觀</a>
+    <a href="profile.html">個人檔案</a>
+    <a href="faq.html">FAQ</a>
+  </nav>
+</header>
+
 <main class="atlas-main">
-<section class="atlas-hero world-hero"><div class="hero-ornament">✧　❀　✧</div><p class="eyebrow">A WORLD BETWEEN MIST AND MEMORY</p><h1>世界觀</h1><span class="hero-en">Worldview</span><p class="hero-lead">在這片被遺忘的天地之間，有風、有雨，還有未完的故事。<br>沿著山水與月色，尋訪每一個等待被看見的世界。</p><a class="scroll-cue" href="#worksSection">向下探索 <span>⌄</span></a></section>
-<section class="works-section" id="worksSection"><div class="section-heading"><span class="heading-flower">✿</span><div><h2>作品一覽</h2><p>Our Works</p></div><span class="heading-flower">✿</span></div><div class="atlas-filter" id="workFilters" aria-label="作品分類"></div><div class="atlas-work-grid" id="workMap"><p class="atlas-loading">正在整理世界的篇章……</p></div><div class="atlas-footnote">每一個世界，都是一段尚未結束的旅程。</div></section>
-</main><footer class="atlas-footer">於雲海之上 · 願與你再相遇 <span>✧</span></footer><script src="assets/js/main.js?v=20261115-1"></script></body></html>
+  <section class="world-hero" aria-labelledby="worldTitle">
+    <div class="hero-ornament hero-butterfly" aria-hidden="true">
+      <svg viewBox="0 0 120 100">
+        <path d="M58 50C40 13 9 8 12 34c2 16 23 22 42 20C36 58 19 75 31 87c12 10 25-8 29-31 4 23 17 41 29 31 12-12-5-29-23-33 19 2 40-4 42-20 3-26-28-21-46 16Z"/>
+        <path d="M60 48c-5-15-5-28 0-37m0 37c5-15 5-28 0-37m-2 38-8 8m10-8 8 8"/>
+      </svg>
+      <span>✧</span>
+    </div>
+    <div class="hero-copy">
+      <p class="hero-eyebrow">A WORLD BETWEEN MIST AND MEMORY</p>
+      <h1 id="worldTitle">世界觀</h1>
+      <p class="hero-english">Worldview</p>
+      <div class="hero-rule"><i></i><span>❀</span><i></i></div>
+      <p class="hero-description">在這片被遺忘的天地之間，<br>有風、有雨，還有未完的故事……</p>
+    </div>
+    <div class="hero-flower hero-flower-one" aria-hidden="true">✿</div>
+    <div class="hero-flower hero-flower-two" aria-hidden="true">❀</div>
+    <a class="scroll-cue" href="#worksSection">
+      <span class="scroll-cue-gem">◇</span>
+      <span>向下探索</span>
+      <span class="scroll-cue-arrow">⌄</span>
+    </a>
+  </section>
+
+  <section class="works-section" id="worksSection" aria-labelledby="worksTitle">
+    <div class="section-heading reveal">
+      <span class="heading-branch" aria-hidden="true">⟡ ── ❀</span>
+      <div class="heading-title">
+        <h2 id="worksTitle">作品一覽</h2>
+        <p>Our Works</p>
+      </div>
+      <span class="heading-branch mirror" aria-hidden="true">❀ ── ⟡</span>
+    </div>
+    <p class="section-lead reveal">收藏於雲海之間的故事，每一頁都通往一個不同的世界。</p>
+    <div class="atlas-filter reveal" id="workFilters" aria-label="作品分類篩選"></div>
+    <div class="atlas-work-grid" id="workGrid" aria-live="polite">
+      <p class="atlas-loading">正在整理世界的篇章……</p>
+    </div>
+    <nav class="atlas-pagination reveal" id="workPagination" aria-label="作品分頁"></nav>
+  </section>
+</main>
+
+<footer class="atlas-footer">
+  <div class="footer-rule"><span>✧</span></div>
+  <p>於雲海之上 · 願與你再相遇</p>
+  <small>MOONLIT ATLAS</small>
+</footer>
+
+<script src="assets/js/works-page.js?v=20261115-1"></script>
+</body>
+</html>
