@@ -407,7 +407,7 @@ function initHomeIntro() {
     return {x:rand(0,width),y:initial?rand(0,height):rand(-height*.2,-8),r:rand(2.2,7.2),len:rand(10,34),speed:rand(.12,.48),slide:rand(.08,.32),phase:rand(0,Math.PI*2),alpha:rand(.15,.42)};
   }
   function resize(){
-    const r=portal.getBoundingClientRect();width=r.width;height=r.height;dpr=Math.min(devicePixelRatio||1,2);
+    const host=portal.isConnected?portal:world;const r=host.getBoundingClientRect();width=r.width;height=r.height;dpr=Math.min(devicePixelRatio||1,2);
     [fog,rain,water,$('#worldRain')].forEach(c=>{if(!c)return;c.width=Math.round(width*dpr);c.height=Math.round(height*dpr);c.style.width=width+'px';c.style.height=height+'px';const x=c.getContext('2d');x.setTransform(dpr,0,0,dpr,0,0);});
     if(fogCtx){
       fogCtx.clearRect(0,0,width,height);
@@ -483,7 +483,7 @@ function initHomeIntro() {
   const stop=()=>{if(!wiping)return;wiping=false;if(moved){erased=document.createElement('canvas');erased.width=fog.width;erased.height=fog.height;erased.getContext('2d').drawImage(fog,0,0);restoreAt=performance.now();requestAnimationFrame(restore);const suppress=e=>{e.preventDefault();e.stopImmediatePropagation();portal.removeEventListener('click',suppress,true);};portal.addEventListener('click',suppress,true);}start=last=null;};
   window.addEventListener('pointerup',stop,{passive:true});window.addEventListener('pointercancel',stop,{passive:true});
   portal.addEventListener('pointerleave',()=>{portal.style.setProperty('--pointer-x','50%');portal.style.setProperty('--pointer-y','50%');},{passive:true});
-  const open=()=>{if(document.body.classList.contains('portal-opened'))return;document.body.classList.add('portal-opened');world.classList.add('entered');world.setAttribute('aria-hidden','false');window.setTimeout(()=>{portal.remove();cancelAnimationFrame(raf);},950);};
+  const open=()=>{if(document.body.classList.contains('portal-opened'))return;document.body.classList.add('portal-opened');world.classList.add('entered');world.setAttribute('aria-hidden','false');window.setTimeout(()=>{portal.remove();},950);};
   enter?.addEventListener('click',open);skip?.addEventListener('click',open);
 }
 async function init() {
