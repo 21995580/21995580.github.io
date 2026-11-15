@@ -8,7 +8,7 @@ html{scroll-behavior:smooth;scroll-padding-top:86px}
 body.works-page{margin:0;min-height:100vh;overflow-x:hidden;color:var(--ink-deep);font-family:var(--serif);background:#b7d4d9}
 a{color:inherit}
 .page-atmosphere{position:fixed;inset:0;z-index:0;overflow:hidden;pointer-events:none;background:#a9cbd2}
-.atmosphere-image{position:absolute;inset:-7% 0;background-image:url("../../images/bg/main.jpg?v=20261115-2");background-size:cover;background-position:center 46%;opacity:1;filter:saturate(.96) brightness(1.04);transform:translate3d(0,var(--parallax-y,0px),0) scale(1.045);will-change:transform}
+.atmosphere-image{position:absolute;inset:-7% 0;background-image:url("../images/moonlit-landscape.webp?v=20261115-1");background-size:cover;background-position:center 46%;opacity:1;filter:saturate(.96) brightness(1.04);transform:translate3d(0,var(--parallax-y,0px),0) scale(1.045);will-change:transform}
 .atmosphere-wash{position:absolute;inset:0;background:linear-gradient(180deg,rgba(224,242,242,.12),rgba(217,240,239,.21) 37%,rgba(204,230,232,.30) 76%,rgba(190,220,224,.43)),linear-gradient(90deg,rgba(218,241,240,.07),transparent 50%,rgba(221,240,241,.08))}
 .mist-bank{position:absolute;width:74vw;height:34vw;min-height:230px;max-height:430px;border-radius:50%;filter:blur(56px);opacity:.35;background:radial-gradient(ellipse,rgba(248,255,252,.7),rgba(221,246,244,.24) 48%,transparent 74%);animation:mistDrift 29s ease-in-out infinite alternate}
 .mist-bank-a{left:-24%;top:25%}

@@ -9,7 +9,7 @@ body.story-page{margin:0;min-height:100vh;overflow-x:hidden;background:#a9cbd2;c
 a{color:inherit}
 button{font:inherit}
 .story-background{position:fixed;inset:0;z-index:0;overflow:hidden;pointer-events:none;background:#a9cbd2}
-.story-background-image{position:absolute;inset:-5%;background-image:url("../../images/bg/main.jpg?v=20261115-2");background-size:cover;background-position:center 45%;filter:saturate(.94) brightness(1.03);transform:scale(1.06)}
+.story-background-image{position:absolute;inset:-5%;background-image:url("../images/moonlit-landscape.webp?v=20261115-1");background-size:cover;background-position:center 45%;filter:saturate(.94) brightness(1.03);transform:scale(1.06)}
 .story-background-wash{position:absolute;inset:0;background:linear-gradient(180deg,rgba(224,243,242,.17),rgba(219,241,239,.24) 42%,rgba(204,230,231,.38) 100%),linear-gradient(90deg,rgba(207,234,234,.2),rgba(220,241,241,.03) 50%,rgba(207,234,234,.2))}
 .story-mist{position:absolute;width:60vw;height:27vw;min-height:200px;border-radius:50%;filter:blur(56px);background:radial-gradient(ellipse,rgba(249,255,252,.55),rgba(222,245,244,.18) 48%,transparent 73%);animation:storyMist 32s ease-in-out infinite alternate}
 .story-mist-one{left:-18%;top:35%}.story-mist-two{right:-17%;top:66%;animation-direction:alternate-reverse;animation-duration:39s;opacity:.68}
@@ -478,3 +478,57 @@ button{font:inherit}
   .role-grid.roles-arrive>*{animation:none!important;opacity:1!important;transform:none!important;filter:none!important}
   .role-card{opacity:1;transform:none}
 }
+
+
+/* Refined glass pane and portrait frames */
+.story-intro{
+  border-radius:0!important;clip-path:none;
+  background:linear-gradient(90deg,rgba(224,245,244,.035),rgba(231,249,247,.065) 48%,rgba(224,245,244,.035));
+  border:1px solid rgba(245,255,253,.22);
+  box-shadow:0 18px 54px rgba(26,72,86,.075),inset 1px 0 0 rgba(255,255,255,.28),inset -1px 0 0 rgba(255,255,255,.18);
+  backdrop-filter:blur(17px) saturate(1.12);-webkit-backdrop-filter:blur(17px) saturate(1.12);overflow:hidden;
+}
+.story-intro:before{
+  content:"";position:absolute;z-index:0;inset:0;border:1px solid rgba(248,255,253,.36);border-radius:0;
+  background:linear-gradient(90deg,rgba(255,255,255,.075),transparent 12%,transparent 88%,rgba(255,255,255,.055));
+  box-shadow:inset 0 0 34px rgba(246,255,252,.045),inset 0 1px 0 rgba(255,255,255,.3);
+  backdrop-filter:blur(18px) saturate(1.12);-webkit-backdrop-filter:blur(18px) saturate(1.12);
+  -webkit-mask-image:linear-gradient(180deg,transparent 0%,#000 8%,#000 91%,transparent 100%);
+  mask-image:linear-gradient(180deg,transparent 0%,#000 8%,#000 91%,transparent 100%);pointer-events:none;
+}
+.story-intro:after{
+  content:"";position:absolute;z-index:0;inset:0;
+  background:linear-gradient(180deg,rgba(255,255,255,.12),transparent 15%,transparent 84%,rgba(255,255,255,.10)),linear-gradient(90deg,rgba(219,246,244,.035),transparent 24%,transparent 76%,rgba(219,246,244,.035));
+  opacity:.62;pointer-events:none;
+}
+.story-intro>*{position:relative;z-index:1}
+@media(max-width:680px){.story-intro{border-radius:0!important}}
+
+/* Four softly chamfered corners and subtly bowed top/bottom edges. */
+.role-card,.role-placeholder{
+  border-radius:0;clip-path:polygon(0 7%,1% 4%,3% 2%,6% 1%,18% 0,82% 0,94% 1%,97% 2%,99% 4%,100% 7%,100% 93%,99% 96%,97% 98%,94% 99%,82% 100%,18% 100%,6% 99%,3% 98%,1% 96%,0 93%);
+}
+.role-card:before{
+  inset:7px;border-radius:0;
+  clip-path:polygon(0 7%,1% 4%,3% 2%,6% 1%,18% 0,82% 0,94% 1%,97% 2%,99% 4%,100% 7%,100% 93%,99% 96%,97% 98%,94% 99%,82% 100%,18% 100%,6% 99%,3% 98%,1% 96%,0 93%);
+}
+.role-card{transform-origin:50% 100%;transition:transform .56s cubic-bezier(.2,.72,.24,1),box-shadow .48s,border-color .4s}
+.role-card.is-visible{transform:translateY(0) scale(1)}
+.role-card:hover{
+  z-index:12;transform:translateY(0) scale(1.045,1.075);transform-origin:50% 100%;
+  box-shadow:0 22px 44px rgba(31,88,106,.25),0 0 25px rgba(231,255,249,.42),inset 0 0 0 4px rgba(255,255,255,.24);
+}
+.role-card-body{
+  border-top:0;padding-top:51px;
+  background:linear-gradient(180deg,rgba(157,198,211,0) 0%,rgba(151,193,207,.055) 16%,rgba(140,184,200,.18) 38%,rgba(123,169,188,.35) 67%,rgba(103,151,176,.50) 100%);
+  backdrop-filter:blur(11px) saturate(1.16);-webkit-backdrop-filter:blur(11px) saturate(1.16);
+}
+.role-card-body:before{
+  content:"";position:absolute;z-index:0;left:-25%;right:-25%;top:-82px;height:165px;
+  background:radial-gradient(ellipse at 26% 72%,rgba(237,251,250,.27) 0%,rgba(217,241,241,.13) 34%,transparent 67%),radial-gradient(ellipse at 72% 57%,rgba(236,250,249,.23) 0%,rgba(206,235,236,.12) 38%,transparent 70%),radial-gradient(ellipse at 51% 95%,rgba(225,246,244,.15),transparent 68%);
+  filter:blur(24px);opacity:.95;pointer-events:none;
+}
+.role-card-body>*{position:relative;z-index:1}
+.role-card p{text-shadow:0 2px 8px rgba(12,44,62,.9),0 0 14px rgba(17,57,77,.58)}
+.role-more{box-shadow:0 4px 15px rgba(22,66,82,.15),inset 0 1px 0 rgba(255,255,255,.38)}
+@media(prefers-reduced-motion:reduce){.role-card,.role-card.is-visible,.role-card:hover{transform:none;transition:none}}

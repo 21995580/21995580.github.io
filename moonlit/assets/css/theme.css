@@ -24,11 +24,11 @@ body {
 .page-bg {
   position: fixed;
   inset: 0;
-  background: linear-gradient(rgba(6, 16, 29, 0.55), rgba(6, 16, 29, 0.82)), url('../../images/bg/main.jpg') center/cover no-repeat;
+  background: linear-gradient(rgba(6, 16, 29, 0.55), rgba(6, 16, 29, 0.82)), url('../images/moonlit-landscape.webp?v=20261115-1') center/cover no-repeat;
   z-index: -3;
 }
 body[data-page="home"] .page-bg {
-  background: url('../../images/bg/main.jpg') center/cover no-repeat;
+  background: url('../images/moonlit-landscape.webp?v=20261115-1') center/cover no-repeat;
 }
 
 .page-bg::before {
@@ -1149,7 +1149,7 @@ body[data-page="home"].portal-opened .intro-stage{display:block;visibility:visib
 /* ===== Moonlit Atlas visual system · 2026-11-15 ===== */
 :root{--mist:#d9eceb;--lake:#8fbfc0;--deep-lake:#426f76;--ink:#385765;--soft-ink:#66818a;--petal:#f5e7e8;--glass:rgba(236,248,247,.54);--glass-line:rgba(255,255,255,.78);--serif:"Noto Serif TC",serif}
 body.atlas-page{min-height:100vh;color:var(--ink);font-family:"Noto Sans TC",sans-serif;background:#b8d4d6;overflow-x:hidden}
-.atlas-page-backdrop{position:fixed;inset:0;z-index:-2;background:linear-gradient(180deg,rgba(202,226,228,.38),rgba(225,241,237,.72)),url("../images/ukiyo-valley.webp") center top/cover fixed}
+.atlas-page-backdrop{position:fixed;inset:0;z-index:-2;background:linear-gradient(180deg,rgba(202,226,228,.38),rgba(225,241,237,.72)),url("../images/moonlit-landscape.webp?v=20261115-1") center top/cover fixed}
 .atlas-page-backdrop:after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(230,243,241,.28),transparent 30%,transparent 70%,rgba(230,243,241,.24));pointer-events:none}
 .atlas-nav{position:sticky;top:0;z-index:20;display:flex;align-items:center;justify-content:space-between;gap:20px;padding:13px clamp(18px,5vw,76px);background:rgba(215,235,235,.64);border-bottom:1px solid rgba(255,255,255,.72);backdrop-filter:blur(18px);box-shadow:0 8px 28px rgba(70,112,119,.08)}
 .atlas-brand{display:flex;align-items:center;gap:12px;text-decoration:none;color:var(--ink)}
@@ -1163,7 +1163,7 @@ body.atlas-page{min-height:100vh;color:var(--ink);font-family:"Noto Sans TC",san
 .atlas-nav-cta{color:#52717a;text-decoration:none;border:1px solid rgba(255,255,255,.9);border-radius:30px;padding:9px 20px;background:rgba(255,255,255,.26);font:13px var(--serif);letter-spacing:1px;transition:.25s}
 .atlas-nav-cta:hover{background:rgba(255,255,255,.65);box-shadow:0 0 18px #fff}
 .atlas-main{width:min(1440px,100%);margin:auto}
-.atlas-hero{position:relative;min-height:390px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:76px 22px 62px;overflow:hidden;background:linear-gradient(90deg,rgba(193,222,224,.56),rgba(222,239,237,.28),rgba(193,222,224,.42)),url("../images/ukiyo-valley.webp") center 44%/cover}
+.atlas-hero{position:relative;min-height:390px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:76px 22px 62px;overflow:hidden;background:linear-gradient(90deg,rgba(193,222,224,.56),rgba(222,239,237,.28),rgba(193,222,224,.42)),url("../images/moonlit-landscape.webp?v=20261115-1") center 44%/cover}
 .atlas-hero:before{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(206,229,230,.12),rgba(208,231,230,.35) 70%,rgba(217,238,234,.86))}
 .atlas-hero>*{position:relative}
 .hero-ornament{font-size:24px;color:rgba(255,255,255,.9);letter-spacing:12px;text-shadow:0 0 12px #fff;margin-bottom:13px}
@@ -1326,7 +1326,7 @@ body[data-page="home"]{overflow:hidden;background:#b9d5d7}
 /* ===== FINAL HOME SCENE: continuous rain glass + floral glass-orb gates ===== */
 body[data-page="home"]{background:#a8cbd0;overflow:hidden}
 .portal-screen{background:#b9d4d9}
-.portal-backdrop{background-image:url("../images/ukiyo-valley.webp");background-position:center 54%;filter:blur(1.8px) saturate(.9) brightness(.91);transform:scale(1.045)}
+.portal-backdrop{background-image:url("../images/moonlit-landscape.webp?v=20261115-1");background-position:center 54%;filter:blur(1.8px) saturate(.9) brightness(.91);transform:scale(1.045)}
 .portal-wash{background:linear-gradient(180deg,rgba(24,58,72,.19),rgba(28,70,82,.08) 48%,rgba(20,56,68,.26)),linear-gradient(90deg,rgba(23,58,70,.18),transparent 42%,rgba(23,58,70,.16));backdrop-filter:blur(1.2px) saturate(1.08);-webkit-backdrop-filter:blur(1.2px) saturate(1.08)}
 .portal-glass-wrap{width:min(1180px,96vw);min-height:min(760px,92vh);padding:clamp(16px,3vw,38px)}
 .portal-glass{border-radius:3px;clip-path:none;background:linear-gradient(135deg,rgba(218,243,245,.2),rgba(180,221,230,.09) 48%,rgba(221,241,241,.16));border:1px solid rgba(246,255,255,.7);backdrop-filter:blur(17px) saturate(1.14) brightness(1.06);-webkit-backdrop-filter:blur(17px) saturate(1.14) brightness(1.06);box-shadow:0 22px 75px rgba(22,64,76,.2),inset 0 0 65px rgba(238,255,255,.13),inset 0 1px 0 rgba(255,255,255,.82),inset 0 -1px 0 rgba(224,250,249,.36)}
