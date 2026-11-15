@@ -55,7 +55,7 @@
         entry.target.classList.add('is-visible');
         current.unobserve(entry.target);
       });
-    }, { threshold: 0.12, rootMargin: '0px 0px -24px 0px' }) : null;
+    }, { threshold: 0.15, rootMargin: '0px 0px -14% 0px' }) : null;
     elements.forEach((element) => {
       if (observer) observer.observe(element);
       else element.classList.add('is-visible');
