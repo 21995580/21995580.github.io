@@ -1413,3 +1413,101 @@ body[data-page="home"] .world-art,body[data-page="home"] .home-world.entered .wo
 .home-world{z-index:40}.world-backdrop{z-index:0;background:#a9cbd0}.world-art{display:block;z-index:0;opacity:1;visibility:visible}.world-glass-pane{z-index:1}.world-atmosphere{z-index:2;pointer-events:none}.world-rain{z-index:3;pointer-events:none}.world-water{z-index:4;pointer-events:none}.world-petals{z-index:5}
 .gate-emblem{overflow:visible}.gate-flower{position:absolute;z-index:3;left:-23%;top:-22%;width:146%;height:146%;object-fit:contain;pointer-events:none;opacity:.92;filter:drop-shadow(0 0 7px rgba(255,244,248,.65));transition:transform .45s,filter .45s,opacity .45s}.gate-emblem svg{position:relative;z-index:2}.gate-emblem.gate-question{isolation:isolate}.gate-question .gate-flower{z-index:-1}.realm-gate:hover .gate-flower,.realm-gate:focus-visible .gate-flower{transform:scale(1.08) rotate(-3deg);filter:drop-shadow(0 0 12px rgba(255,245,250,.95));opacity:1}
 @media(max-width:700px){.gate-flower{left:-24%;top:-24%;width:148%;height:148%}}
+
+
+/* ===== Homepage: use the generated landscape + fully illustrated portal image ===== */
+.portal-backdrop{
+  display:block;position:absolute;inset:0;width:100%;height:100%;
+  object-fit:fill;background-image:url("../images/home-panels.webp?v=20261115-7");
+  background-size:200% 100%;background-position:left center;background-repeat:no-repeat;
+  filter:brightness(.96) saturate(.94);transform:none;z-index:0
+}
+.portal-wash{z-index:1;background:linear-gradient(180deg,rgba(30,69,82,.08),rgba(37,89,101,.02) 48%,rgba(22,62,77,.17)),linear-gradient(90deg,rgba(27,67,79,.09),transparent 48%,rgba(27,67,79,.09));backdrop-filter:blur(1px) saturate(1.04);-webkit-backdrop-filter:blur(1px) saturate(1.04)}
+.portal-glass-wrap{z-index:3}
+.portal-glass{background:linear-gradient(135deg,rgba(224,247,247,.18),rgba(175,219,226,.09) 52%,rgba(230,247,244,.17));border-color:rgba(246,255,255,.67);backdrop-filter:blur(18px) saturate(1.16);-webkit-backdrop-filter:blur(18px) saturate(1.16)}
+.portal-fog{z-index:4;mix-blend-mode:soft-light;pointer-events:none}
+.portal-rain{z-index:5;mix-blend-mode:screen;pointer-events:none}
+.portal-water{z-index:6;mix-blend-mode:screen;pointer-events:none}
+.portal-screen:after{z-index:2;pointer-events:none}
+
+/* Generated illustration is the art layer. No CSS-drawn or SVG-drawn bubble decorations remain. */
+.home-world{z-index:40;isolation:isolate;background:#a9cbd0}
+.world-backdrop{position:absolute;inset:0;overflow:hidden;background:#9bbec7}
+.world-backdrop:before{
+  content:"";position:absolute;inset:-22px;z-index:0;
+  background-image:url("../images/home-panels.webp?v=20261115-7");
+  background-size:auto 100%;background-position:right center;background-repeat:no-repeat;
+  filter:blur(22px) brightness(.68) saturate(.9);transform:scale(1.06);opacity:.72
+}
+.portal-art-stage{position:absolute;inset:0;z-index:3;overflow:hidden}
+.world-art{
+  position:absolute;inset:0;width:100%;height:100%;display:block;
+  background-image:url("../images/home-panels.webp?v=20261115-7");
+  background-size:200% 100%;background-position:right center;background-repeat:no-repeat;
+  filter:none;transform:none;animation:none!important
+}
+.world-glass-pane{
+  position:absolute;z-index:1;inset:0;pointer-events:none;
+  background:linear-gradient(180deg,rgba(224,247,246,.07),rgba(196,230,233,.04) 52%,rgba(219,243,239,.08));
+  backdrop-filter:blur(1.15px) saturate(1.06);-webkit-backdrop-filter:blur(1.15px) saturate(1.06);
+  box-shadow:inset 0 0 90px rgba(231,255,251,.1),inset 0 1px 0 rgba(255,255,255,.24)
+}
+.world-glass-pane:before{content:"";position:absolute;inset:12px;border:1px solid rgba(240,255,252,.28);box-shadow:inset 0 0 34px rgba(239,255,251,.07);pointer-events:none}
+.world-glass-pane:after{content:"";position:absolute;inset:0;background:linear-gradient(112deg,transparent 36%,rgba(255,255,255,.09) 49%,transparent 62%);animation:portalSheen 18s ease-in-out infinite}
+.world-atmosphere{position:absolute;z-index:2;inset:0;pointer-events:none;background:linear-gradient(180deg,rgba(25,66,78,.035),transparent 44%,rgba(25,66,78,.07))}
+.world-rain{z-index:4;pointer-events:none;mix-blend-mode:screen}
+.world-water{position:absolute;inset:0;width:100%;height:100%;z-index:5;pointer-events:none;mix-blend-mode:screen}
+.world-petals{display:none!important}
+.cabin-header,.cabin-footer,.realm-gates{display:none!important}
+
+/* Invisible anchor zones sit exactly over the controls already drawn in the generated artwork */
+.portal-hotspots,.portal-nav-hotspots{position:absolute;inset:0;z-index:6;pointer-events:none}
+.portal-hotspot,.portal-nav-hotspots a{
+  position:absolute;display:block;padding:0;margin:0;border:0;border-radius:48%;
+  background:transparent;text-decoration:none;cursor:pointer;pointer-events:auto;
+  -webkit-tap-highlight-color:transparent;touch-action:manipulation;
+  transition:transform .28s ease,filter .28s ease,background .28s ease
+}
+.portal-hotspot:after{
+  content:"";position:absolute;inset:-4%;border-radius:50%;opacity:0;
+  background:radial-gradient(ellipse at 50% 42%,rgba(237,255,252,.27),rgba(222,250,248,.09) 48%,transparent 76%);
+  filter:blur(5px);transition:opacity .3s ease
+}
+.portal-hotspot:hover:after,.portal-hotspot:focus-visible:after{opacity:1}
+.portal-hotspot:hover,.portal-hotspot:focus-visible{transform:scale(1.035);filter:brightness(1.12);outline:none}
+.portal-hotspot:focus-visible{outline:1px solid rgba(255,255,255,.9);outline-offset:3px}
+.hotspot-world{left:19%;top:25%;width:21%;height:41%}
+.hotspot-profile{left:40%;top:25%;width:21%;height:41%}
+.hotspot-faq{left:62%;top:25%;width:21%;height:41%}
+.hotspot-enter{left:37%;top:65%;width:27%;height:16%}
+.portal-logo-hotspot{left:3.5%;top:3%;width:20%;height:16%;border-radius:8px!important}
+.portal-nav-hotspots a:not(.portal-logo-hotspot){top:3.5%;height:10%;border-radius:14px}
+.portal-nav-hotspots .nav-home{left:55.5%;width:7%}
+.portal-nav-hotspots .nav-world{left:63%;width:8%}
+.portal-nav-hotspots .nav-profile{left:72%;width:11%}
+.portal-nav-hotspots .nav-faq{left:84%;width:8%}
+.portal-nav-hotspots a:hover,.portal-nav-hotspots a:focus-visible{background:rgba(235,255,252,.09);box-shadow:0 0 20px rgba(237,255,251,.18);outline:none}
+.portal-nav-hotspots a:focus-visible{outline:1px solid rgba(255,255,255,.85);outline-offset:2px}
+
+/* The second page uses a 16:9 art-board on narrow screens so the three original orbs stay in proportion. */
+@media(max-width:700px){
+  .portal-glass-wrap{width:96vw;min-height:91vh;padding:12px}
+  .portal-glass-inner{min-height:540px;padding:38px 20px 68px}
+  .portal-copy h1{font-size:24px}.portal-description{font-size:12px}
+  .portal-art-stage{inset:50% 0 auto;height:auto;aspect-ratio:16/9;transform:translateY(-50%);overflow:visible}
+  .world-art{background-size:200% 100%;background-position:right center}
+  .portal-hotspots,.portal-nav-hotspots{inset:0}
+  .hotspot-world{left:18%;top:25%;width:22%;height:43%}
+  .hotspot-profile{left:39%;top:25%;width:22%;height:43%}
+  .hotspot-faq{left:61%;top:25%;width:22%;height:43%}
+  .hotspot-enter{left:36%;top:65%;width:29%;height:17%}
+  .portal-logo-hotspot{left:3%;top:2%;width:21%;height:18%}
+  .portal-nav-hotspots .nav-home{left:54%;width:8%}
+  .portal-nav-hotspots .nav-world{left:62%;width:10%}
+  .portal-nav-hotspots .nav-profile{left:73%;width:12%}
+  .portal-nav-hotspots .nav-faq{left:85%;width:9%}
+}
+@media(prefers-reduced-motion:reduce){
+  .world-glass-pane:after{animation:none!important}
+  .portal-hotspot,.portal-nav-hotspots a{transition:none!important}
+}
