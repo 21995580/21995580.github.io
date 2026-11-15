@@ -68,20 +68,20 @@ a{color:inherit}
 .work-card{transition-delay:calc(var(--order,0) * 110ms)}
 .work-card:hover{transition-delay:0s}
 .work-card:before{content:"";position:absolute;z-index:4;inset:8px;border:1px solid rgba(249,255,253,.66);pointer-events:none;clip-path:polygon(0 12px,12px 0,calc(100% - 12px) 0,100% 12px,100% calc(100% - 12px),calc(100% - 12px) 100%,12px 100%,0 calc(100% - 12px));box-shadow:inset 0 0 16px rgba(248,255,252,.16)}
-.work-card:after{content:"";position:absolute;z-index:3;inset:0;pointer-events:none;background:linear-gradient(180deg,rgba(19,51,67,.07) 0%,rgba(18,48,63,.01) 33%,rgba(13,38,53,.32) 58%,rgba(10,31,46,.82) 100%);transition:background .35s}
+.work-card:after{content:"";position:absolute;z-index:3;left:0;right:0;bottom:0;height:51%;pointer-events:none;background:linear-gradient(180deg,rgba(238,249,247,0) 0%,rgba(232,246,244,.36) 30%,rgba(231,246,245,.78) 70%,rgba(245,252,250,.96) 100%);-webkit-backdrop-filter:blur(8px) saturate(1.2);backdrop-filter:blur(8px) saturate(1.2);mask-image:linear-gradient(180deg,transparent 0%,#000 36%);}
 .work-cover{position:absolute;inset:0;overflow:hidden}
 .work-cover img{display:block;width:100%;height:100%;object-fit:cover;transition:transform .8s cubic-bezier(.2,.7,.2,1),filter .5s;filter:saturate(.88) brightness(.96)}
 .work-tags{position:absolute;z-index:5;left:22px;top:21px;display:flex;gap:7px;flex-wrap:wrap}
 .work-tags span{padding:4px 10px;border:1px solid rgba(255,255,255,.72);border-radius:999px;background:rgba(221,243,241,.36);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);color:#fff;font-size:11px;letter-spacing:.08em;text-shadow:0 1px 5px rgba(15,47,61,.4)}
-.work-card-content{position:absolute;z-index:5;left:24px;right:22px;bottom:21px;text-shadow:0 2px 10px rgba(4,25,38,.68)}
-.work-card-content h3{margin:0 0 2px;font-weight:500;font-size:clamp(20px,2.1vw,26px);letter-spacing:.12em;color:#fff;transition:color .3s,text-shadow .3s}
-.work-card-content .work-en{display:block;font:400 14px var(--latin);letter-spacing:.13em;color:rgba(245,251,250,.84)}
-.work-card-content p{margin:8px 0 0;max-width:90%;font-size:12px;line-height:1.8;letter-spacing:.07em;color:rgba(249,255,254,.94)}
-.work-explore{position:absolute;right:0;bottom:0;display:inline-flex;align-items:center;gap:6px;padding:7px 12px;border:1px solid rgba(255,255,255,.74);border-radius:999px;background:rgba(220,246,243,.16);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);font-size:11px;letter-spacing:.08em;color:#fff;opacity:.88;transition:background .3s,opacity .3s,box-shadow .3s}
+.work-card-content{position:absolute;z-index:5;left:24px;right:22px;bottom:21px;padding:12px 14px 10px 0;color:#21495a;text-shadow:0 1px 5px rgba(255,255,255,.72)}
+.work-card-content h3{margin:0 0 2px;font-weight:500;font-size:clamp(20px,2.1vw,26px);letter-spacing:.12em;color:#20495a;transition:color .3s,text-shadow .3s}
+.work-card-content .work-en{display:block;font:400 14px var(--latin);letter-spacing:.13em;color:rgba(48,91,108,.86)}
+.work-card-content p{margin:7px 0 0;max-width:90%;font-size:12px;line-height:1.8;letter-spacing:.07em;color:rgba(35,74,91,.94);text-shadow:0 1px 4px rgba(255,255,255,.62)}
+.work-explore{position:absolute;right:0;bottom:0;display:inline-flex;align-items:center;gap:6px;padding:7px 12px;border:1px solid rgba(101,151,166,.46);border-radius:999px;background:rgba(249,255,253,.48);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);font-size:11px;letter-spacing:.08em;color:#315f71;opacity:.9;transition:background .3s,opacity .3s,box-shadow .3s}
 .work-card:hover{transform:translateY(-7px);box-shadow:0 15px 40px rgba(39,104,119,.28),0 0 24px rgba(223,253,248,.55);filter:brightness(1.05)}
 .work-card:hover .work-cover img{transform:scale(1.065);filter:saturate(1.02) brightness(1.04)}
-.work-card:hover .work-card-content h3{color:#fff;text-shadow:0 0 16px rgba(226,255,248,.78),0 2px 10px rgba(4,25,38,.7)}
-.work-card:hover .work-explore{opacity:1;background:rgba(223,249,245,.3);box-shadow:0 0 17px rgba(224,253,248,.32)}
+.work-card:hover .work-card-content h3{color:#163d50;text-shadow:0 0 12px rgba(255,255,255,.92)}
+.work-card:hover .work-explore{opacity:1;background:rgba(255,255,255,.78);box-shadow:0 0 17px rgba(142,205,202,.42)}
 .atlas-loading{grid-column:1/-1;text-align:center;padding:50px 16px;color:#466b7a;letter-spacing:.12em}
 .atlas-pagination{display:flex;justify-content:center;align-items:center;gap:12px;margin:36px auto 0}
 .atlas-pagination button{min-width:32px;height:32px;padding:0 9px;border:1px solid transparent;border-radius:50%;background:transparent;color:#456b7a;font:400 16px var(--latin);cursor:pointer;transition:all .25s}
