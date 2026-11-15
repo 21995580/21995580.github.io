@@ -396,7 +396,9 @@ function initHomeIntro() {
   if (!portal || !world) return;
 
   const fog = $('#portalFog'), rain = $('#portalRain'), water = $('#portalWater');
+  const worldRain = $('#worldRain'), worldWater = $('#worldWater');
   const fogCtx = fog?.getContext('2d'), rainCtx = rain?.getContext('2d'), waterCtx = water?.getContext('2d');
+  const worldWaterCtx = worldWater?.getContext('2d');
   const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
   let width=0,height=0,dpr=1,raf=0,wiping=false,moved=false,start=null,last=null,restoreAt=0,erased=null,base=null;
   const drops=[],ripples=[],streaks=[];
@@ -408,7 +410,7 @@ function initHomeIntro() {
   }
   function resize(){
     const host=portal.isConnected?portal:world;const r=host.getBoundingClientRect();width=r.width;height=r.height;dpr=Math.min(devicePixelRatio||1,2);
-    [fog,rain,water,$('#worldRain')].forEach(c=>{if(!c)return;c.width=Math.round(width*dpr);c.height=Math.round(height*dpr);c.style.width=width+'px';c.style.height=height+'px';const x=c.getContext('2d');x.setTransform(dpr,0,0,dpr,0,0);});
+    [fog,rain,water,worldRain,worldWater].forEach(c=>{if(!c)return;c.width=Math.round(width*dpr);c.height=Math.round(height*dpr);c.style.width=width+'px';c.style.height=height+'px';const x=c.getContext('2d');x.setTransform(dpr,0,0,dpr,0,0);});
     if(fogCtx){
       fogCtx.clearRect(0,0,width,height);
       const g=fogCtx.createLinearGradient(0,0,width,height);g.addColorStop(0,'rgba(215,235,238,.15)');g.addColorStop(.5,'rgba(195,222,231,.11)');g.addColorStop(1,'rgba(226,239,239,.17)');fogCtx.fillStyle=g;fogCtx.fillRect(0,0,width,height);
@@ -454,8 +456,8 @@ function initHomeIntro() {
     }
   }
   function animate(t){
-    drawRain(rainCtx,t);drawRain($('#worldRain')?.getContext('2d'),t);
-    drawRipples(waterCtx,t);
+    drawRain(rainCtx,t);drawRain(worldRain?.getContext('2d'),t);
+    drawRipples(waterCtx,t);drawRipples(worldWaterCtx,t);
     if(!reduceMotion)raf=requestAnimationFrame(animate);
   }
   function addRipple(x,y,power=1){ripples.push({x,y,t:performance.now(),r:rand(25,58),power});if(ripples.length>24)ripples.shift();}
@@ -471,7 +473,7 @@ function initHomeIntro() {
     if(t<1)requestAnimationFrame(restore);else erased=null;
   }
   resize();window.addEventListener('resize',resize,{passive:true});
-  if(!reduceMotion)raf=requestAnimationFrame(animate);else drawRain(rainCtx,0);
+  if(!reduceMotion)raf=requestAnimationFrame(animate);else {drawRain(rainCtx,0);drawRain(worldRain?.getContext('2d'),0);}
   portal.addEventListener('pointerdown',e=>{if(e.button!==0)return;wiping=true;moved=false;start=last=point(e);});
   portal.addEventListener('pointermove',e=>{
     const p=point(e);portal.style.setProperty('--pointer-x',(p.x/width*100)+'%');portal.style.setProperty('--pointer-y',(p.y/height*100)+'%');
@@ -483,7 +485,7 @@ function initHomeIntro() {
   const stop=()=>{if(!wiping)return;wiping=false;if(moved){erased=document.createElement('canvas');erased.width=fog.width;erased.height=fog.height;erased.getContext('2d').drawImage(fog,0,0);restoreAt=performance.now();requestAnimationFrame(restore);const suppress=e=>{e.preventDefault();e.stopImmediatePropagation();portal.removeEventListener('click',suppress,true);};portal.addEventListener('click',suppress,true);}start=last=null;};
   window.addEventListener('pointerup',stop,{passive:true});window.addEventListener('pointercancel',stop,{passive:true});
   portal.addEventListener('pointerleave',()=>{portal.style.setProperty('--pointer-x','50%');portal.style.setProperty('--pointer-y','50%');},{passive:true});
-  const open=()=>{if(document.body.classList.contains('portal-opened'))return;document.body.classList.add('portal-opened');world.classList.add('entered');world.setAttribute('aria-hidden','false');window.setTimeout(()=>{portal.remove();},950);};
+  const open=()=>{if(document.body.classList.contains('portal-opened'))return;document.body.classList.add('portal-opened');world.classList.add('entered');world.setAttribute('aria-hidden','false');resize();window.setTimeout(()=>{portal.remove();},950);};
   enter?.addEventListener('click',open);skip?.addEventListener('click',open);
 }
 async function init() {
