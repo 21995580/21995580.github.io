@@ -5,7 +5,7 @@ const params=new URLSearchParams(location.search);
 const workId=params.get('id')||'LoveOverImmortality';
 const requestedTab=params.get('tab')||'characters';
 const PAGE_SIZE=4;
-const state={work:null,allCharacters:[],filter:'全部',page:1,locked:false};
+const state={work:null,allCharacters:[],filter:'全部',page:1,locked:false,initialRendered:false};
 const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
 const safe=(v)=>String(v==null?'':v);
 function node(tag,cls,text){const el=document.createElement(tag);if(cls)el.className=cls;if(text!=null)el.textContent=text;return el}
@@ -28,7 +28,7 @@ function renderRoleFilters(){
 function createRoleCard(char){
  const a=node('a','role-card');a.href='character.html?id='+encodeURIComponent(char.id)+'&work='+encodeURIComponent(state.work.id);
  const frame=node('div','role-portrait');
- const img=document.createElement('img');img.src=char.avatar||char.full||state.work.cover||'images/characters/main.png';img.alt=(char.name||'角色')+'半身立繪';img.loading='lazy';img.decoding='async';frame.appendChild(img);
+ const img=document.createElement('img');img.src=char.full||char.avatar||state.work.cover||'images/characters/main.png';img.alt=(char.name||'角色')+'半身立繪';img.loading='lazy';img.decoding='async';frame.appendChild(img);
  const body=node('div','role-card-body');body.appendChild(node('h3','',char.name||'未命名角色'));
  const tags=node('div','role-tags');
  (Array.isArray(char.tags)?char.tags:[]).slice(0,3).forEach(t=>tags.appendChild(node('span','',t)));
@@ -56,6 +56,11 @@ function renderCharacters(direction=0){
   grid.classList.remove('roles-enter-left','roles-enter-right');void grid.offsetWidth;
   grid.classList.add(direction>0?'roles-enter-right':'roles-enter-left');
   setTimeout(()=>grid.classList.remove('roles-enter-left','roles-enter-right'),700);
+ }else if(!state.initialRendered&&!reduced){
+  grid.classList.remove('roles-arrive');void grid.offsetWidth;
+  grid.classList.add('roles-arrive');
+  setTimeout(()=>grid.classList.remove('roles-arrive'),1500);
+  state.initialRendered=true;
  }
  renderPagination(count);observeCards();
 }
