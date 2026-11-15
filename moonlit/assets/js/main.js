@@ -395,7 +395,7 @@ function initHomeIntro() {
   const fogCtx=fog?.getContext('2d'),rainCtx=rain?.getContext('2d'),waterCtx=water?.getContext('2d'),worldRainCtx=worldRain?.getContext('2d'),worldWaterCtx=worldWater?.getContext('2d');
   const reduceMotion=matchMedia('(prefers-reduced-motion: reduce)').matches;
   let w=0,h=0,dpr=1,raf=0,wiping=false,moved=false,start=null,last=null,restoreCanvas=null,restoreAt=0,lastRestoreFrame=0,lastRipple=0;
-  const drops=[],ripples=[],lakeRipples=[];
+  const drops=[],worldDrops=[],ripples=[],lakeRipples=[];
   const rand=(a,b)=>a+Math.random()*(b-a);
   const point=e=>{const r=portal.getBoundingClientRect();return{x:e.clientX-r.left,y:e.clientY-r.top};};
   const newDrop=(initial=false)=>({x:rand(0,w),y:initial?rand(0,h):rand(-h*.25,-12),r:rand(2.8,7.8),speed:rand(.18,.72),slide:rand(-.18,.18),phase:rand(0,6.28),alpha:rand(.28,.62),trail:rand(12,42)});
@@ -415,7 +415,7 @@ function initHomeIntro() {
       [[.13,.2,190,.07],[.76,.27,230,.07],[.42,.79,270,.075],[.9,.82,180,.06]].forEach(([x,y,r,a])=>{const q=fogCtx.createRadialGradient(w*x,h*y,0,w*x,h*y,r);q.addColorStop(0,'rgba(235,249,248,'+a+')');q.addColorStop(1,'rgba(235,249,248,0)');fogCtx.fillStyle=q;fogCtx.fillRect(w*x-r,h*y-r,r*2,r*2);});
       fogCtx.restore();
     }
-    drops.length=0;for(let i=0;i<45;i++)drops.push(newDrop(true));
+    drops.length=0;worldDrops.length=0;for(let i=0;i<45;i++){drops.push(newDrop(true));worldDrops.push(newDrop(true));}
   }
   function bead(ctx,d,t){
     const x=d.x+Math.sin(t*.00025+d.phase)*1.3,y=d.y,r=d.r;
@@ -429,9 +429,9 @@ function initHomeIntro() {
     if(r>5){ctx.globalAlpha*=.45;ctx.strokeStyle='rgba(244,255,255,.6)';ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(x,y+r);ctx.bezierCurveTo(x-1,y+r+8,x+2,y+r+16,x+d.slide*10,y+r+d.trail);ctx.stroke();}
     ctx.restore();
   }
-  function drawRain(ctx,t){
+  function drawRain(ctx,t,list){
     if(!ctx)return;ctx.clearRect(0,0,w,h);
-    for(const d of drops){d.y+=d.speed;d.x+=d.slide*.14;if(d.y>h+55)Object.assign(d,newDrop());bead(ctx,d,t);}
+    for(const d of list){d.y+=d.speed;d.x+=d.slide*.14;if(d.y>h+55)Object.assign(d,newDrop());bead(ctx,d,t);}
     ctx.save();ctx.lineCap='round';
     for(let i=0;i<52;i++){
       const x=(i*139.7+t*.012)%w,y=(i*91.3+t*.075)%(h+60)-30,len=rand(8,23);
@@ -464,13 +464,13 @@ function initHomeIntro() {
   let fogBase=null;
   function saveBase(){if(!fog)return;fogBase=document.createElement('canvas');fogBase.width=fog.width;fogBase.height=fog.height;fogBase.getContext('2d').drawImage(fog,0,0);}
   function animate(t){
-    drawRain(rainCtx,t);drawRain(worldRainCtx,t);
+    drawRain(rainCtx,t,drops);drawRain(worldRainCtx,t,worldDrops);
     drawRipples(waterCtx,ripples,t);drawRipples(worldWaterCtx,lakeRipples,t);
     if(t>lastRipple){lakeRipples.push({x:rand(w*.12,w*.9),y:rand(h*.7,h*.95),t,r:rand(18,48),power:rand(.16,.28)});lastRipple=t+rand(2300,4800);}
     raf=requestAnimationFrame(animate);
   }
   resize();saveBase();window.addEventListener('resize',()=>{resize();saveBase();},{passive:true});
-  if(!reduceMotion)raf=requestAnimationFrame(animate);else{drawRain(rainCtx,0);drawRain(worldRainCtx,0);}
+  if(!reduceMotion)raf=requestAnimationFrame(animate);else{drawRain(rainCtx,0,drops);drawRain(worldRainCtx,0,worldDrops);}
   portal.addEventListener('pointerdown',e=>{if(e.button!==0||e.target.closest('button,a'))return;wiping=true;moved=false;start=last=point(e);},{passive:true});
   portal.addEventListener('pointermove',e=>{
     if(!wiping)return;const p=point(e),dx=p.x-last.x,dy=p.y-last.y,dist=Math.hypot(dx,dy);
