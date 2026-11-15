@@ -126,7 +126,6 @@
       grid.classList.add(direction > 0 ? 'enter-next' : 'enter-prev');
       window.setTimeout(() => grid.classList.remove('enter-next', 'enter-prev'), 750);
     } else {
-      grid.querySelectorAll('.work-card').forEach((card) => card.classList.add('is-visible'));
       observeReveal(Array.from(document.querySelectorAll('.reveal')));
     }
     renderPagination(pageCount);
