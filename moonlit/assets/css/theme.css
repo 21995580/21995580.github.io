@@ -1229,3 +1229,95 @@ body.atlas-page{min-height:100vh;color:var(--ink);font-family:"Noto Sans TC",san
 .cabin-welcome h1{font-family:var(--serif);letter-spacing:5px;text-shadow:0 2px 18px rgba(255,255,255,.7)}
 .enter-cabin{border:1px solid rgba(255,255,255,.85)!important;background:rgba(221,243,240,.24)!important;color:#f6ffff!important;backdrop-filter:blur(12px);border-radius:28px!important;letter-spacing:2px;box-shadow:0 0 20px rgba(255,255,255,.22);transition:transform .3s,box-shadow .3s}
 .enter-cabin:hover{transform:translateY(-3px);box-shadow:0 0 28px rgba(255,255,255,.55)!important}
+
+
+/* === Moonlit homepage rebuild: rain glass + illustrated realm gates === */
+body[data-page="home"]{overflow:hidden;background:#b9d5d7}
+.portal-backdrop{
+  background-image:url("../images/meadow-intro.webp");
+  background-position:center 48%;filter:blur(1.4px) saturate(.88) brightness(.9);
+}
+.portal-wash{
+  background:linear-gradient(180deg,rgba(19,47,61,.22),rgba(23,62,76,.12) 46%,rgba(15,43,54,.34)),
+             linear-gradient(90deg,rgba(20,48,61,.25),transparent 45%,rgba(20,48,61,.2));
+  backdrop-filter:blur(1px);-webkit-backdrop-filter:blur(1px)
+}
+.portal-glass-wrap{width:min(1160px,96vw);min-height:min(720px,91vh);padding:clamp(24px,5vw,68px)}
+.portal-glass{background:rgba(202,229,235,.12);border:1px solid rgba(239,252,255,.62);
+  box-shadow:0 24px 90px rgba(17,54,68,.24),inset 0 0 55px rgba(231,249,250,.12),inset 0 1px 0 #ffffff99;
+  backdrop-filter:blur(18px) saturate(1.08);-webkit-backdrop-filter:blur(18px) saturate(1.08);
+  clip-path:none;border-radius:2px}
+.portal-glass:before{inset:10px;border:1px solid rgba(239,252,255,.36);clip-path:none}
+.portal-glass-inner{min-height:580px;align-items:center;text-align:center;padding:clamp(42px,6vw,76px)}
+.portal-sign{font:500 11px "Noto Sans TC",sans-serif;letter-spacing:.3em;color:#f0fbfa;text-shadow:0 1px 12px #244d5c}
+.portal-sign:before{content:"✿";color:#f5dce1}
+.portal-rule{margin:20px auto 26px;background:#f0fbf4}
+.portal-copy{max-width:720px}
+.portal-title{font:400 15px "Cormorant Garamond","Noto Serif TC",serif;letter-spacing:.25em;color:#f3fbf8}
+.portal-copy h1{font:400 clamp(25px,3.3vw,39px)/1.8 "Noto Serif TC",serif;letter-spacing:.18em;color:#f5ffff;text-shadow:0 2px 18px #244e5c}
+.portal-description{font:14px/2.3 "Noto Serif TC",serif;letter-spacing:.12em;color:#f2fbfa;text-shadow:0 1px 10px #345d69}
+.portal-note{color:#edf9f6}
+.portal-actions{justify-content:center;margin-top:34px}
+.portal-action.primary{min-width:190px;padding:14px 30px;border:1px solid rgba(239,255,255,.86);border-radius:30px;
+  background:rgba(201,232,231,.2);color:#f6ffff;font:14px "Noto Serif TC",serif;letter-spacing:.25em;
+  box-shadow:0 0 22px rgba(215,250,249,.25),inset 0 0 16px rgba(255,255,255,.12);backdrop-filter:blur(12px)}
+.portal-action.primary:hover{background:rgba(227,249,245,.38);color:#fff;box-shadow:0 0 34px rgba(218,255,249,.58),inset 0 0 20px #fff4;transform:translateY(-3px)}
+.portal-skip{margin-top:22px;color:#f0fbfa}
+.portal-fog{z-index:5}
+.portal-rain{position:absolute;inset:0;z-index:6;width:100%;height:100%;pointer-events:none;mix-blend-mode:screen}
+.portal-water{z-index:7;mix-blend-mode:screen}
+.portal-glass-wrap{z-index:3}
+.portal-screen:after{z-index:2}
+.portal-bottom{color:#f0fbf1aa}
+
+/* Second screen: a scenic game-like world with three interactive sigils */
+.home-world{background:#9fc6c8;z-index:40}
+.world-backdrop{background:#a9cbd0}
+.world-art{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 52%;
+  filter:brightness(.82) saturate(.88);transform:scale(1.035);animation:worldSlowPan 34s ease-in-out infinite alternate}
+.world-atmosphere{position:absolute;inset:0;background:linear-gradient(180deg,rgba(23,57,69,.25),rgba(44,104,111,.05) 42%,rgba(17,63,70,.35)),
+  linear-gradient(90deg,rgba(20,55,67,.2),transparent 32%,transparent 70%,rgba(20,55,67,.18));pointer-events:none}
+.world-rain{position:absolute;inset:0;width:100%;height:100%;z-index:2;pointer-events:none;mix-blend-mode:screen}
+.world-petals{position:absolute;inset:0;z-index:3;pointer-events:none;overflow:hidden}
+.world-petals i{position:absolute;top:-8%;width:10px;height:15px;border-radius:90% 10% 80% 15%;background:linear-gradient(135deg,#fff8f2,#e9bfc9);opacity:.7;filter:drop-shadow(0 0 5px #fff8);animation:realmPetalFall 15s linear infinite}
+.world-petals i:nth-child(1){left:8%;animation-delay:-2s}.world-petals i:nth-child(2){left:24%;animation-delay:-11s;animation-duration:18s}
+.world-petals i:nth-child(3){left:43%;animation-delay:-7s}.world-petals i:nth-child(4){left:61%;animation-delay:-14s;animation-duration:19s}
+.world-petals i:nth-child(5){left:76%;animation-delay:-4s}.world-petals i:nth-child(6){left:91%;animation-delay:-9s}
+.world-petals i:nth-child(7){left:34%;animation-delay:-16s;animation-duration:21s}.world-petals i:nth-child(8){left:83%;animation-delay:-19s}
+@keyframes realmPetalFall{0%{transform:translate3d(0,-5vh,0) rotate(0);opacity:0}12%{opacity:.72}50%{transform:translate3d(55px,52vh,0) rotate(210deg)}100%{transform:translate3d(-30px,110vh,0) rotate(420deg);opacity:0}}
+@keyframes worldSlowPan{to{transform:scale(1.09) translate3d(-1%,.5%,0)}}
+.cabin-header{z-index:5;padding:26px clamp(24px,5vw,72px);background:linear-gradient(180deg,rgba(22,57,68,.36),transparent);border:0}
+.cabin-brand{gap:13px}.cabin-brand>span{width:48px;height:48px;border:1px solid #e6f8f4;color:#f4fffb;background:#e9ffff20;font-size:26px}
+.cabin-brand strong{font-size:24px;letter-spacing:5px}.cabin-brand small{letter-spacing:3px}
+.cabin-motto{color:#effbf7;font:12px "Noto Serif TC",serif;letter-spacing:.25em;text-shadow:0 1px 9px #315c65}
+.realm-gates{position:absolute;z-index:6;left:50%;top:51%;transform:translate(-50%,-50%);width:min(880px,94vw);text-align:center;color:#f4fffd;text-shadow:0 2px 12px rgba(22,63,75,.58)}
+.realm-kicker{margin:0 0 10px;font:10px Georgia,serif;letter-spacing:.38em;color:#e8f7f3}
+.realm-gates h1{margin:0;font:400 clamp(30px,4.2vw,46px) "Noto Serif TC",serif;letter-spacing:.3em}
+.realm-subtitle{margin:13px 0 42px;font:13px "Noto Serif TC",serif;letter-spacing:.18em;color:#effaf8}
+.realm-gate-list{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(22px,5vw,70px);max-width:700px;margin:auto}
+.realm-gate{position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:190px;color:#f5fffd;text-decoration:none;isolation:isolate;transition:transform .4s cubic-bezier(.2,.7,.2,1),color .3s}
+.gate-orbit{position:absolute;left:50%;top:4px;width:144px;height:112px;transform:translateX(-50%);border:1px solid rgba(231,251,249,.6);border-radius:50%;pointer-events:none;transition:all .45s ease}
+.orbit-back{width:174px;height:94px;top:14px;transform:translateX(-50%) rotate(-13deg);border-color:rgba(232,250,248,.32)}
+.orbit-front{border-top-color:rgba(255,255,255,.92);border-bottom-color:rgba(221,250,247,.2);box-shadow:0 0 18px rgba(224,255,250,.12),inset 0 0 18px rgba(224,255,250,.08)}
+.gate-emblem{position:relative;z-index:1;display:grid;place-items:center;width:104px;height:104px;margin:8px 0 12px;border:1px solid rgba(237,255,251,.68);border-radius:50%;background:radial-gradient(circle,rgba(222,248,246,.28),rgba(195,232,233,.08) 68%,transparent 70%);box-shadow:0 0 22px rgba(230,255,250,.16),inset 0 0 22px rgba(232,255,252,.16);backdrop-filter:blur(5px);transition:transform .4s,box-shadow .4s,background .4s}
+.gate-emblem svg{width:58px;height:58px;fill:none;stroke:#f1fffb;stroke-width:1.55;stroke-linecap:round;stroke-linejoin:round;filter:drop-shadow(0 0 7px rgba(229,255,250,.55))}
+.gate-question{font:300 58px "Cormorant Garamond",serif}
+.gate-title{font:400 19px "Noto Serif TC",serif;letter-spacing:.22em;transition:color .3s,text-shadow .3s}
+.gate-en{margin-top:4px;font:12px "Cormorant Garamond",serif;letter-spacing:.12em;color:#e0f3f0}
+.realm-gate:hover,.realm-gate:focus-visible{transform:translateY(-7px);color:#fff}
+.realm-gate:hover .gate-emblem,.realm-gate:focus-visible .gate-emblem{transform:scale(1.08);background:radial-gradient(circle,rgba(238,255,251,.4),rgba(195,232,233,.13) 68%,transparent 70%);box-shadow:0 0 34px rgba(227,255,250,.5),inset 0 0 28px rgba(255,255,255,.26)}
+.realm-gate:hover .gate-orbit,.realm-gate:focus-visible .gate-orbit{transform:translateX(-50%) rotate(0) scale(1.08);border-color:#f1fffb;box-shadow:0 0 23px rgba(227,255,250,.48)}
+.realm-gate:hover .gate-title,.realm-gate:focus-visible .gate-title{color:#fff;text-shadow:0 0 16px #e9fffa}
+.realm-watermark{margin-top:46px;font:12px "Noto Serif TC",serif;letter-spacing:.14em;color:#e7f7f3}
+.cabin-footer{z-index:5;color:#f2fffbba;font:9px Georgia,serif;letter-spacing:.25em}
+@media(max-width:700px){
+ .portal-glass-wrap{width:96vw;min-height:90vh;padding:14px}.portal-glass-inner{min-height:540px;padding:38px 20px 60px}
+ .portal-copy h1{font-size:24px}.portal-description{font-size:12px}.portal-actions{margin-top:25px}
+ .home-world .cabin-header{padding:18px 20px}.cabin-brand strong{font-size:19px}.cabin-motto{display:none}
+ .realm-gates{top:52%;width:96vw}.realm-subtitle{margin-bottom:28px;font-size:11px}
+ .realm-gate-list{gap:5px}.realm-gate{min-height:155px}.gate-emblem{width:76px;height:76px;margin:8px 0 10px}
+ .gate-emblem svg{width:43px;height:43px}.gate-question{font-size:46px}.gate-orbit{width:110px;height:84px}.orbit-back{width:126px;height:72px}
+ .gate-title{font-size:14px;letter-spacing:.1em}.gate-en{font-size:10px}.realm-watermark{font-size:10px;margin-top:26px}
+}
+@media(max-width:390px){.realm-gate-list{gap:0}.gate-emblem{width:68px;height:68px}.gate-orbit{width:98px;height:76px}.orbit-back{width:112px}.gate-title{font-size:12px}}
+@media(prefers-reduced-motion:reduce){.world-art,.world-petals i{animation:none!important}.realm-gate,.gate-emblem,.gate-orbit{transition:none!important}}
