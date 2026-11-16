@@ -1,11 +1,17 @@
 {
   "profile": {
-    "avatar": "images/characters/main.png",
+    "avatar": "assets/images/author-avatar.webp",
     "quote": "「歲月風塵，幸有眾星相隨，照我前行不輟。」",
     "bio": "努力做出更好的作品，並優化之前的角色，會不定期更新，感謝各位的支持。本網站內容非WHIF官方，若有關WHIF相關政策與AI邏輯設定等問題依照官方公告為主，此處僅供建議參考。",
     "links": [
-      {"name": "X / Twitter", "url": "https://x.com/"},
-      {"name": "WHIF", "url": "https://www.whif.io/profile/Dragon"}
+      {
+        "name": "X / Twitter",
+        "url": "https://x.com/"
+      },
+      {
+        "name": "WHIF",
+        "url": "https://www.whif.io/profile/Dragon"
+      }
     ]
   }
 }

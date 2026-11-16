@@ -1,0 +1,91 @@
+/* Creator profile page */
+.profile-page{--profile-ink:#31596a;--profile-muted:#668995;--profile-line:rgba(255,255,255,.66)}
+.profile-main{position:relative;z-index:3;width:min(1370px,95vw);margin:0 auto;padding:116px 20px 60px}
+.profile-heading{text-align:center;margin:0 auto 34px;animation:profileRise .85s cubic-bezier(.2,.7,.2,1) both}
+.profile-heading-ornament{display:block;color:rgba(255,255,255,.96);font-size:22px;letter-spacing:12px;text-shadow:0 0 14px rgba(255,255,255,.9);margin-bottom:5px}
+.profile-eyebrow{margin:0 0 8px;color:#f2e7d1;font:500 11px "Cormorant Garamond",serif;letter-spacing:.34em;text-shadow:0 2px 10px rgba(22,61,77,.58)}
+.profile-heading h1{margin:0;color:#fff;font-size:clamp(30px,4vw,45px);font-weight:500;letter-spacing:.24em;text-shadow:0 2px 15px rgba(14,50,66,.58),0 0 22px rgba(255,255,255,.24)}
+.profile-heading-en{display:block;margin-top:5px;color:#f2e5c9;font:400 17px "Cormorant Garamond",serif;letter-spacing:.25em;text-shadow:0 2px 10px rgba(20,57,72,.55)}
+.profile-heading>p:last-child{margin:13px 0 0;color:rgba(255,255,255,.94);font-size:13px;letter-spacing:.12em;text-shadow:0 2px 9px rgba(18,53,69,.65)}
+.profile-hero{display:grid;grid-template-columns:minmax(300px,.88fr) minmax(0,1.12fr);gap:clamp(24px,4vw,58px);align-items:stretch}
+.profile-portrait-panel{min-width:0;margin:0;animation:profileRise .95s cubic-bezier(.2,.7,.2,1) .12s both}
+.profile-portrait-frame{position:relative;isolation:isolate;overflow:hidden;min-height:520px;aspect-ratio:4/5;border:1px solid rgba(250,255,254,.78);background:linear-gradient(145deg,rgba(231,250,248,.20),rgba(158,205,215,.12));box-shadow:0 22px 55px rgba(16,56,73,.20),inset 0 0 0 6px rgba(240,255,250,.10),inset 0 1px 0 rgba(255,255,255,.8);clip-path:polygon(0 4%,4% 0,96% 0,100% 4%,100% 96%,96% 100%,4% 100%,0 96%)}
+.profile-portrait-frame:before{content:"";position:absolute;z-index:2;inset:10px;border:1px solid rgba(255,255,255,.62);pointer-events:none;clip-path:polygon(0 4%,4% 0,96% 0,100% 4%,100% 96%,96% 100%,4% 100%,0 96%);box-shadow:inset 0 0 24px rgba(245,255,253,.14)}
+.profile-portrait-frame:after{content:"";position:absolute;z-index:2;inset:0;background:linear-gradient(180deg,rgba(18,53,68,.10),transparent 21%,transparent 68%,rgba(17,54,72,.48));pointer-events:none}
+.profile-portrait-frame img{position:relative;z-index:1;display:block;width:100%;height:100%;min-height:520px;object-fit:cover;object-position:center 46%;filter:saturate(.94) contrast(1.02);transition:transform .9s cubic-bezier(.2,.7,.2,1)}
+.profile-portrait-panel:hover img{transform:scale(1.035)}
+.profile-jade{position:absolute;z-index:3;color:rgba(255,255,255,.96);font-size:24px;text-shadow:0 0 12px rgba(255,255,255,.95),0 2px 10px rgba(26,68,82,.5);pointer-events:none}
+.profile-jade-top{top:23px;left:26px}.profile-jade-bottom{right:25px;bottom:80px}
+.profile-portrait-caption{position:absolute;z-index:4;left:0;right:0;bottom:0;min-height:65px;display:flex;align-items:center;justify-content:center;gap:13px;color:#fff;text-shadow:0 2px 9px rgba(9,37,52,.78);background:linear-gradient(180deg,transparent,rgba(16,52,70,.38));font:11px "Cormorant Garamond",serif;letter-spacing:.24em}
+.profile-portrait-caption i{width:32px;height:1px;background:rgba(255,255,255,.8);box-shadow:0 0 7px #fff}
+.profile-portrait-caption b{font-weight:400;color:#f3e6c9}
+.profile-portrait-note{text-align:center;margin:12px 0 0;color:rgba(255,255,255,.92);font-size:12px;letter-spacing:.16em;text-shadow:0 2px 8px rgba(16,54,70,.65)}
+.profile-glass-panel{position:relative;isolation:isolate;min-width:0;display:flex;flex-direction:column;justify-content:center;padding:clamp(28px,4vw,56px);overflow:hidden;border:1px solid rgba(250,255,253,.60);background:linear-gradient(135deg,rgba(241,255,251,.24),rgba(211,241,239,.13) 52%,rgba(243,255,250,.20));box-shadow:0 20px 52px rgba(25,73,89,.14),inset 0 1px 0 rgba(255,255,255,.62),inset 0 -1px 0 rgba(255,255,255,.2);backdrop-filter:blur(21px) saturate(1.16);-webkit-backdrop-filter:blur(21px) saturate(1.16);animation:profileRise .95s cubic-bezier(.2,.7,.2,1) .22s both}
+.profile-glass-panel:before{content:"";position:absolute;z-index:-1;inset:9px;border:1px solid rgba(255,255,255,.42);box-shadow:inset 0 0 36px rgba(243,255,251,.09);pointer-events:none}
+.profile-glass-panel:after{content:"";position:absolute;z-index:-1;top:-35%;right:-20%;width:65%;height:75%;background:radial-gradient(ellipse,rgba(255,255,255,.20),transparent 72%);filter:blur(28px);pointer-events:none}
+.profile-scroll-ornament{display:flex;align-items:center;justify-content:center;gap:13px;margin:0 auto 18px;color:#f6e6c6;text-shadow:0 1px 9px rgba(31,72,85,.45)}
+.profile-scroll-ornament span{width:52px;height:1px;background:linear-gradient(90deg,transparent,rgba(255,255,255,.85))}
+.profile-scroll-ornament span:last-child{transform:rotate(180deg)}
+.profile-scroll-ornament i{font-style:normal;font-size:18px}
+.profile-card-eyebrow{text-align:center;margin:0;color:rgba(255,255,255,.93);font:500 11px "Cormorant Garamond",serif;letter-spacing:.28em;text-shadow:0 2px 8px rgba(15,49,65,.64)}
+.profile-name{text-align:center;margin:7px 0 0;color:#fff;font-size:clamp(32px,4vw,46px);font-weight:500;letter-spacing:.18em;text-shadow:0 2px 12px rgba(11,43,60,.72),0 0 18px rgba(255,255,255,.24)}
+.profile-name-en{text-align:center;margin:5px 0 0;color:#f1e4ca;font:400 15px "Cormorant Garamond",serif;letter-spacing:.28em;text-shadow:0 2px 8px rgba(15,49,65,.58)}
+.profile-divider{display:flex;align-items:center;justify-content:center;gap:12px;margin:20px auto 21px;color:#f6e8cb}
+.profile-divider i{width:58px;height:1px;background:linear-gradient(90deg,transparent,rgba(255,255,255,.86))}
+.profile-divider i:last-child{transform:rotate(180deg)}
+.profile-quote{margin:0 auto 21px;max-width:35em;color:#fff;text-align:center;font-size:clamp(15px,1.35vw,18px);line-height:2.1;letter-spacing:.10em;text-shadow:0 2px 9px rgba(13,45,62,.82);border:0}
+.profile-bio-wrap{position:relative;max-width:42em;margin:0 auto;padding:18px 23px 18px 55px;border-left:1px solid rgba(255,255,255,.48);border-right:1px solid rgba(255,255,255,.32);background:linear-gradient(90deg,rgba(239,255,251,.08),rgba(239,255,251,.025) 55%,rgba(239,255,251,.07))}
+.profile-bio-mark{position:absolute;left:17px;top:19px;color:#f2e5c7;font-size:22px;text-shadow:0 0 12px rgba(255,255,255,.45)}
+.profile-bio{margin:0;color:rgba(255,255,255,.96);font-size:13px;line-height:2.15;letter-spacing:.065em;text-shadow:0 2px 8px rgba(13,47,64,.82);white-space:pre-line}
+.profile-social-heading{display:flex;align-items:center;gap:12px;margin:27px 0 13px;color:#fff;text-shadow:0 1px 8px rgba(13,45,62,.66)}
+.profile-social-heading span{font:500 10px "Cormorant Garamond",serif;letter-spacing:.19em}
+.profile-social-heading i{height:1px;flex:1;background:linear-gradient(90deg,rgba(255,255,255,.65),transparent)}
+.profile-social-heading small{font-size:11px;letter-spacing:.12em;color:#f5e8cf}
+.profile-social-links{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:11px;margin:0;padding:0;list-style:none}
+.profile-social-links li{min-width:0}
+.profile-social-links a{position:relative;display:flex;align-items:center;gap:12px;min-height:48px;padding:10px 14px;border:1px solid rgba(255,255,255,.62);background:linear-gradient(135deg,rgba(243,255,251,.20),rgba(184,224,228,.10));color:#fff;text-decoration:none;font-size:12px;letter-spacing:.08em;text-shadow:0 1px 7px rgba(14,47,64,.62);box-shadow:inset 0 1px 0 rgba(255,255,255,.36);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);transition:transform .28s,background .28s,border-color .28s,box-shadow .28s}
+.profile-social-links a:before{content:"↗";display:grid;place-items:center;flex:0 0 25px;width:25px;height:25px;border:1px solid rgba(255,255,255,.55);border-radius:50%;color:#fff;font:13px "Cormorant Garamond",serif}
+.profile-social-links a:hover{transform:translateY(-3px);background:rgba(240,255,250,.29);border-color:rgba(255,255,255,.92);box-shadow:0 9px 22px rgba(16,58,74,.16),0 0 18px rgba(238,255,251,.25)}
+.profile-link-hint{margin:10px 0 0;color:rgba(255,255,255,.78);text-align:right;font-size:10px;letter-spacing:.06em;text-shadow:0 1px 7px rgba(18,53,68,.55)}
+.profile-updates{margin:58px 0 0;animation:profileRise .95s cubic-bezier(.2,.7,.2,1) .35s both}
+.profile-section-title{display:flex;align-items:center;justify-content:center;gap:18px;margin:0 auto 22px;text-align:center;color:#fff;text-shadow:0 2px 9px rgba(17,52,68,.58)}
+.profile-section-flower{font-size:20px;color:#f4e5c6;text-shadow:0 0 12px rgba(255,255,255,.78)}
+.profile-section-title p{margin:0 0 4px;color:#f2e5ce;font:500 10px "Cormorant Garamond",serif;letter-spacing:.24em}
+.profile-section-title h2{margin:0;font-size:24px;font-weight:500;letter-spacing:.18em}
+.profile-update-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:17px}
+.profile-update-card{position:relative;min-height:185px;padding:22px 22px 25px;overflow:hidden;border:1px solid rgba(255,255,255,.55);background:linear-gradient(135deg,rgba(239,252,249,.20),rgba(205,235,235,.105) 58%,rgba(241,253,249,.16));box-shadow:0 12px 34px rgba(21,68,84,.09),inset 0 1px 0 rgba(255,255,255,.42);backdrop-filter:blur(16px) saturate(1.14);-webkit-backdrop-filter:blur(16px) saturate(1.14);transition:transform .35s,box-shadow .35s,border-color .35s}
+.profile-update-card:hover{transform:translateY(-5px);border-color:rgba(255,255,255,.9);box-shadow:0 18px 36px rgba(21,68,84,.16),0 0 20px rgba(236,255,250,.24)}
+.profile-update-date{display:block;color:#f2e5c9;font:500 11px "Cormorant Garamond",serif;letter-spacing:.15em;text-shadow:0 1px 7px rgba(15,49,65,.6)}
+.profile-update-seal{position:absolute;right:18px;top:15px;display:grid;place-items:center;width:29px;height:29px;border:1px solid rgba(255,255,255,.53);border-radius:50%;color:#fff;font-size:13px;background:rgba(225,247,242,.10);box-shadow:inset 0 0 10px rgba(255,255,255,.15)}
+.profile-update-card h3{margin:13px 0 8px;color:#fff;font-size:17px;font-weight:500;letter-spacing:.08em;text-shadow:0 2px 8px rgba(15,48,64,.72)}
+.profile-update-card p{margin:0;color:rgba(255,255,255,.92);font-size:12px;line-height:1.95;letter-spacing:.045em;text-shadow:0 1px 7px rgba(13,47,65,.68)}
+.profile-update-line{display:block;width:48px;height:1px;margin-top:15px;background:linear-gradient(90deg,rgba(255,255,255,.88),transparent)}
+@keyframes profileRise{from{opacity:0;transform:translateY(20px);filter:blur(4px)}to{opacity:1;transform:translateY(0);filter:blur(0)}}
+@media(max-width:950px){
+ .profile-hero{grid-template-columns:minmax(250px,.85fr) minmax(0,1.15fr);gap:22px}
+ .profile-glass-panel{padding:28px 25px}
+ .profile-bio{font-size:12px}
+}
+@media(max-width:700px){
+ .profile-main{width:100%;padding:94px 14px 42px}
+ .profile-heading{margin-bottom:25px}
+ .profile-hero{grid-template-columns:1fr;gap:22px;max-width:520px;margin:auto}
+ .profile-portrait-frame,.profile-portrait-frame img{min-height:0}
+ .profile-portrait-frame{aspect-ratio:4/4.6}
+ .profile-glass-panel{padding:30px 22px}
+ .profile-social-links{grid-template-columns:1fr}
+ .profile-updates{margin-top:42px}
+ .profile-update-grid{grid-template-columns:1fr;max-width:520px;margin:auto}
+ .profile-update-card{min-height:unset}
+ .profile-section-title h2{font-size:21px}
+}
+@media(max-width:420px){
+ .profile-heading h1{letter-spacing:.16em}
+ .profile-name{font-size:34px}
+ .profile-bio-wrap{padding:16px 15px 16px 44px}
+ .profile-bio-mark{left:12px}
+}
+@media(prefers-reduced-motion:reduce){
+ .profile-heading,.profile-portrait-panel,.profile-glass-panel,.profile-updates{animation:none}
+ .profile-portrait-frame img,.profile-social-links a,.profile-update-card{transition:none}
+}
