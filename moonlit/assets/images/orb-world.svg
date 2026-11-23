@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 218" fill="none">
+<defs><linearGradient id="g" x1="48" y1="38" x2="171" y2="184" gradientUnits="userSpaceOnUse"><stop stop-color="#fffdf0"/><stop offset=".55" stop-color="#f1dfb9"/><stop offset="1" stop-color="#c8e7df"/></linearGradient><filter id="glow"><feGaussianBlur stdDeviation="3" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>
+<g stroke="url(#g)" stroke-linecap="round" stroke-linejoin="round" filter="url(#glow)">
+<path d="M110 25c-48 0-86 38-86 85s38 85 86 85 86-38 86-85-38-85-86-85Z" stroke-opacity=".45" stroke-width="1.2"/>
+<path d="M110 35c-42 0-76 34-76 75s34 75 76 75 76-34 76-75-34-75-76-75Z" stroke-opacity=".28" stroke-dasharray="2 7"/>
+<path d="M110 77c-17-12-37-13-57-8v69c20-5 40-4 57 8 17-12 37-13 57-8V69c-20-5-40-4-57 8Z" stroke-width="2.5"/>
+<path d="M110 77v69M66 84c12-2 24 0 34 5M66 99c12-2 24 0 34 5M154 84c-12-2-24 0-34 5M154 99c-12-2-24 0-34 5" stroke-width="1.35" stroke-opacity=".85"/>
+<path d="M85 62c7-7 16-10 25-10s18 3 25 10M85 158c7 7 16 10 25 10s18-3 25-10" stroke-width="1.1" stroke-opacity=".65"/>
+<path d="m110 18 4 8 9 1-7 6 2 9-8-5-8 5 2-9-7-6 9-1 4-8ZM29 111l4 2 1 4-5-2-4 2 1-4-3-3 4 1 2-4v4ZM191 111l4 2 1 4-5-2-4 2 1-4-3-3 4 1 2-4v4Z" fill="#f5e5c5" fill-opacity=".65" stroke="none"/>
+<path d="M53 47l7 5m107-5-7 5M53 171l7-5m107 5-7-5" stroke-width="1.3"/>
+</g></svg>
