@@ -78,12 +78,14 @@ body.in-site #waterFX{opacity:0}
 .orb-icon{display:none;width:48%;height:48%;position:relative;z-index:2;overflow:visible;filter:drop-shadow(0 1px 8px rgba(255,255,255,.26))}
 .orb-icon path,.orb-icon circle{stroke:#fff;stroke-width:1.45;stroke-linecap:round;stroke-linejoin:round;fill:none}
 .orb-icon text{fill:#fff;font:400 22px Georgia,serif}
-.orb-flora{position:absolute;z-index:2;width:135%;height:135%;object-fit:contain;pointer-events:none;opacity:.92;filter:drop-shadow(0 3px 9px rgba(219,248,246,.2));animation:none;transition:filter .35s,opacity .35s}
+.orb-flora{position:absolute;z-index:2;width:135%;height:135%;object-fit:contain;pointer-events:none;opacity:.92;filter:drop-shadow(0 3px 9px rgba(219,248,246,.2));animation:floraDrift 18s ease-in-out infinite;transition:filter .35s,opacity .35s}
 .orb:nth-child(2) .orb-flora{animation-delay:-6s}
 .orb:nth-child(3) .orb-flora{animation-delay:-12s}
+ .orb:first-child .orb-flora{animation:none}
 .orb:hover{transform:translateY(-7px);filter:brightness(1.08)}
 .orb:hover .bubble{transform:scale(1.055);background:radial-gradient(circle at 28% 19%,rgba(255,255,255,.56),rgba(250,255,254,.24) 28%,rgba(234,251,248,.14) 60%,rgba(218,243,239,.08) 100%);box-shadow:0 0 0 8px rgba(240,255,251,.12),0 0 44px rgba(218,252,249,.42),inset 0 2px 12px rgba(255,255,255,.43),inset 0 -14px 24px rgba(12,52,70,.08)}
-.orb:hover .orb-flora{opacity:1;filter:drop-shadow(0 4px 13px rgba(226,252,248,.38));animation:floraDrift 1.8s ease-in-out infinite}
+.orb:hover .orb-flora{opacity:1;filter:drop-shadow(0 4px 13px rgba(226,252,248,.38))}
+ .orb:first-child:hover .orb-flora{animation:floraDrift 1.8s ease-in-out infinite}
 .orb b{display:block;font-size:19px;font-weight:500;letter-spacing:.22em;color:#fff}
 .orb span.label-en{display:block;margin-top:5px;font:500 14px var(--latin);letter-spacing:.22em;color:#f1e8d3}
 .orb:focus-visible{outline:2px solid #fff4d6;outline-offset:5px}
