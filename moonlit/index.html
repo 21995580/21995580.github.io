@@ -78,12 +78,12 @@ body.in-site #waterFX{opacity:0}
 .orb-icon{display:none;width:48%;height:48%;position:relative;z-index:2;overflow:visible;filter:drop-shadow(0 1px 8px rgba(255,255,255,.26))}
 .orb-icon path,.orb-icon circle{stroke:#fff;stroke-width:1.45;stroke-linecap:round;stroke-linejoin:round;fill:none}
 .orb-icon text{fill:#fff;font:400 22px Georgia,serif}
-.orb-flora{position:absolute;z-index:2;width:100%;height:100%;object-fit:contain;pointer-events:none;opacity:.92;filter:drop-shadow(0 3px 9px rgba(219,248,246,.2));animation:floraDrift 18s ease-in-out infinite}
+.orb-flora{position:absolute;z-index:2;width:135%;height:135%;object-fit:contain;pointer-events:none;opacity:.92;filter:drop-shadow(0 3px 9px rgba(219,248,246,.2));animation:none;transition:filter .35s,opacity .35s}
 .orb:nth-child(2) .orb-flora{animation-delay:-6s}
 .orb:nth-child(3) .orb-flora{animation-delay:-12s}
 .orb:hover{transform:translateY(-7px);filter:brightness(1.08)}
 .orb:hover .bubble{transform:scale(1.055);background:radial-gradient(circle at 28% 19%,rgba(255,255,255,.56),rgba(250,255,254,.24) 28%,rgba(234,251,248,.14) 60%,rgba(218,243,239,.08) 100%);box-shadow:0 0 0 8px rgba(240,255,251,.12),0 0 44px rgba(218,252,249,.42),inset 0 2px 12px rgba(255,255,255,.43),inset 0 -14px 24px rgba(12,52,70,.08)}
-.orb:hover .orb-flora{opacity:1;filter:drop-shadow(0 4px 13px rgba(226,252,248,.38))}
+.orb:hover .orb-flora{opacity:1;filter:drop-shadow(0 4px 13px rgba(226,252,248,.38));animation:floraDrift 1.8s ease-in-out infinite}
 .orb b{display:block;font-size:19px;font-weight:500;letter-spacing:.22em;color:#fff}
 .orb span.label-en{display:block;margin-top:5px;font:500 14px var(--latin);letter-spacing:.22em;color:#f1e8d3}
 .orb:focus-visible{outline:2px solid #fff4d6;outline-offset:5px}
@@ -102,7 +102,7 @@ body.in-site #waterFX{opacity:0}
   .bubble{width:min(20vw,112px)}
   .orb b{font-size:15px;letter-spacing:.12em}
   .orb span.label-en{font-size:12px}
-  .orb-flora{width:100%;height:100%}
+  .orb-flora{width:137%;height:137%}
   .enter-label{margin-top:18px}
 }
 @media(max-width:420px){
@@ -115,7 +115,7 @@ body.in-site #waterFX{opacity:0}
   .orb-visual{width:30vw}
   .bubble{width:21vw}
   .orb b{font-size:14px}
-  .orb-flora{width:100%;height:100%}
+  .orb-flora{width:145%;height:145%}
 }
 @media(prefers-reduced-motion:reduce){
   *,*:before,*:after{animation:none!important;scroll-behavior:auto!important;transition:none!important}
@@ -163,7 +163,7 @@ body.in-site #waterFX{opacity:0}
         <span class="bubble" aria-hidden="true">
           <svg class="orb-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5.4C9.6 3.9 6.7 3.7 3.8 4.2v14c3-.5 5.8-.3 8.2 1.2M12 5.4c2.4-1.5 5.3-1.7 8.2-1.2v14c-3-.5-5.8-.3-8.2 1.2M12 5.4v14"/><path d="M6.7 7.5c1.2-.1 2.3.1 3.3.6M17.3 7.5c-1.2-.1-2.3.1-3.3.6"/></svg>
         </span>
-        <img class="orb-flora" src="assets/images/orb-world.svg?v=20261124-1" alt="">
+        <img class="orb-flora" src="assets/images/world-book-bubble.svg?v=20261124-2" alt="">
       </span>
       <b>世界觀</b><span class="label-en">World</span>
     </a>
@@ -172,7 +172,7 @@ body.in-site #waterFX{opacity:0}
         <span class="bubble" aria-hidden="true">
           <svg class="orb-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="3.6"/><path d="M4.7 20c.6-4.1 3.2-6.2 7.3-6.2s6.7 2.1 7.3 6.2"/></svg>
         </span>
-        <img class="orb-flora" src="assets/images/orb-profile.svg?v=20261124-1" alt="">
+        <img class="orb-flora" src="assets/images/blossom-orbit.webp" alt="">
       </span>
       <b>個人檔案</b><span class="label-en">Profile</span>
     </a>
@@ -181,7 +181,7 @@ body.in-site #waterFX{opacity:0}
         <span class="bubble" aria-hidden="true">
           <svg class="orb-icon" viewBox="0 0 24 24" aria-hidden="true"><text x="12" y="18.3" text-anchor="middle">?</text></svg>
         </span>
-        <img class="orb-flora" src="assets/images/orb-faq.svg?v=20261124-1" alt="">
+        <img class="orb-flora" src="assets/images/blossom-orbit.webp" alt="">
       </span>
       <b>常見問題</b><span class="label-en">FAQ</span>
     </a>
