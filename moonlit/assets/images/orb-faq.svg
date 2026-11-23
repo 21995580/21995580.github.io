@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 218" fill="none">
+<defs><linearGradient id="q" x1="42" y1="28" x2="176" y2="188" gradientUnits="userSpaceOnUse"><stop stop-color="#fffdf0"/><stop offset=".56" stop-color="#f1dfb9"/><stop offset="1" stop-color="#c8e7df"/></linearGradient><filter id="shine"><feGaussianBlur stdDeviation="2.8" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>
+<g stroke="url(#q)" stroke-linecap="round" stroke-linejoin="round" filter="url(#shine)">
+<circle cx="110" cy="109" r="85" stroke-opacity=".43" stroke-width="1.2"/><circle cx="110" cy="109" r="75" stroke-opacity=".28" stroke-dasharray="2 7"/>
+<path d="M78 83c2-20 17-32 37-32 20 0 34 12 34 30 0 16-10 24-24 34-9 7-13 13-13 24" stroke-width="3"/>
+<path d="M112 156v2" stroke-width="5" stroke-linecap="round"/>
+<path d="M91 82c3-11 12-17 24-17 13 0 22 7 22 18 0 11-8 17-19 25-10 7-16 14-17 25" stroke-width="1.2" stroke-opacity=".7"/>
+<path d="M110 18v13m0 156v13M19 109h13m156 0h13M45 44l9 9m112 112 9 9m0-130-9 9M54 166l-9 9" stroke-width="1.25" stroke-opacity=".7"/>
+<path d="m110 18 4 8 9 1-7 6 2 9-8-5-8 5 2-9-7-6 9-1 4-8Z" fill="#f5e5c5" fill-opacity=".65" stroke="none"/>
+<path d="M53 66c-5 5-8 11-9 18m132-18c5 5 8 11 9 18M53 152c-5-5-8-11-9-18m132 18c5-5 8-11 9-18" stroke-width="1.2"/>
+</g></svg>
